@@ -1,11 +1,11 @@
 import './App.css';
 
-import HelloReact from './components/hello'
+import LoginPage from './components/LoginPage'
 
 function App() {
   return (
-    <div className="App">
-      <HelloReact />
+    <div>
+      <LoginPage />
     </div>
   );
 }
