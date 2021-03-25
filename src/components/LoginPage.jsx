@@ -2,12 +2,6 @@ import { useState, useRef, useEffect } from 'react';
 import { Redirect } from 'react-router';
 import firestore, {auth, googleProvider} from '../database/firebase';
 
-/* Getting this error for now, it should work later without needing to fix tho
-[2021-03-19T16:12:16.321Z]  @firebase/firestore: Firestore (8.3.0): Could not reach Cloud Firestore backend. Connection failed 1 times. Most recent error: FirebaseError: [code=permission-denied]: Cloud Firestore API has not been used in project 454115237023 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/firestore.googleapis.com/overview?project=454115237023 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.
-This typically indicates that your device does not have a healthy Internet connection at the moment. The client will operate in offline mode until it is able to successfully connect to the backend.
-*/
-
-
 const LoginPage = () => {
     let [user,setUser] = useState(null);
     const userRef = useRef(firestore.collection("users")).current;
@@ -92,7 +86,7 @@ const LoginPage = () => {
                     {user ? (
                     <>
                         <button onClick={signOutHandler}>Signout</button>
-                        <Redirect push to="main-page"/>
+                        <Redirect push to="/main-page"/>
                     </>
                     ):<button onClick={googleLoginHandler}>Google Login</button>}
                 </div>
