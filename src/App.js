@@ -1,12 +1,19 @@
 import './App.css';
 
-import LoginPage from './components/LoginPage'
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+
+import { LoginPage, MainPage, NotFound } from './components';
 
 function App() {
+
+  //TODO: Fix Routing
   return (
-    <div>
-      <LoginPage />
-    </div>
+    <BrowserRouter>
+      <Switch>
+        <Route exact to="/main-page" component={MainPage} />
+        <Route exact to="/login" component={LoginPage} />
+      </Switch>
+    </BrowserRouter>
   );
 }
 
