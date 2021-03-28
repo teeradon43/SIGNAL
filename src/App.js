@@ -1,19 +1,17 @@
-import './App.css';
+import "./App.css";
 
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
-
-import { LoginPage, MainPage, NotFound } from './components';
-
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import { LoginPage, MainPage, NotFound } from "./components";
+import Navbar from "./components/Navbar";
 function App() {
-
-  //TODO: Fix Routing
+  //TODO: Fix Routing -> Change BrowserRouter to Router repath by F0Nt
   return (
-    <BrowserRouter>
-      <Switch>
-        <Route exact to="/main-page" component={MainPage} />
-        <Route exact to="/login" component={LoginPage} />
-      </Switch>
-    </BrowserRouter>
+    <Router>
+      <Navbar />
+      <Route path="/" exact component={MainPage} />
+      <Route path="/main-page" component={MainPage} />
+      <Route path="/login" component={LoginPage} />
+    </Router>
   );
 }
 
