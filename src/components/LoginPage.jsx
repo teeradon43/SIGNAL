@@ -72,8 +72,7 @@ const LoginPage = () => {
             console.log("Logout Error: "+err);
         })
     }
-
-
+    
     //TODO: This Redirect should work for now, maybe change it later
     //TODO: Consider removing Signout button?
     return ( 

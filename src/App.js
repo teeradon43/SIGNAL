@@ -1,6 +1,11 @@
 import "./App.css";
 
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Redirect,
+  Switch,
+} from "react-router-dom";
 import { LoginPage, MainPage, NotFound } from "./components";
 import Navbar from "./components/Navbar";
 function App() {
@@ -8,9 +13,13 @@ function App() {
   return (
     <Router>
       <Navbar />
-      <Route path="/" exact component={MainPage} />
-      <Route path="/main-page" component={MainPage} />
-      <Route path="/login" component={LoginPage} />
+      <Switch>
+        <Route exact path="/" component={MainPage} />
+        <Route exact path="/main-page" component={MainPage} />
+        <Route exact path="/login" component={LoginPage} />
+        <Route exact path="/404" component={NotFound} />
+        <Redirect to="/404" />
+      </Switch>
     </Router>
   );
 }
