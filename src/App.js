@@ -36,11 +36,19 @@ const DefaultContainer = () => (
 
 function App() {
   //TODO: Fix Routing -> Change BrowserRouter to Router repath by F0Nt
+  //Change Old Nav to DefaultContainer
   return (
     <Router>
       <Switch>
         <Route exact path="/" component={LoginContainer}/>
         <Route exact path="/main-page" component={DefaultContainer}/>
+    {/* <Navbar />
+      <Switch>
+        <Route exact path="/" component={MainPage} />
+        <Route exact path="/main-page" component={MainPage} />
+        <Route exact path="/login" component={LoginPage} />
+        <Route exact path="/404" component={NotFound} />
+        <Redirect to="/404" /> --> */}
       </Switch>
     </Router>
   );
