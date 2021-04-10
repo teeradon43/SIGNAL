@@ -6,7 +6,7 @@ import {
   Redirect,
   Switch,
 } from "react-router-dom";
-import { LoginPage, MainPage, NotFound, Navbar } from "./components";
+import { LoginPage, MainPage, NotFound, Navbar, Admin } from "./components";
 
 function App() {
   return (
@@ -16,6 +16,7 @@ function App() {
         <Route exact path="/" component={MainPage} />
         <Route exact path="/main-page" component={MainPage} />{/*FIXME: Same component, different route? */}
         <Route exact path="/login" component={LoginPage} />
+        <Route path="/Admin" component={Admin} />
         <Route exact path="/404" component={NotFound} />
         <Redirect to="/404" />
       </Switch>
