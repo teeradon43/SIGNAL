@@ -12,12 +12,16 @@ const LoginPage = () => {
                     if(doc.data()){ //if the user already exist, put their data here
                         //TODO: Change userData
                         const userData={
-                            uid: doc.data().uid,
+                            userID: doc.data().uid,
                             displayName: doc.data().displayName,
+                            name: doc.data().name,
+                            surname: doc.data().surname,
+                            description: doc.data().description,
                             photoURL: doc.data().photoURL,
                             email: doc.data().email,
-                            created: doc.data().created,
-                            role: doc.data().role
+                            isAdmin: doc.data().isAdmin,
+                            interests: doc.data().interests,
+                            createdEvents: doc.data().createdEvents,
                         };
                         setUser(userData);
                     }
