@@ -1,5 +1,8 @@
 import {Link, useRouteMatch, Switch, Route} from 'react-router-dom';
 
+import ManageUser from './ManageUser';
+import ManagePost from './ManagePost';
+
 const Admin = () => {
     let { path, url } = useRouteMatch();
     console.log(url, path)
@@ -32,10 +35,10 @@ const Admin = () => {
                     <h3>Please select what to manage.</h3>
                 </Route>
                 <Route path={`${url}/manage-user`}>
-                    Manage user
+                    <ManageUser/>
                 </Route>
                 <Route path={`${url}/manage-post`}>
-                    Manage post
+                    <ManagePost/>
                 </Route>
             </Switch>
         </>

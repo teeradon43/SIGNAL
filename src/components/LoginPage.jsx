@@ -20,6 +20,7 @@ const LoginPage = () => {
                             photoURL: doc.data().photoURL,
                             email: doc.data().email,
                             isAdmin: doc.data().isAdmin,
+                            isBanned: doc.data().isBanned,
                             interests: doc.data().interests,
                             createdEvents: doc.data().createdEvents,
                         };
@@ -53,6 +54,7 @@ const LoginPage = () => {
                         photoURL: result.user.photoURL,
                         email: result.user.email,
                         isAdmin: false,
+                        isBanned: false,
                         interests: [],
                         createdEvents: [],
                         dateJoined: new Date().valueOf(),
