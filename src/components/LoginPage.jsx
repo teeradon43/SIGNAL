@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
 import { Redirect } from 'react-router';
 import firestore, {auth, googleProvider} from '../database/firebase';
+import './LoginPage.css';
+import '../App.css';
 
 const LoginPage = () => {
     let [user,setUser] = useState(null);
@@ -77,19 +79,11 @@ const LoginPage = () => {
     //TODO: This Redirect should work for now, maybe change it later
     //TODO: Consider removing Signout button?
     return ( 
-        <div className="container">
-            <div className="row">
-                <div className="col-6">
-                    <h1>SIGNAL</h1>
-                </div>
-                <div className="col-6">
-                    {user ? (
-                    <>
-                        <button onClick={signOutHandler}>Signout</button>
-                        <Redirect push to="/main-page"/>
-                    </>
-                    ):<button onClick={googleLoginHandler}>Google Login</button>}
-                </div>
+        <div className='hero-container'>
+            <h1>Lorem</h1>
+            <p>Lorem</p>
+            <div className='hero-btns'>
+                <button onClick={googleLoginHandler} type="button" class="btn btn-outline-light mb-3 btn-lg mx-3">Log In with Google</button>
             </div>
         </div>
      );
