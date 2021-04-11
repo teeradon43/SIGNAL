@@ -5,8 +5,7 @@ import {
   Redirect,
   Switch,
 } from "react-router-dom";
-import { LoginPage, MainPage, NotFound } from "./components";
-import Navbar from "./components/Navbar";
+import { LoginPage, MainPage, NotFound, Navbar, Admin } from "./components";
 import LoginNav from "./components/LoginNav";
 import { auth } from "./database/firebase";
 import { useState, useEffect } from "react";
@@ -31,9 +30,10 @@ function App() {
     <Router>
       {Navigation}
       <Switch>
-        <Route exact path="/" component={LoginPage} />
-        <Route exact path="/main-page" component={MainPage} />
+        <Route exact path="/" component={MainPage} />
+        <Route exact path="/main-page" component={MainPage} />{/*FIXME: Same component, different route? */}
         <Route exact path="/login" component={LoginPage} />
+        <Route path="/Admin" component={Admin} />
         <Route exact path="/404" component={NotFound} />
         <Redirect to="/404" />
       </Switch>
