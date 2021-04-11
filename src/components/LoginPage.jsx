@@ -1,11 +1,17 @@
 import { useState, useRef, useEffect } from 'react';
 import { Redirect } from 'react-router';
-import firestore, { auth, googleProvider} from '../database/firebase';
+import firestore, {auth, googleProvider} from '../database/firebase'; // remove this later
+import './LoginPage.css';
+import '../App.css';
+import {login, logout} from './models/authv2';
 
 const LoginPage = () => {
+
     let [user,setUser] = useState(null);
     const userRef = useRef(firestore.collection("users")).current;
+    
     useEffect(()=>{ //fetch user data from firestore
+        /* F0Nt is fixing
         const authUnsubscribe = auth.onAuthStateChanged((firebaseUser)=>{
             if(firebaseUser){ //if the user already exist, put their data here
                 userRef.doc(firebaseUser.uid).onSnapshot((doc)=>{
@@ -29,7 +35,10 @@ const LoginPage = () => {
                     else{ //else set it to null(for rendering and display logic purpose)
                         setUser(null);
                     }
-                })
+                })*/ 
+        const authUnsubscribe = auth.onAuthStateChanged((user)=>{
+            if(user){ //if the user already exist, put their data here
+               setUser(user)
             }
             else{ //else set it to null(for rendering and display logic purpose)
                 setUser(null);
@@ -37,7 +46,7 @@ const LoginPage = () => {
         })
         return ()=>authUnsubscribe(); //unsubscribe when component unmount
     },[userRef])
-
+    /* F0Nt is fixing
     const googleLoginHandler = async () =>{
         const result = await auth.signInWithPopup(googleProvider);
         if(result){ //if login success
@@ -77,24 +86,15 @@ const LoginPage = () => {
         .catch((err)=>{
             console.log("Logout Error: "+err);
         })
-    }
+    }*/
     
-    //TODO: This Redirect should work for now, maybe change it later
-    //TODO: Consider removing Signout button?
     return ( 
-        <div className="container">
-            <div className="row">
-                <div className="col-6">
-                    <h1>SIGNAL</h1>
-                </div>
-                <div className="col-6">
-                    {user ? (
-                    <>
-                        <button onClick={signOutHandler}>Signout</button>
-                        <Redirect push to="/main-page"/>
-                    </>
-                    ):<button onClick={googleLoginHandler}>Google Login</button>}
-                </div>
+        <div className='hero-container'>
+            <h1>Lorem</h1>
+            <p>Lorem</p>
+            <div className='hero-btns'>
+                <button onClick={login} type="button" className="btn btn-outline-light mb-3 btn-lg mx-3">Login with Google</button>
+                <button onClick={logout} type="button" className="btn btn-outline-light mb-3 btn-lg mx-3">Logout</button>
             </div>
         </div>
      );
