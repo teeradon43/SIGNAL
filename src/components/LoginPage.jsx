@@ -56,8 +56,7 @@ const LoginPage = () => {
                         dateJoined: new Date().valueOf(),
                     })
                 }
-
-                //TODO: redirect user to main page here?
+                console.log('Login Ok');
 
             }).catch((err)=>{
                 console.log("Login error: "+err)
