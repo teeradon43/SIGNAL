@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { Redirect } from 'react-router';
-import firestore, {auth, googleProvider} from '../database/firebase';
+import firestore, { auth, googleProvider} from '../database/firebase';
 
 const LoginPage = () => {
     let [user,setUser] = useState(null);
@@ -58,7 +58,7 @@ const LoginPage = () => {
                         interests: [],
                         createdEvents: [],
                         dateJoined: new Date().valueOf(),
-                    })
+                    })//FIXME: Use firestore date
                 }
 
                 //TODO: redirect user to main page here?

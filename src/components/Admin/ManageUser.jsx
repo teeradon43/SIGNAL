@@ -9,7 +9,6 @@ const ManageUser = () => {
             let tempUserList = [];
             snapshot.forEach(doc=>{
                 if(doc.data()){
-                    //TODO: fetch isBanned from DB
                     tempUserList = [...tempUserList,
                     {
                         userID: doc.data().userID,
@@ -31,6 +30,7 @@ const ManageUser = () => {
         return ()=>unsubscribe();
     },[]);//XXX: DO NOT ADD usersRef to dependency despite the warning! + DO NOT REMOVE dependencies array!
 
+    //TODO: Add confirmation overlay
     const deleteHandler = (id) =>{
         usersRef.doc(id).delete().then(()=>{
             console.log(`Deletion on doc of id:${id} completed`)
@@ -39,8 +39,8 @@ const ManageUser = () => {
             console.log(err);
         })
     }
-    //TODO: Code toggle ban logic
-    const banHandler = (id, obj)=>{
+    //TODO: Add confirmation overlay
+    const editHandler = (id, obj)=>{
         usersRef.doc(id).set(obj).then(()=>{
             console.log(`Toggle ban on uid:${id} is completed`)
         })
@@ -52,15 +52,14 @@ const ManageUser = () => {
     return ( 
         <div>
             {users.length>0?
-            users.map(user => <UserCard key={user.userID} user={user} deleteUser={()=>deleteHandler(user.userID)} toggleBan={(id,obj)=>banHandler(id,obj)}/>):
+            users.map(user => <UserCard key={user.userID} user={user} deleteUser={()=>deleteHandler(user.userID)} toggleBan={(id,obj)=>editHandler(id,obj)}/>):
             <h1>No user in this list!</h1>}
         </div>
      );
 }
  
 const UserCard = ({user, toggleBan, deleteUser}) =>{
-
-    const banHandler = (userID) =>{
+    const banHandler = (userID) =>{//toggle user isBanned status
         const obj = {...user, isBanned: !user.isBanned};
         toggleBan(userID, obj);
     }
@@ -75,7 +74,7 @@ const UserCard = ({user, toggleBan, deleteUser}) =>{
             </div>
             <div className="card-body">
                 <h5 className="card-title">Email: {user.email}</h5>
-                <p className="card-text">isBanned: {user.isBanned.toString()}</p>
+                <p className="card-text">isBanned: { user.isBanned?.toString() }</p>
             </div>
         </div>
     );

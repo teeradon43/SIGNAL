@@ -5,7 +5,6 @@ import ManagePost from './ManagePost';
 
 const Admin = () => {
     let { path, url } = useRouteMatch();
-    console.log(url, path)
     return ( 
         <>
         {/*Management Navbar */}
