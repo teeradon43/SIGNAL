@@ -8,14 +8,28 @@ import {
 import { LoginPage, MainPage, NotFound } from "./components";
 import Navbar from "./components/Navbar";
 import LoginNav from "./components/LoginNav";
+import { auth } from "./database/firebase";
+import { useState, useEffect } from "react";
 
 function App() {
   //TODO: Add routes: userProfile, SpecificPost, CreatePost, Calendar, SearchPage
-  //TODO: Do AuthStateChange Switch between Navbar and LoginNav when login or not
-  // * FYI [Login] -> <Navbar> : [Not Login] -> <LoginNav>
+  let [user, setUser] = useState(null);
+  useEffect(() => {
+    const authUnsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        setUser(user);
+      } else {
+        setUser(null);
+      }
+    });
+    return () => authUnsubscribe(); //unsubscribe when component unmount
+  }, []);
+
+  const Navigation = user ? <Navbar /> : <LoginNav />;
+
   return (
     <Router>
-      <LoginNav/> {/* Navbar */}
+      {Navigation}
       <Switch>
         <Route exact path="/" component={LoginPage} />
         <Route exact path="/main-page" component={MainPage} />
@@ -23,7 +37,7 @@ function App() {
         <Route exact path="/404" component={NotFound} />
         <Redirect to="/404" />
       </Switch>
-  </Router>
+    </Router>
   );
 }
 
