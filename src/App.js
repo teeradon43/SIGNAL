@@ -5,7 +5,14 @@ import {
   Redirect,
   Switch,
 } from "react-router-dom";
-import { LoginPage, MainPage, NotFound, Navbar, Admin } from "./components";
+import {
+  LoginPage,
+  MainPage,
+  NotFound,
+  Navbar,
+  Admin,
+  EventDetails,
+} from "./components";
 import LoginNav from "./components/LoginNav";
 import { auth } from "./database/firebase";
 import { useState, useEffect } from "react";
@@ -30,11 +37,13 @@ function App() {
     <Router>
       {Navigation}
       <Switch>
-        <Route exact path="/" component={MainPage} />
-        <Route exact path="/main-page" component={MainPage} />{/*FIXME: Same component, different route? */}
+        <Route exact path="/" component={user ? MainPage : LoginPage} />
+        <Route exact path="/main-page" component={MainPage} />
+        {/*FIXME: Same component, different route? */}
         <Route exact path="/login" component={LoginPage} />
         <Route path="/Admin" component={Admin} />
         <Route exact path="/404" component={NotFound} />
+        <Route exact path="/:eventId" component={EventDetails} />
         <Redirect to="/404" />
       </Switch>
     </Router>
