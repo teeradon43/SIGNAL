@@ -1,0 +1,105 @@
+// colors
+$input-background: rgba(57, 63, 84, 0.8);
+$input-text-inactive: #7881A1;
+$input-text-active: #BFD2FF;
+
+// gradient animation
+@keyframes gradient { 
+  0%{background-position:0 0}
+  100%{background-position:100% 0}
+}
+
+.webflow-style-input {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  width: 400px;
+  height: 60px;
+  margin: 0;
+  border-radius: 4px;
+  padding: 0.4rem 1.3rem 0.6rem;
+  background: $input-background;
+  &:after {
+    box-sizing: inherit;
+    content: "";
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    z-index: 99;
+    height: 2px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    background-position: 0% 0%;
+    background: linear-gradient(to right, #B294FF, #57E6E6, #FEFFB8, #57E6E6, #B294FF, #57E6E6);
+    background-size: 500% auto;
+    animation: gradient 3s linear infinite;
+  }
+}
+
+.webflow-style-input input {
+    border-style: none;
+    background: transparent;
+    outline: none;
+    flex-grow: 1;
+    color: $input-text-active;
+    font-size: 1.2rem;
+    line-height: 2.4rem;
+    vertical-align: middle;
+    &::-webkit-input-placeholder {
+        color: $input-text-inactive;
+    }
+}
+
+.webflow-style-input input:invalid {
+  color: #ff9797;
+  box-shadow: none;
+}
+
+.webflow-style-input1 {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    width: 100px;
+    height: 50px;
+    margin: 0;
+    border-radius: 2px;
+    padding: 0.4rem 1.3rem 0.6rem;
+    background: $input-background;
+    &:after {
+      box-sizing: inherit;
+      content: "";
+      position: absolute;
+      left: 0px;
+      right: 0px;
+      bottom: 0px;
+      z-index: 99;
+      height: 2px;
+      border-bottom-left-radius: 2px;
+      border-bottom-right-radius: 2px;
+      background-position: 0% 0%;
+      background: linear-gradient(to right, #B294FF, #57E6E6, #FEFFB8, #57E6E6, #B294FF, #57E6E6);
+      background-size: 500% auto;
+      animation: gradient 3s linear infinite;
+    }
+  }
+  
+  .webflow-style-input1 input {
+      border-style: none;
+      background: transparent;
+      outline: none;
+      flex-grow: 1;
+      color: $input-text-active;
+      font-size: 1.2rem;
+      line-height: 2.4rem;
+      vertical-align: middle;
+      &::-webkit-input-placeholder {
+          color: $input-text-inactive;
+      }
+  }
+
+  .webflow-style-input1 input:invalid {
+    color: #ff9797;
+    box-shadow: none;
+  }
+  
