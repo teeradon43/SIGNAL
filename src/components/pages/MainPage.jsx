@@ -1,11 +1,14 @@
+import { useHistory } from "react-router-dom";
 import React from "react";
 
 import firestore from "../../database/firebase";
 import { Link } from "react-router-dom";
 
 const MainPage = () => {
+
+  const history = useHistory();
   const createEventHandler = () => {
-    //TODO:Redirect to createEvent
+    history.push('/create-post');
   };
   //TODO:fetch data from firebase and tranform eventID to eventDetail
 
