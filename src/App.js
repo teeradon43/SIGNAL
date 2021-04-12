@@ -45,7 +45,8 @@ function App() {
         <Route exact path="/login" component={LoginPage} />
         <Route path="/Admin" component={Admin} />
         <Route exact path="/404" component={NotFound} />
-        <Route exact path="/:eventId" component={EventDetails} />
+        <Route exact path="/events/:eventId" component={EventDetails} />
+        {/*<Route exact path="/users/:userId" component={UserDetails or Whatever} /> */}
         <Redirect to="/404" />
       </Switch>
     </Router>
