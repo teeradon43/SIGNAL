@@ -5,10 +5,9 @@ import firestore from "../../database/firebase";
 import { Link } from "react-router-dom";
 
 const MainPage = () => {
-
   const history = useHistory();
   const createEventHandler = () => {
-    history.push('/create-post');
+    history.push("/create-post");
   };
   //TODO:fetch data from firebase and tranform eventID to eventDetail
 
@@ -59,7 +58,7 @@ const MainPage = () => {
         <div>
           {events.map((events) => (
             <div class="events">
-              <Link to={`/${events.id}`}>
+              <Link to={`/events/${events.id}`}>
                 <h3>{events.eventName}</h3>
               </Link>
 
