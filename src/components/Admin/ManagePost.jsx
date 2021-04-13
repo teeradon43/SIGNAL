@@ -59,7 +59,7 @@ const ManagePost = () => {
             setReportedNumber(0);
             return;
         }
-        setReportedNumber(parseInt(value));
+        setReportedNumber(parseInt(value));//FIXME: Will this cause high traffic to Firebase server?
     }
 
     return ( 
