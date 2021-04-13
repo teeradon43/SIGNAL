@@ -1,4 +1,5 @@
 import {useState, useEffect} from 'react';
+import { Link } from 'react-router-dom';
 
 import firestore from '../../database/firebase';
 
@@ -62,12 +63,12 @@ const ManagePost = () => {
 }
 
 const PostCard = ({post, deleteHandler}) =>{
-
-
     return (
         <div className="card m-2">
             <div className="card-header">
-                {post.eventName} Information
+                <Link to={`/events/${post.eventID}`}>
+                    {post.eventName} Information
+                </Link>
                 <button className="btn btn-danger m-1" style={{'float':'right'}} onClick={()=>deleteHandler(post.eventID, post)}>Delete Post</button>
             </div>
             <div className="card-body">
