@@ -1,6 +1,7 @@
 import { useHistory } from "react-router-dom";
 import React from "react";
-
+import '../../App.css';
+import "./css/MainPage.css";
 import firestore from "../../database/firebase";
 import { Link } from "react-router-dom";
 
@@ -9,31 +10,6 @@ const MainPage = () => {
   const createEventHandler = () => {
     history.push("/create-post");
   };
-  //TODO:fetch data from firebase and tranform eventID to eventDetail
-
-  //where should detail fetch
-  class Event extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = { ID: this.props.ID };
-    }
-    fetchData() {}
-    //TODO:add onclick redirect
-    render() {
-      return (
-        <div className="jumbotron">
-          <div className="row">
-            <div className="col-2">img here</div>
-            <div className="col-4">
-              <div>2222</div>
-              <div>name</div>
-              <div>des</div>
-            </div>
-          </div>
-        </div>
-      );
-    }
-  }
   class EventsListDisplay extends React.Component {
     state = { events: [] };
     componentDidMount() {
@@ -57,12 +33,14 @@ const MainPage = () => {
       return (
         <div>
           {events.map((events) => (
-            <div class="events">
-              <Link to={`/events/${events.id}`}>
-                <h3>{events.eventName}</h3>
-              </Link>
-
-              <p>{events["description"]}</p>
+            <div>
+              <div class="events App-skeleton-textareadesc">
+                <Link to={`/events/${events.id}`}>
+                  <h3>{events.eventName}</h3>
+                </Link>
+                <p>{events["description"]}</p>
+              </div>
+              <br></br> 
             </div>
           ))}
         </div>
@@ -70,12 +48,14 @@ const MainPage = () => {
     }
   }
   return (
-    <div class="container-fluid">
-      <div>
-        <button onClick={createEventHandler}>Create Event</button>
-      </div>
-      <div>
-        <EventsListDisplay />
+    <div className="App-skeleton-gr">
+      <div className="App-skeleton-bg">
+        <div>
+          <button onClick={createEventHandler}>Create Event</button>
+        </div>
+        <div>
+          <EventsListDisplay />
+        </div>
       </div>
     </div>
   );
