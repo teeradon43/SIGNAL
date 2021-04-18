@@ -41,12 +41,6 @@ const Admin = () => {
                 <Route path={`${url}/manage-post`}>
                     <ManagePost/>
                 </Route>
-                <Route path={`${url}/manage-user/confirm-delete-user`}>
-                    <ConfirmDeleteUser/>
-                </Route>
-                <Route path={`${url}/manage-post/confirm-delete-post`}>
-                    <ConfirmDeletePost/>
-                </Route>'
             </Switch>
         </>
      );
