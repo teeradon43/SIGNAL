@@ -57,9 +57,6 @@ const MainPage = () => {
           <EventsListDisplay />
         </div>
       </div>
-      <div className="Profile-Sector">
-        profile and edit should be here
-      </div>
     </div>
   );
 };
