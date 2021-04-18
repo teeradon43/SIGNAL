@@ -36,7 +36,7 @@ class EventDetails extends Component {
         <p>Cost : {posts.cost}</p>
         <p>Event Date : {posts.eventDate}</p>
         <p>Since : {posts.dateCreated}</p>
-        <p>{posts.image}</p>
+        <img src={posts.image} alt={posts.image} />
       </div>
     );
   }
