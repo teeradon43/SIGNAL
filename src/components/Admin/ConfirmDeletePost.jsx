@@ -15,12 +15,13 @@ const ConfirmDeletePost = () => {
             console.log(err);
         })
     };
-    return ( <div>
-        <h1>Delete Post?</h1>
-        <button className="btn btn-secondary" onClick={()=>deleteHandler(eventID)}>
-            Sure!
+    return ( 
+    <div className="container">
+        <h1>Delete Post with ID: {eventID}?</h1>
+        <button className="btn btn-secondary m-2" onClick={()=>deleteHandler(eventID)}>
+            Delete
         </button>
-        <Link className="btn btn-primary" to="/Admin/manage-post">
+        <Link className="btn btn-primary m-2" to="/Admin/manage-post">
             Cancel
         </Link>
     </div>);
