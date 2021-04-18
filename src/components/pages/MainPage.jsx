@@ -34,28 +34,31 @@ const MainPage = () => {
         <div>
           {events.map((events) => (
             <div>
-              <div class="events App-skeleton-textareadesc">
+              <div class="events">
                 <Link to={`/events/${events.id}`}>
                   <h3>{events.eventName}</h3>
                 </Link>
                 <p>{events["description"]}</p>
               </div>
-              <br></br> 
+
             </div>
           ))}
         </div>
       );
     }
   }
+  //TODO:add profile+edit sector
+  //TODO:make it more functionable
   return (
     <div className="App-skeleton-gr">
       <div className="App-skeleton-bg">
-        <div>
-          <button onClick={createEventHandler}>Create Event</button>
-        </div>
+        <button type="button" className="createEvents" onClick={createEventHandler}>Create Event</button>
         <div>
           <EventsListDisplay />
         </div>
+      </div>
+      <div className="Profile-Sector">
+        profile and edit should be here
       </div>
     </div>
   );

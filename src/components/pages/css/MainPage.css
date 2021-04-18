@@ -1,0 +1,14 @@
+.button {
+    background-color: darkgrey;
+    border: none;
+    border-radius: 5px;
+}
+.createEvents{
+    text-align: center;
+    background-color: grey;
+    color: ivory;
+}
+.Profile-Sector{
+    text-align: center;
+    margin-left: 80%;
+}

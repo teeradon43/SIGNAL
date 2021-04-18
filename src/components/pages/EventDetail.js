@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import firestore from "../../database/firebase";
+import "./css/LoginPage.css";
 
 class EventDetails extends Component {
   state = {
@@ -26,7 +27,8 @@ class EventDetails extends Component {
   }
   render() {
     const { posts } = this.state;
-
+    //TODO:do something with new button
+    //TODO:align many things
     return (
       <div className="event-detail">
         <h1>{posts.eventName}</h1>
@@ -37,6 +39,8 @@ class EventDetails extends Component {
         <p>Event Date : {posts.eventDate}</p>
         <p>Since : {posts.dateCreated}</p>
         <p>{posts.image}</p>
+        <button>join</button>
+        <button>report</button>
       </div>
     );
   }
