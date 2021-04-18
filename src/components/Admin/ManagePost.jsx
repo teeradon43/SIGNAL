@@ -1,11 +1,26 @@
 import {useState, useEffect} from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useRouteMatch, Switch, Route} from 'react-router-dom';
+import ConfirmDeletePost from './ConfirmDeletePost';
 
 import firestore from '../../database/firebase';
 
+const ManagePost = () =>{
+    let { path, url } = useRouteMatch();
+    return (
+        <Switch>
+        <Route exact path={path}>
+            <ManagePostInner/>
+        </Route>
+        <Route path={`${url}/confirm-delete-post/:eventID`}>
+            <ConfirmDeletePost/>
+        </Route>
+    </Switch>
+    );
+    
+}
 
 
-const ManagePost = () => {
+const ManagePostInner = () => {
     let [posts, setPosts] = useState([]);
     let [reportedNumber, setReportedNumber] = useState(0);
     const postsRef = firestore.collection('events');
@@ -42,16 +57,7 @@ const ManagePost = () => {
         return () => unsubscribe();
     }, [reportedNumber])//XXX: DO NOT ADD postsRef to dependency despite the warning! + DO NOT REMOVE dependencies array!
 
-    //TODO: Add confirmation overlay
-    const deleteHandler = (id, obj) =>{
-        const newObj = {...obj,adminDeleted: true}
-        postsRef.doc(id).set(newObj).then(()=>{
-            console.log(`Add delete event by admin on id:${id} is completed`)
-        })
-        .catch((err)=>{
-            console.log(err);
-        })
-    };
+
 
     const reportedNumberHandler = (e) =>{
         const value = e.target.value;
@@ -66,27 +72,30 @@ const ManagePost = () => {
         <div>
             <form className="container">
                 <div className="form-group">
-                    <label for="timesReported">Minimum times reported: </label>
-                    <input type="number" class="form-control" id="timesReported" placeholder="0" onChange={reportedNumberHandler} value={reportedNumber}/>
+                    <label htmlFor="timesReported">Minimum times reported: </label>
+                    <input type="number" className="form-control" id="timesReported" placeholder="0" onChange={reportedNumberHandler} value={reportedNumber}/>
                 </div>
             </form>
             
             {posts.length >0?
-            posts.map(post => <PostCard post={post} key={post.eventID} deleteHandler={(id, obj)=>deleteHandler(id, obj)}/>):
+            posts.map(post => <PostCard post={post} key={post.eventID} />):
             <h1>No post in this list!</h1>
             }
         </div>
      );
 }
 
-const PostCard = ({post, deleteHandler}) =>{
+const PostCard = ({post}) =>{
+    let { url } = useRouteMatch();
     return (
         <div className="card m-2">
             <div className="card-header">
                 <Link to={`/events/${post.eventID}`}>
                     {post.eventName} Information
                 </Link>
-                <button className="btn btn-danger m-1" style={{'float':'right'}} onClick={()=>deleteHandler(post.eventID, post)}>Delete Post</button>
+                <Link className="btn btn-danger m-1" style={{'float':'right'}} to={`${url}/confirm-delete-post/${post.eventID}`}>
+                    Delete Post
+                </Link>
             </div>
             <div className="card-body">
                 <h5 className="card-title">Host ID: {post.hostUserID}</h5>
