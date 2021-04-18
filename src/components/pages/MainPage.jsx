@@ -57,7 +57,7 @@ const MainPage = () => {
       return (
         <div>
           {events.map((events) => (
-            <div class="events">
+            <div className="events" key={events.id}>
               <Link to={`/events/${events.id}`}>
                 <h3>{events.eventName}</h3>
               </Link>
@@ -70,7 +70,7 @@ const MainPage = () => {
     }
   }
   return (
-    <div class="container-fluid">
+    <div className="container-fluid">
       <div>
         <button onClick={createEventHandler}>Create Event</button>
       </div>
