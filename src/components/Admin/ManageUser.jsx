@@ -1,7 +1,28 @@
 import { useEffect, useState } from 'react';
+import {useRouteMatch, Link, Switch,Route} from 'react-router-dom';
+import ConfirmDeleteUser from './ConfirmDeleteUser';
+import ConfirmToggleBan from './ConfirmToggleBan';
 import firestore from '../../database/firebase';
 
-const ManageUser = () => {
+const ManageUser = () =>{
+    let { path, url } = useRouteMatch();
+    return (
+    <Switch>
+        <Route exact path={path}>
+            <ManageUserInner/>
+        </Route>
+        <Route path={`${url}/confirm-delete-user/:userID`}>
+            <ConfirmDeleteUser/>
+        </Route>
+        <Route path={`${url}/confirm-toggle-ban/:userID`}>
+            <ConfirmToggleBan/>
+        </Route>
+    </Switch>
+    );
+}
+
+
+const ManageUserInner = () => {
     let [users, setUsers] = useState([]);
     const usersRef = firestore.collection('users');
     useEffect(()=>{
@@ -30,47 +51,23 @@ const ManageUser = () => {
         return ()=>unsubscribe();
     },[]);//XXX: DO NOT ADD usersRef to dependency despite the warning! + DO NOT REMOVE dependencies array!
 
-    //TODO: Add confirmation overlay
-    const deleteHandler = (id) =>{
-        usersRef.doc(id).delete().then(()=>{
-            console.log(`Deletion on doc of id:${id} completed`)
-        })
-        .catch((err)=>{
-            console.log(err);
-        })
-    }
-    //TODO: Add confirmation overlay
-    const editHandler = (id, obj)=>{
-        usersRef.doc(id).set(obj).then(()=>{
-            console.log(`Toggle ban on uid:${id} is completed`)
-        })
-        .catch((err)=>{
-            console.log(err);
-        })
-    }
-
     return ( 
         <div>
             {users.length>0?
-            users.map(user => <UserCard key={user.userID} user={user} deleteUser={()=>deleteHandler(user.userID)} toggleBan={(id,obj)=>editHandler(id,obj)}/>):
+            users.map(user => <UserCard key={user.userID} user={user} />):
             <h1>No user in this list!</h1>}
         </div>
      );
 }
  
-const UserCard = ({user, toggleBan, deleteUser}) =>{
-    const banHandler = (userID) =>{//toggle user isBanned status
-        const obj = {...user, isBanned: !user.isBanned};
-        toggleBan(userID, obj);
-    }
-
-
+const UserCard = ({user}) =>{
+    let { url } = useRouteMatch();
     return (
         <div className="card m-2">
             <div className="card-header">
                 {user.displayName} Information
-                <button className="btn btn-warning m-1" style={{'float':'right'}} onClick={() => banHandler(user.userID)}>Toggle Ban</button>
-                <button className="btn btn-danger m-1" style={{'float':'right'}} onClick={()=>deleteUser()}>Delete User</button>
+                <Link className="btn btn-warning m-1" style={{'float':'right'}} to={`${url}/confirm-toggle-ban/${user.userID}`}>Toggle Ban</Link>
+                <Link className="btn btn-danger m-1" style={{'float':'right'}} to={`${url}/confirm-delete-user/${user.userID}`}>Delete User</Link>
             </div>
             <div className="card-body">
                 <h5 className="card-title">Email: {user.email}</h5>

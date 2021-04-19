@@ -33,13 +33,11 @@ const MainPage = () => {
       return (
         <div>
           {events.map((events) => (
-            <div>
-              <div class="events">
-                <Link to={`/events/${events.id}`}>
-                  <h3>{events.eventName}</h3>
-                </Link>
-                <p>{events["description"]}</p>
-              </div>
+            <div className="events" key={events.id}>
+              <Link to={`/events/${events.id}`}>
+                <h3>{events.eventName}</h3>
+              </Link>
+              <p>{events["description"]}</p>
             </div>
           ))}
         </div>

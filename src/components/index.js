@@ -7,3 +7,4 @@ export { default as Navbar } from "./Navbar";
 export { default as LoginNav } from "./LoginNav";
 export { default as Admin } from "./Admin/Admin";
 export { default as EventDetails } from "./pages/EventDetail";
+export { default as UserDetails } from "./pages/UserDetails";

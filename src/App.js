@@ -13,6 +13,7 @@ import {
   Navbar,
   Admin,
   EventDetails,
+  UserDetails,
 } from "./components";
 import LoginNav from "./components/LoginNav";
 import { auth } from "./database/firebase";
@@ -41,12 +42,11 @@ function App() {
         <Route exact path="/" component={user ? MainPage : LoginPage} />
         <Route exact path="/main-page" component={MainPage} />
         <Route exact path="/create-post" component={CreatePost} />
-        {/*FIXME: Same component, different route? */}
         <Route exact path="/login" component={LoginPage} />
         <Route path="/Admin" component={Admin} />
-        <Route exact path="/404" component={NotFound} />
         <Route exact path="/events/:eventId" component={EventDetails} />
-        {/*<Route exact path="/users/:userId" component={UserDetails or Whatever} /> */}
+        <Route exact path="/u/:userId" component={UserDetails} />
+        <Route exact path="/404" component={NotFound} />
         <Redirect to="/404" />
       </Switch>
     </Router>
