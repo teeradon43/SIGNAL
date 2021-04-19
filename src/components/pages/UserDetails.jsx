@@ -31,6 +31,7 @@ class UserDetails extends Component {
     // * ? should we add delete account button ?
     return (
       <div className="container">
+        <u> CSS PLEASE </u>
         <div className="user-detail">
           <img src={users.photoURL} alt={users.photoURL} />
           <h2>Name : {users.displayName}</h2>

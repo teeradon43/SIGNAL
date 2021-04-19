@@ -23,13 +23,14 @@ function App() {
   //TODO: Add routes: userProfile, SpecificPost, CreatePost, Calendar, SearchPage
   let [user, setUser] = useState(null);
   useEffect(() => {
-    auth.onAuthStateChanged((user) => {
+    const authUnsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         setUser(user);
       } else {
         setUser(null);
       }
-    }); //unsubscribe when component unmount
+    });
+    return () => authUnsubscribe(); //unsubscribe when component unmount
   }, []);
 
   const Navigation = user ? <Navbar /> : <LoginNav />;
