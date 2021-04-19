@@ -40,7 +40,6 @@ const MainPage = () => {
                 </Link>
                 <p>{events["description"]}</p>
               </div>
-
             </div>
           ))}
         </div>
@@ -50,7 +49,7 @@ const MainPage = () => {
   //TODO:add profile+edit sector
   //TODO:make it more functionable
   return (
-    <div className="App-skeleton-gr">
+    <div className="App-skeleton-ground">
       <div className="App-skeleton-bg">
         <button type="button" className="createEvents" onClick={createEventHandler}>Create Event</button>
         <div>
