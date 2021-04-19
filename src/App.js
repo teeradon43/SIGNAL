@@ -13,6 +13,7 @@ import {
   Navbar,
   Admin,
   EventDetails,
+  UserDetails,
 } from "./components";
 import LoginNav from "./components/LoginNav";
 import { auth } from "./database/firebase";
@@ -43,9 +44,9 @@ function App() {
         <Route exact path="/create-post" component={CreatePost} />
         <Route exact path="/login" component={LoginPage} />
         <Route path="/Admin" component={Admin} />
-        <Route exact path="/404" component={NotFound} />
         <Route exact path="/events/:eventId" component={EventDetails} />
-        {/*<Route exact path="/users/:userId" component={UserDetails or Whatever} /> */}
+        <Route exact path="/u/:userId" component={UserDetails} />
+        <Route exact path="/404" component={NotFound} />
         <Redirect to="/404" />
       </Switch>
     </Router>
