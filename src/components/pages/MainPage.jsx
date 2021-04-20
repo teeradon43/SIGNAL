@@ -1,5 +1,5 @@
 import { useHistory } from "react-router-dom";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import '../../App.css';
 import "./css/MainPage.css";
 import firestore from "../../database/firebase";
@@ -10,9 +10,26 @@ const MainPage = () => {
   const createEventHandler = () => {
     history.push("/create-post");
   };
-  class EventsListDisplay extends React.Component {
-    state = { events: [] };
-    componentDidMount() {
+  const EventsListDisplay = () => {
+    const [events,setEvents] = useState([]);
+    //state = { events: [] };
+    useEffect(()=>{
+      firestore
+        .collection("events")
+        .get()
+        .then((snapshot) => {
+          const events = snapshot.docs.map((doc) => {
+            return {
+              id: doc.id,
+              ...doc.data(),
+            };
+          });
+          setEvents({
+            events,
+          });
+        });
+    });
+    /*componentDidMount() {
       firestore
         .collection("events")
         .get()
@@ -27,8 +44,20 @@ const MainPage = () => {
             events,
           });
         });
-    }
-    render() {
+    }*/
+    return (
+      <div>
+        {[events].map((events) => (
+          <div className="events" key={events.id}>
+            <Link to={`/events/${events.id}`}>
+              <h3>{events.eventName}</h3>
+            </Link>
+            <p>{events["description"]}</p>
+          </div>
+        ))}
+      </div>
+    );
+    /*render() {
       const { events } = this.state;
       return (
         <div>
@@ -42,10 +71,10 @@ const MainPage = () => {
           ))}
         </div>
       );
-    }
+    }*/
   }
-  //TODO:add profile+edit sector
   //TODO:make it more functionable
+  //TODO:edit create event area
   return (
     <div className="App-skeleton-ground">
       <div className="App-skeleton-bg">
