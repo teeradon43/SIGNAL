@@ -131,3 +131,11 @@
   resize: none;
   outline: none;
 }
+
+.events{
+  border: none;
+  background-color: #282c34;
+  margin-top: 20px;
+  border-radius: 5px;
+  padding: 20px 20px 20px;
+}
