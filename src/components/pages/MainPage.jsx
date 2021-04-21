@@ -1,5 +1,5 @@
 import { useHistory } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import React, { Component, useEffect, useState } from "react";
 import '../../App.css';
 import "./css/MainPage.css";
 import firestore from "../../database/firebase";
@@ -10,10 +10,11 @@ const MainPage = () => {
   const createEventHandler = () => {
     history.push("/create-post");
   };
-  const EventsListDisplay = () => {
-    const [events,setEvents] = useState([]);
-    //state = { events: [] };
-    useEffect(()=>{
+  //const EventsListDisplay = () => {
+  class EventsListDisplay extends Component {
+    //const [events,setEvents] = useState([]);
+    state = { events: [] };
+    /*useEffect(()=>{
       firestore
         .collection("events")
         .get()
@@ -28,8 +29,8 @@ const MainPage = () => {
             events,
           });
         });
-    });
-    /*componentDidMount() {
+    });*/
+    componentDidMount() {
       firestore
         .collection("events")
         .get()
@@ -44,8 +45,8 @@ const MainPage = () => {
             events,
           });
         });
-    }*/
-    return (
+    }
+    /*return (
       <div>
         {[events].map((events) => (
           <div className="events" key={events.id}>
@@ -56,8 +57,8 @@ const MainPage = () => {
           </div>
         ))}
       </div>
-    );
-    /*render() {
+    );*/
+    render() {
       const { events } = this.state;
       return (
         <div>
@@ -71,7 +72,7 @@ const MainPage = () => {
           ))}
         </div>
       );
-    }*/
+    }
   }
   //TODO:make it more functionable
   //TODO:edit create event area
