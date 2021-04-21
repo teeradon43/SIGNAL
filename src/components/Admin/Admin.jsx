@@ -2,13 +2,15 @@ import {Link, useRouteMatch, Switch, Route} from 'react-router-dom';
 
 import ManageUser from './ManageUser';
 import ManagePost from './ManagePost';
+import ConfirmDeleteUser from './ConfirmDeleteUser';
+import ConfirmDeletePost from './ConfirmDeletePost';
 
 const Admin = () => {
     let { path, url } = useRouteMatch();
     return ( 
         <>
-        {/*Management Navbar */}
-        <nav className="navbar navbar-dark bg-dark navbar-expand-lg">
+            {/*Management Navbar */}
+            <nav className="navbar navbar-dark bg-dark navbar-expand-lg">
                 <span className="navbar-brand">
                 Admin Panel
                 </span>
