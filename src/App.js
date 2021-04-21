@@ -9,6 +9,7 @@ import {
   LoginPage,
   MainPage,
   CreatePost,
+  EditPost,
   NotFound,
   Navbar,
   Admin,
@@ -42,6 +43,7 @@ function App() {
         <Route exact path="/" component={user ? MainPage : LoginPage} />
         <Route exact path="/main-page" component={MainPage} />
         <Route exact path="/create-post" component={CreatePost} />
+        <Route exact path="/edit-post/:eventId" component={EditPost} />
         <Route exact path="/login" component={LoginPage} />
         <Route path="/Admin" component={Admin} />
         <Route exact path="/events/:eventId" component={EventDetails} />
