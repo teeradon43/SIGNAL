@@ -30,7 +30,7 @@ function App() {
     <Router>
       {Navigation}
       <Switch>
-        <Route exact path="/" component={MainPage} />
+        <Route exact path="/" component={user ? MainPage : LoginPage} />
         <Route exact path="/main-page" component={MainPage} />{/*FIXME: Same component, different route? */}
         <Route exact path="/login" component={LoginPage} />
         <Route path="/Admin" component={Admin} />

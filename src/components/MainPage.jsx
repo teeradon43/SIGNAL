@@ -63,7 +63,7 @@ const MainPage = () => {
         }
     }
     return (  
-        <div class="container-fluid">
+        <div className="container">
             <div>
                 <button onClick={createEventHandler}>Create Event</button>
             </div>
