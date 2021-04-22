@@ -18,18 +18,23 @@ export function login() {
             //if user not found, create account for them
             console.log("Login Ok");
             userRef.set({
-              userID: result.user.uid,
+              uid: result.user.uid,
               displayName: result.user.displayName,
-              name: "",
-              surname: "",
-              description: "",
-              photoURL: result.user.photoURL,
               email: result.user.email,
               isAdmin: false,
-              isBanned: false,
+              name: "",
+              surname: "",
+              faculty: "",
               interests: [],
-              createdEvents: [],
-              dateJoined: new Date().valueOf(),
+              description: "",
+              eventHistory: [],
+              followings: [],
+              followers: [],
+              isBanned: false,
+              img: result.user.photoURL,
+              dateJoined: new Date().toLocaleDateString(),
+              rating: [],
+              notification: [],
             });
           }
           console.log("Login Ok");

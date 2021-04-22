@@ -1,43 +1,35 @@
 import firestore from "../../database/firebase";
 import { useState, useEffect } from "react";
+import { Redirect } from "react-router-dom";
 
-export const CreateEvent = (
-  uid,
-  title,
-  description,
-  date,
-  maxAttendee,
-  cost,
-  img,
-  tags
-) => {
-  // if(isValid(uid,title,date,maxAttendee,cost)){
-  const event = [
-    {
-      uid: uid,
-      title: title,
-      description: description,
-      date: date, // go go calendar
-      dateCreated: new Date().toLocaleDateString(),
-      maxAttendee: maxAttendee,
-      noAttendee: 0,
-      attendeeList: [],
-      cost: cost,
-      img: img,
-      noReported: 0,
-      adminDeleted: false,
-      tags: tags,
-      rating: [],
-      comment: [],
-    },
-  ];
+export const CreateEvent = (params) => {
+  //TODO: REDIRECT FIX VALUE PARSE AND ADD TO CREATED EVENT IN USER
+  const event = {
+    uid: params.uid,
+    title: params.title,
+    description: params.description,
+    date: params.date, // go go calendar
+    dateCreated: new Date(),
+    maxAttendee: params.maxAttendee,
+    noAttendee: 0,
+    attendeeList: [],
+    cost: params.cost,
+    img: params.img,
+    noReported: 0,
+    adminDeleted: false,
+    tags: params.tags,
+    rating: [],
+    comment: [],
+  };
+
   firestore
     .collection("events")
     .add({
       event,
     })
     .then(() => {
-      alert("Success");
+      alert("You have created a new event!");
+      return <Redirect to="/" />;
     })
     .catch((e) => {
       alert("Error", e);
@@ -45,20 +37,6 @@ export const CreateEvent = (
 
   // }
 };
-
-function isValid(uid, title, date, maxAttendee, cost) {
-  if (
-    uid === "" ||
-    title === "" /* || date < new Date */ ||
-    maxAttendee < 1 ||
-    cost < 0
-  ) {
-    alert("One or more field is incorrect or invalid. Please try again.");
-    return 0;
-  } else {
-    return 1;
-  }
-}
 
 export const GetEvent = (eventId) => {
   const [event, setEvent] = useState();
