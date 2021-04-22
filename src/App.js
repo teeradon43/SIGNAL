@@ -15,6 +15,7 @@ import {
   Admin,
   EventDetails,
   UserDetails,
+  ReviewPage,
 } from "./components";
 import LoginNav from "./components/LoginNav";
 import { auth } from "./database/firebase";
@@ -47,6 +48,7 @@ function App() {
         <Route exact path="/login" component={LoginPage} />
         <Route path="/Admin" component={Admin} />
         <Route exact path="/events/:eventId" component={EventDetails} />
+        <Route exact path="/review" component={ReviewPage} /> {/*TODO: Use separate route+prop for user and event */}
         <Route exact path="/u/:userId" component={UserDetails} />
         <Route exact path="/404" component={NotFound} />
         <Redirect to="/404" />
