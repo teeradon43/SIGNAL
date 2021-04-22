@@ -40,12 +40,8 @@ function App() {
       {Navigation}
       <Switch>
         <Route exact path="/" component={user ? MainPage : LoginPage} />
-<<<<<<< HEAD
-        <Route exact path="/main-page" component={MainPage} />{/*FIXME: Same component, different route? */}
-=======
         <Route exact path="/main-page" component={MainPage} />
         <Route exact path="/create-post" component={CreatePost} />
->>>>>>> f915a732702e75b5cf61b9e47e21bb0a298e4b98
         <Route exact path="/login" component={LoginPage} />
         <Route path="/Admin" component={Admin} />
         <Route exact path="/events/:eventId" component={EventDetails} />
