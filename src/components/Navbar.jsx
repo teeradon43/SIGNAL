@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { auth } from "../database/firebase";
 import "./LoginNav.css";
 
-export default function Navbar(){
+export default function Navbar() {
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
 
@@ -23,9 +23,9 @@ export default function Navbar(){
   }, []);
 
   window.addEventListener("resize", showButton);
-   
-    return (
-      <a>
+
+  return (
+    <a>
       <link
         rel="stylesheet"
         href="https://use.fontawesome.com/releases/v5.13.1/css/all.css"
@@ -69,13 +69,24 @@ export default function Navbar(){
               </Link>
             </li>
             <li className="nav-item">
-              <Link to={`/u/${auth.currentUser.uid}`} className="nav-links" id="profilepic" height="40">
-                <img src={auth.currentUser.photoURL} width="30" height="30" alt="userPhoto" />
+              <Link
+                to={`/u/${auth.currentUser.uid}`}
+                className="nav-links"
+                id="profilepic"
+                height="40"
+              >
+                <img
+                  src={auth.currentUser.photoURL}
+                  width="30"
+                  height="30"
+                  alt="userPhoto"
+                  className="nav-img"
+                />
               </Link>
             </li>
           </ul>
         </div>
       </nav>
     </a>
-    );
+  );
 }
