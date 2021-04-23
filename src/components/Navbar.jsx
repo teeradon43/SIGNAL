@@ -68,8 +68,8 @@ export default function Navbar(){
                 Main
               </Link>
             </li>
-            <li className="navbar-item">
-              <Link to={`/u/${auth.currentUser.uid}`} className="nav-link" id="profilepic">
+            <li className="nav-item">
+              <Link to={`/u/${auth.currentUser.uid}`} className="nav-links" id="profilepic" height="40">
                 <img src={auth.currentUser.photoURL} width="30" height="30" alt="userPhoto" />
               </Link>
             </li>

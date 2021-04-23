@@ -1,0 +1,45 @@
+.Card{
+    width: 350px;
+    height: 470px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 1px 10px 1px black;
+}
+.upper-container{
+    height: 100px;
+    background: linear-gradient(to left,#2d00f7,#ff0291);
+}
+.image-container img{
+    background: white;
+    border-radius: 50%;
+    padding: 5px;
+    transform: translate(125px,45px);
+}
+.lower-container{
+    margin-top: 60px;
+    height: 300px;
+    background: white;
+    text-align: center;
+}
+.lower-container h3,h5{
+    margin: 0;
+    padding: 0;
+}
+.Card button{
+    margin: 1rem;
+    margin-top: 20px;
+    color: #2f2d2e;
+    font: bold;
+    background-color: white;
+    border: 2px solid #8e00b9;
+    padding: 0.6rem;
+    border-radius: 6px;
+    transition-duration: 0.5s;
+    animation: ease-in-out;
+}
+.Card button:hover{
+    background-image: linear-gradient(to left,#2d00f7,#ff0291);
+    transform: scale(1.2);
+    border: none;
+    color: white;
+}
