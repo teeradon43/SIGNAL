@@ -52,6 +52,7 @@ const Cancel = styled.button`
 
 const CreatePost = () => {
   const history = useHistory();
+  //TODO: Add date img tags into input state
   const [input, setInput] = useState({
     uid: auth.currentUser ? auth.currentUser.uid : null,
     title: "",

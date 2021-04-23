@@ -33,13 +33,13 @@ const MainPage = () => {
     componentDidMount() {
       firestore
         .collection("events")
-        .orderBy("event.dateCreated", "desc")
+        .orderBy("event.dateCreated", "desc") //sort by newest post
         .get()
         .then((snapshot) => {
           const events = snapshot.docs.map((doc) => {
             return {
               id: doc.id,
-              ...doc.data().event,
+              ...doc.data().event, //new event return as object event
             };
           });
           this.setState({
