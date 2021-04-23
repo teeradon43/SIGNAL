@@ -1,5 +1,6 @@
-import React, { Component } from "react";
+import React, { Component, useEffect, useState } from "react";
 import firestore, { auth } from "../../database/firebase";
+import './css/UserDetails.css';
 
 class UserDetails extends Component {
   state = {
@@ -25,27 +26,28 @@ class UserDetails extends Component {
   }
   render() {
     const { users } = this.state;
+
     //TODO: get user created post , rating , if stranger : don't show edit , show report button , if own profile : show edit no report
     //TODO: add edit profile function
     //TODO: CSS UserDetails
     // * ? should we add delete account button ?
     return (
-      <div className="container">
-        <u> CSS PLEASE </u>
-        <div className="user-detail">
-          <img src={users.photoURL} alt={users.photoURL} />
-          <h2>Name : {users.displayName}</h2>
-          <p>
-            My Interest : {users.interests}
-            <button>+</button> {/* add interest */}
-          </p>
-          <p>Faculty : {users.faculty}</p>
+      <div className="Card">
+            <div className="upper-container">
+                <div className="image-container">
+                    <img src={users.photoURL} alt={users.photoURL} height="100px" width="100px"/>
+                </div>
+            </div>
+            <div className="lower-container">
+                <h3> {users.displayName} </h3>
+                <h5> My Interest : {users.interests}
+                    <button>+</button> 
+                </h5>
+                <h5>Faculty :  {users.faculty} </h5>
+            <button>Edit Profile</button>
+            <button>Delete Account</button>
+            </div>
         </div>
-        <div className="user-function">
-          <button className="btn btn-lg">Edit Profile</button>
-          <button className="btn btn-lg">Delete Account</button>
-        </div>
-      </div>
     );
   }
 }

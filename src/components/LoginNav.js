@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { Component, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./LoginNav.css";
 
@@ -35,7 +35,7 @@ function Navbar() {
         href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@700&display=swap"
         rel="stylesheet"
       />
-      <nav className="navbar">
+      <nav className="navbar justify-content-center">
         <div className="navbar-container">
           <Link to="/" className="navbar-logo" onClick={closeMobileMenu}>
             SIGNAL
