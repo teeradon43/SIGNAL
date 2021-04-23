@@ -1,6 +1,6 @@
 import { useHistory } from "react-router-dom";
 import React, { Component, useEffect, useState } from "react";
-import '../../App.css';
+import "../../App.css";
 import "./css/MainPage.css";
 import firestore from "../../database/firebase";
 import { Link } from "react-router-dom";
@@ -33,12 +33,13 @@ const MainPage = () => {
     componentDidMount() {
       firestore
         .collection("events")
+        .orderBy("event.dateCreated", "desc") //sort by newest post
         .get()
         .then((snapshot) => {
           const events = snapshot.docs.map((doc) => {
             return {
               id: doc.id,
-              ...doc.data(),
+              ...doc.data().event, //new event return as object event
             };
           });
           this.setState({
@@ -65,7 +66,7 @@ const MainPage = () => {
           {events.map((events) => (
             <div className="events" key={events.id}>
               <Link to={`/events/${events.id}`}>
-                <h3>{events.eventName}</h3>
+                <h3>{events.title}</h3>
               </Link>
               <p>{events["description"]}</p>
             </div>
@@ -79,7 +80,13 @@ const MainPage = () => {
   return (
     <div className="App-skeleton-ground">
       <div className="App-skeleton-bg">
-        <button type="button" className="createEvents" onClick={createEventHandler}>Create Event</button>
+        <button
+          type="button"
+          className="createEvents"
+          onClick={createEventHandler}
+        >
+          Create Event
+        </button>
         <div>
           <EventsListDisplay />
         </div>
