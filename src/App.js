@@ -16,7 +16,7 @@ import {
   EventDetails,
   UserDetails,
 } from "./components";
-import Calendar from "./components/Calendar"
+import Calendar from "./components/Calendar";
 import LoginNav from "./components/LoginNav";
 import { auth } from "./database/firebase";
 import { useState, useEffect } from "react";
@@ -26,7 +26,9 @@ function App() {
   let [user, setUser] = useState(null);
   useEffect(() => {
     const authUnsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
+      var isKmitl = user.email;
+      isKmitl = isKmitl.substring(isKmitl.indexOf("@") + 1);
+      if (user && isKmitl === "kmitl.ac.th") {
         setUser(user);
       } else {
         setUser(null);
