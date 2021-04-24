@@ -15,13 +15,6 @@ const LoginPage = () => {
         >
           Login with Google
         </button>
-        <button
-          onClick={logout}
-          type="button"
-          className="btn btn-outline-light mb-3 btn-lg mx-3"
-        >
-          Logout
-        </button>
       </div>
     </div>
   );

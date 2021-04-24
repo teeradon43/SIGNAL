@@ -1,6 +1,7 @@
 import React, { Component, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./LoginNav.css";
+import { login } from "./models/auth";
 
 function Navbar() {
   const [click, setClick] = useState(false);
@@ -8,6 +9,11 @@ function Navbar() {
 
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
+
+  const handleLogin = () => {
+    closeMobileMenu();
+    login();
+  };
 
   const showButton = () => {
     if (window.innerWidth <= 960) {
@@ -45,7 +51,7 @@ function Navbar() {
           </div>
           <ul className={click ? "nav-menu active" : "nav-menu"}>
             <li className="nav-item">
-              <Link to="/" className="nav-links" onClick={closeMobileMenu}>
+              <Link to="/" className="nav-links" onClick={handleLogin}>
                 Login
               </Link>
             </li>

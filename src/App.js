@@ -16,6 +16,7 @@ import {
   EventDetails,
   UserDetails,
 } from "./components";
+import Calendar from "./components/Calendar";
 import LoginNav from "./components/LoginNav";
 import { auth } from "./database/firebase";
 import { useState, useEffect } from "react";
@@ -25,7 +26,9 @@ function App() {
   let [user, setUser] = useState(null);
   useEffect(() => {
     const authUnsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
+      var isKmitl = user.email;
+      isKmitl = isKmitl.substring(isKmitl.indexOf("@") + 1);
+      if (user && isKmitl === "kmitl.ac.th") {
         setUser(user);
       } else {
         setUser(null);
@@ -48,6 +51,7 @@ function App() {
         <Route path="/Admin" component={Admin} />
         <Route exact path="/events/:eventId" component={EventDetails} />
         <Route exact path="/u/:userId" component={UserDetails} />
+        <Route exact path="/create-post/Calendar" component={Calendar} />
         <Route exact path="/404" component={NotFound} />
         <Redirect to="/404" />
       </Switch>
