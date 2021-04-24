@@ -11,6 +11,7 @@ import Thumbnail from "../../Thumbnail";
 import TagsJSX from "../../Tags";
 import { CreateEvent } from "../models/events";
 import { auth } from "../../database/firebase";
+import { Link } from "react-router-dom";
 
 const Button = styled.button`
   margin-left: 20px;
@@ -138,19 +139,21 @@ const CreatePost = () => {
           {" "}
           Thumbnail{" "}
         </h5>
-        <LogoC
-          style={{
-            height: "30px",
-            width: "30px",
-            position: "absolute",
-            display: "block",
-            marginTop: "30px",
-          }}
-        />
-        <h5 style={{ color: "white", marginTop: "40px", marginLeft: "50px" }}>
-          {" "}
-          Event Date{" "}
-        </h5>
+        <Link to="/create-post/Calendar">
+          <LogoC 
+            style={{
+              height: "30px",
+              width: "30px",
+              position: "absolute",
+              display: "block",
+              marginTop: "30px",
+            }}
+          />
+          <h5 style={{ color: "white", marginTop: "40px", marginLeft: "50px" }}>
+            {" "}
+            Event Date{" "}
+          </h5>
+        </Link>
       </div>
       <div className="App-skeleton-bg1">
         <LogoA
