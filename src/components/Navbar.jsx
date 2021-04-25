@@ -1,14 +1,20 @@
 import React, { Component, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { auth } from "../database/firebase";
+import { logout } from "./models/auth";
+
 import "./LoginNav.css";
 
-export default function Navbar(){
+export default function Navbar() {
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
 
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
+  const handleLogout = () => {
+    closeMobileMenu();
+    logout();
+  };
 
   const showButton = () => {
     if (window.innerWidth <= 960) {
@@ -23,9 +29,9 @@ export default function Navbar(){
   }, []);
 
   window.addEventListener("resize", showButton);
-   
-    return (
-      <a>
+
+  return (
+    <a>
       <link
         rel="stylesheet"
         href="https://use.fontawesome.com/releases/v5.13.1/css/all.css"
@@ -46,8 +52,8 @@ export default function Navbar(){
           </div>
           <ul className={click ? "nav-menu active" : "nav-menu"}>
             <li className="nav-item">
-              <Link to="/login" className="nav-links" onClick={closeMobileMenu}>
-                Login
+              <Link to="/" className="nav-links" onClick={handleLogout}>
+                Logout
               </Link>
             </li>
             <li className="nav-item">
@@ -69,13 +75,24 @@ export default function Navbar(){
               </Link>
             </li>
             <li className="nav-item">
-              <Link to={`/u/${auth.currentUser.uid}`} className="nav-links" id="profilepic" height="40">
-                <img src={auth.currentUser.photoURL} width="30" height="30" alt="userPhoto" />
+              <Link
+                to={`/u/${auth.currentUser.uid}`}
+                className="nav-links"
+                id="profilepic"
+                height="40"
+              >
+                <img
+                  src={auth.currentUser.photoURL}
+                  width="30"
+                  height="30"
+                  alt="userPhoto"
+                  className="nav-img"
+                />
               </Link>
             </li>
           </ul>
         </div>
       </nav>
     </a>
-    );
+  );
 }
