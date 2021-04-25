@@ -26,10 +26,14 @@ function App() {
   let [user, setUser] = useState(null);
   useEffect(() => {
     const authUnsubscribe = auth.onAuthStateChanged((user) => {
-      var isKmitl = user.email;
-      isKmitl = isKmitl.substring(isKmitl.indexOf("@") + 1);
-      if (user && isKmitl === "kmitl.ac.th") {
-        setUser(user);
+      if (user) {
+        var isKmitl = user.email;
+        isKmitl = isKmitl.substring(isKmitl.indexOf("@") + 1);
+        if (isKmitl === "kmitl.ac.th") {
+          setUser(user);
+        } else {
+          setUser(null);
+        }
       } else {
         setUser(null);
       }
