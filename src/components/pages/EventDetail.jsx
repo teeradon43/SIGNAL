@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import firestore from "../../database/firebase";
+import firestore, { auth } from "../../database/firebase";
 import "./css/EventDetail.css";
 import "../../App.css";
 
@@ -7,6 +7,26 @@ const EventDetails = (params) => {
   const [event, setEvent] = useState({});
   const [host, setHost] = useState({});
   const [uid, setUid] = useState("");
+  const [visitor, setVisitor] = useState(null);
+
+  const OwnerButton = () => {
+    if (host.uid === visitor) {
+      return (
+        <div>
+          <button className="join-btn">Edit Event</button>
+          <button className="report-btn">Delete Event</button>
+        </div>
+      );
+    } else {
+      //TODO: If joined change to quit
+      return (
+        <div>
+          <button className="join-btn">Join Event</button>
+          <button className="report-btn">Report event</button>
+        </div>
+      );
+    }
+  };
 
   async function fetchEvent() {
     const eid = params.match.params.eventId;
@@ -31,6 +51,9 @@ const EventDetails = (params) => {
       .then((snapshot) => {
         const user = snapshot.data();
         setHost(user);
+        const authState = auth.onAuthStateChanged((user) => {
+          if (user) setVisitor(user.uid);
+        });
       })
       .catch((err) => alert("ERROR: ", err));
   }
@@ -51,13 +74,7 @@ const EventDetails = (params) => {
         {host.displayName}
         <img src={host.img} />
         <br></br>
-        <button type="button" className="join-btn">
-          join
-        </button>
-        <br></br>
-        <button type="button" className="report-btn">
-          report
-        </button>
+        <OwnerButton />
       </div>
 
       {/* Event Section */}

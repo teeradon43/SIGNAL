@@ -1,9 +1,28 @@
-import firestore from "../../database/firebase";
+import firestore, { auth } from "../../database/firebase";
 import { useState, useEffect } from "react";
 import "./css/UserDetails.css";
 
 const UserDetails = (params) => {
   const [users, setUsers] = useState({});
+  const [visitor, setVisitor] = useState(null);
+
+  const OwnerButton = () => {
+    if (users.uid === visitor) {
+      return (
+        <div>
+          <button>Edit Profile</button>
+          <button>Delete Account</button>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <button>Follow</button>
+          <button>Rate this user</button>
+        </div>
+      );
+    }
+  };
 
   async function fetchUser() {
     const userId = params.match.params.userId;
@@ -12,8 +31,10 @@ const UserDetails = (params) => {
       .doc(userId)
       .get()
       .then((snapshot) => {
-        console.log(snapshot.data());
         setUsers(snapshot.data());
+        const authState = auth.onAuthStateChanged((user) => {
+          if (user) setVisitor(user.uid);
+        });
       })
       .catch((err) => {
         alert("ERROR: ", err.message);
@@ -42,8 +63,7 @@ const UserDetails = (params) => {
           <button>+</button>
         </h5>
         <h5>Faculty : {users.faculty} </h5>
-        <button>Edit Profile</button>
-        <button>Delete Account</button>
+        <OwnerButton />
       </div>
     </div>
   );
