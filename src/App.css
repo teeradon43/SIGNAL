@@ -62,60 +62,38 @@
   margin-top: 20px;
   margin-left: auto;
   margin-right: auto;
-  padding: 35px 50px 50px; /* Top Right Buttom Left */
+  padding: 50px 50px 50px 50px; /* Top Right Buttom Left */
   left: 0;
   right: 0;
-  position: absolute;
-  z-index: 1;
-}
-
-.App-skeleton-bg1 {
-  background-color: #1d2127;
-  width: 15vw;
-  border: none;
-  font-family: 'Poppins', sans-serif;
-  color: white;
-  margin-top: 28px;
-  margin-left: 75em;
-  padding: 35px 0px 60px;
-  position: relative;
-  z-index: 2;
 }
 
 .App-skeleton-bga {
   margin-top: 55px;
   border: none;
   display: inline;
-  font-family: 'Poppins', sans-serif;
   color: white;
   margin-left: 61em;
   position: absolute;
-  z-index: 1;
 }
 
 .App-skeleton-bga:hover {
   cursor: pointer;
 }
 
-.App-skeleton-bg2 {
-  border: none;
-  font-family: 'Poppins', sans-serif;
-  margin-left: 61em;
-  position: relative;
-  z-index: 3;
-}
-
 .App-skeleton-createpost {
   color: #fff;
   font-size: 50px;
-  margin-left: calc((100vw / 4) - 100px);
+  position: static;
+  display: flex;
+  justify-content: start;
 }
 
 .App-skeleton-ground {
   border: none;
   background-color: #282c34;
-  height: calc(100vh - 56px);
+  height: calc(100vh - 80px);
   padding-top: 50px;
+  padding-top: 30px;
 }
 
 .App-skeleton-textareadesc {
@@ -128,6 +106,7 @@
   color: #BFD2FF;
   font-size: 1.2rem;
   height: 200px;
+  width: 25vw;
   resize: none;
   outline: none;
 }
