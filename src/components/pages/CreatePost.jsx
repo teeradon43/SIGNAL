@@ -91,17 +91,19 @@ const CreatePost = () => {
     history.push("/");
   }
 
-  const handleSubmit = (e) => {
+  const HandleSubmit = (e) => {
+    //TODO: Redirect to event page by docRef.id
     e.preventDefault();
     console.log("submit value", input);
     CreateEvent(input);
+    history.push("/");
   };
 
   return (
     <div className="App-skeleton-ground">
       <h1 className="App-skeleton-createpost"> Create Post </h1>
       <div className="App-skeleton-bg">
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={HandleSubmit}>
           <h3> Post Title </h3>
           <div className="webflow-style-input">
             <input
@@ -140,7 +142,7 @@ const CreatePost = () => {
           Thumbnail{" "}
         </h5>
         <Link to="/create-post/Calendar">
-          <LogoC 
+          <LogoC
             style={{
               height: "30px",
               width: "30px",
@@ -214,7 +216,7 @@ const CreatePost = () => {
         <TagsJSX />
       </div>
       <Cancel onClick={handleClick}> Cancel </Cancel>
-      <Button onClick={handleSubmit}> Post </Button>
+      <Button onClick={HandleSubmit}> Post </Button>
     </div>
   );
 };
