@@ -32,8 +32,7 @@ export const CreateEvent = (params) => {
     .then(function (docRef) {
       // console.log("docRef =", docRef.id);
       // Host joined their event
-      AddEventToUser(docRef.id, params.uid);
-      AddUserToEvent(docRef.id, params.uid);
+      JoinEvent(docRef.id, params.uid);
       alert("You have created a new event!");
     })
     .catch((e) => {
@@ -83,7 +82,7 @@ export const GetEvent = (eventId) => {
 };
 
 //------------- User Add Event ----------- //
-export const AddEventToUser = (eventId, userId) => {
+const AddEventToUser = (eventId, userId) => {
   //user reference
   const userRef = firestore.collection("users").doc(userId);
   //update
@@ -93,11 +92,43 @@ export const AddEventToUser = (eventId, userId) => {
 };
 
 //------------- Event Add User ----------- //
-export const AddUserToEvent = (eventId, userId) => {
+const AddUserToEvent = (eventId, userId) => {
   //event reference
   const eventRef = firestore.collection("events").doc(eventId);
   //update with dot notation
   eventRef.update({
     "event.attendeeList": firebase.firestore.FieldValue.arrayUnion(userId),
   });
+};
+
+//------------- Join Event ----------- //
+export const JoinEvent = (eventId, userId) => {
+  AddEventToUser(eventId, userId);
+  AddUserToEvent(eventId, userId);
+};
+
+//------------- Event Del User ----------- //
+const DelUserFromEvent = (eventId, userId) => {
+  //event reference
+  const eventRef = firestore.collection("events").doc(eventId);
+  //update with dot notation
+  eventRef.update({
+    "event.attendeeList": firebase.firestore.FieldValue.arrayRemove(userId),
+  });
+};
+
+//------------- User Del Event ----------- //
+const DelEventFromUser = (eventId, userId) => {
+  //user reference
+  const userRef = firestore.collection("users").doc(userId);
+  //update with dot notation
+  userRef.update({
+    eventHistory: firebase.firestore.FieldValue.arrayRemove(eventId),
+  });
+};
+
+//------------- Quit Event ----------- //
+export const QuitEvent = (eventId, userId) => {
+  DelUserFromEvent(eventId, userId);
+  DelEventFromUser(eventId, userId);
 };
