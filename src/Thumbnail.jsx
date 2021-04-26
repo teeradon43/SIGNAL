@@ -24,7 +24,7 @@ class Thumbnail extends Component {
             <div>
                 <div>
                     <div>
-                        <label htmlFor='myPicture' style={{ display: 'flex', flexWrap: 'wrap' }}>
+                        <label htmlFor='myPicture' style={{ display: 'flex' }}>
                             <LogoP style={{cursor: 'pointer', width: '30px', height: '30px'}} />
                             <h4 style={{ marginLeft: '1vw' }}> Thumbnail </h4>
                         </label>

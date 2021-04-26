@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { useHistory, useParams } from "react-router-dom"
+import { Link, useHistory, useParams } from "react-router-dom"
 import '../../App.css'
 import '../../Webflow.scss'
 import '../../Tags.scss'
@@ -10,6 +10,10 @@ import { ReactComponent as LogoC } from '../../images/calendar.svg'
 import Thumbnail from '../../Thumbnail'
 import TagsJSX from '../../Tags'
 import firestore from "../../database/firebase"
+
+/* Crysis Bug -> unsubscribe() is not a function
+    Need Help ASAP :(
+*/
 
 const Button = styled.button`
     background-color: #0077ff;
@@ -89,8 +93,10 @@ function EditPost() {
                             <Thumbnail />
                         </div>
                         <div style={{ display: 'flex' }}>
-                            <LogoC style={{ width: '30px' }}/>
-                            <div className="webflow-style-input1" style={{ marginLeft: '1vw' }}> <input type="date" required></input> </div>
+                            <Link to="/create-post/Calendar">
+                                <LogoC style={{ width: '30px' }}/>
+                            </Link>
+                            <h4 style={{ marginLeft: '1vw' }}> Event Date </h4>
                         </div>
                         <h4 style={{ marginTop: '30px' }}> Max Attendee </h4>
                         <div className="webflow-style-input1">
