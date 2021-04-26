@@ -15,6 +15,7 @@ import {
   Admin,
   EventDetails,
   UserDetails,
+  ReviewPage,
 } from "./components";
 import Calendar from "./components/Calendar";
 import LoginNav from "./components/LoginNav";
@@ -23,13 +24,17 @@ import { useState, useEffect } from "react";
 
 function App() {
   //TODO: Add routes: userProfile, SpecificPost, CreatePost, Calendar, SearchPage
-  let [user, setUser] = useState(null);
+  const [user, setUser] = useState(null);
   useEffect(() => {
     const authUnsubscribe = auth.onAuthStateChanged((user) => {
-      var isKmitl = user.email;
-      isKmitl = isKmitl.substring(isKmitl.indexOf("@") + 1);
-      if (user && isKmitl === "kmitl.ac.th") {
-        setUser(user);
+      if (user) {
+        var isKmitl = user.email;
+        isKmitl = isKmitl.substring(isKmitl.indexOf("@") + 1);
+        if (isKmitl === "kmitl.ac.th") {
+          setUser(user);
+        } else {
+          setUser(null);
+        }
       } else {
         setUser(null);
       }
@@ -50,6 +55,7 @@ function App() {
         <Route exact path="/login" component={LoginPage} />
         <Route path="/Admin" component={Admin} />
         <Route exact path="/events/:eventId" component={EventDetails} />
+        <Route exact path="/review-user/:userID" component={() => <ReviewPage />} />
         <Route exact path="/u/:userId" component={UserDetails} />
         <Route exact path="/create-post/Calendar" component={Calendar} />
         <Route exact path="/404" component={NotFound} />

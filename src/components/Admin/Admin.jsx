@@ -2,8 +2,6 @@ import {Link, useRouteMatch, Switch, Route} from 'react-router-dom';
 
 import ManageUser from './ManageUser';
 import ManagePost from './ManagePost';
-import ConfirmDeleteUser from './ConfirmDeleteUser';
-import ConfirmDeletePost from './ConfirmDeletePost';
 
 const Admin = () => {
     let { path, url } = useRouteMatch();

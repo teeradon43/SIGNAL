@@ -75,7 +75,6 @@ const CreatePost = () => {
         const value = target.value
         setInput({ ...input, [name]: value, })
     }
-
     function handleClick() {
         history.push("/")
     }
@@ -133,5 +132,4 @@ const CreatePost = () => {
         </div>
     )
 }
-
 export default CreatePost
