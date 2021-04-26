@@ -54,6 +54,7 @@
 
 .App-skeleton-bg {
   background-color: #1d2127;
+  position: fixed;
   width: 60vw;
   border: none;
   border-radius: 8px;
