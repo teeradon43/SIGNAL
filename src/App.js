@@ -23,7 +23,7 @@ import { useState, useEffect } from "react";
 
 function App() {
   //TODO: Add routes: userProfile, SpecificPost, CreatePost, Calendar, SearchPage
-  let [user, setUser] = useState(null);
+  const [user, setUser] = useState(null);
   useEffect(() => {
     const authUnsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
@@ -48,8 +48,7 @@ function App() {
         <Route exact path="/login" component={LoginPage} />
         <Route path="/Admin" component={Admin} />
         <Route exact path="/events/:eventId" component={EventDetails} />
-        <Route exact path="/review-user/:userID" component={ReviewPage} /> {/*TODO: Use separate route+prop for user and event */}
-        <Route exact path="/review-event/:eventID" component={ReviewPage} />
+        <Route exact path="/review-user/:userID" component={() => <ReviewPage />} />
         <Route exact path="/u/:userId" component={UserDetails} />
         <Route exact path="/404" component={NotFound} />
         <Redirect to="/404" />
