@@ -37,8 +37,6 @@ const EventDetails = (params) => {
 
   useEffect(() => {
     fetchEvent();
-    console.log("EVENT: ", event);
-    console.log("HOST: ", host);
   }, []);
 
   useEffect(() => {
