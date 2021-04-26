@@ -24,11 +24,11 @@ class Thumbnail extends Component {
             <div>
                 <div>
                     <div>
-                        <label htmlFor='myPicture' style={{ display: 'flex', flexWrap: 'wrap' }}>
+                        <label htmlFor='myPicture' style={{ display: 'flex' }}>
                             <LogoP style={{cursor: 'pointer', width: '30px', height: '30px'}} />
                             <h4 style={{ marginLeft: '1vw' }}> Thumbnail </h4>
                         </label>
-                        <input id='myPicture' type={'file'} style={{display: 'none'}} onChange={this.onImageChange}/>
+                        <input id='myPicture' name='img' type={'file'} style={{display: 'none'}} onChange={this.onImageChange}/>
                     </div>
                     <img src={this.state.image} style={{width: '10vw', cursor: 'default', borderRadius: '4px', marginTop: '10px', marginBottom: '20px'}}/>
                 </div>
