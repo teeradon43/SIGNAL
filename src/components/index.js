@@ -9,3 +9,4 @@ export { default as LoginNav } from "./LoginNav";
 export { default as Admin } from "./Admin/Admin";
 export { default as EventDetails } from "./pages/EventDetail";
 export { default as UserDetails } from "./pages/UserDetails";
+export { default as ReviewPage } from "./pages/ReviewPage";

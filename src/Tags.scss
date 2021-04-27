@@ -5,7 +5,7 @@
 	align-items: flex-start;
 	flex-wrap: wrap;
 	min-height: 48px;
-	width: 480px;
+	width: 10vw;
 	padding: 0 8px;
 	border-radius: 6px;
 	input {
@@ -13,7 +13,8 @@
 		border: none;
         border-radius: 2px;
 		height: 46px;
-		font-size: 18px;
+		width: 15vw;
+		font-size: 1.2rem;
 		padding: 0 0 2px 20px;
         background-color: rgba(57, 63, 84, 0.8);
         color: #BFD2FF;
@@ -58,11 +59,5 @@
 		border-radius: 50%;
 		background: #fff;
 		cursor: pointer;
-	}
-}
-
-@media screen and (max-width: 567px) {
-	.tags-input {
-		width: calc(100vw - 32px);
 	}
 }

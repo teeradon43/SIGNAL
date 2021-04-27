@@ -1,12 +1,6 @@
-/* เรียน Fullstack หรือ Frontend ท่านอื่น
-    เนื่องจาก Frontend พยายามทำ Big Calendar แล้วแต่ล้มเหลว 
-    จึงขอความอนุเคราะห์จาก Fullstack ช่วยแนะทาง */
-
-/* เรียน Fullstack / Backend จะ check ว่าเจ้าของ post ตรงกับคนที่จะ edit post ต้องทำอย่างไรครับ ขอบคุณครับ */
-
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { useHistory, useParams } from "react-router-dom"
+import { Link, useHistory, useParams } from "react-router-dom"
 import '../../App.css'
 import '../../Webflow.scss'
 import '../../Tags.scss'
@@ -17,8 +11,11 @@ import Thumbnail from '../../Thumbnail'
 import TagsJSX from '../../Tags'
 import firestore from "../../database/firebase"
 
+/* Crysis Bug -> unsubscribe() is not a function
+    Need Help ASAP :(
+*/
+
 const Button = styled.button`
-    margin-left: 20px;
     background-color: #0077ff;
     color: white;
     border: none;
@@ -36,8 +33,6 @@ const Button = styled.button`
 `
 
 const Cancel = styled.button`
-    margin-top: 5em;
-    margin-left: 66.6vw;
     background-color: #ff3535;
     color: white;
     border: none;
@@ -70,7 +65,7 @@ function EditPost() {
                 .collection('events')
                 .doc(eventId)
                 .get()
-                .then((snapshot) => {setPost(snapshot.data())})
+                .then((snapshot) => {setPost(snapshot.data().event)})
             return () => unsubscribe()
         }, [])
         return post
@@ -80,38 +75,45 @@ function EditPost() {
     
     return(
         <div className="App-skeleton-ground">
-            <h1 className="App-skeleton-createpost"> Edit Post </h1>
+            <div style={{ marginLeft: 'auto', marginRight: 'auto', width: '60vw' }}>
+                <h1 style={{ color: 'white', fontFamily: 'PT Sans', fontSize: '50px' }}> Edit Event </h1>
+            </div>
             <div className="App-skeleton-bg">
-                <h3> Post Title </h3>
-                <div className="webflow-style-input">
-                    <input type="text" defaultValue={post.eventName} maxLength='100' minLength='5' required></input>
+                <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+                    <div style={{ width: '30vw' }}>
+                        <h3> Event Title </h3>
+                        <div className="webflow-style-input">
+                            <input type="text" placeholder={post.title} maxLength='100' minLength='5' required></input>
+                        </div>
+                        <h3 style={{ marginTop: '25px' }}> Event Description </h3>
+                        <textarea className='App-skeleton-textareadesc' placeholder={post.description} />
+                    </div>
+                    <div style={{ width: '15vw' }}>
+                        <div style={{ display: 'flex' }}>
+                            <Thumbnail />
+                        </div>
+                        <div style={{ display: 'flex' }}>
+                            <Link to="/create-post/Calendar">
+                                <LogoC style={{ width: '30px' }}/>
+                            </Link>
+                            <h4 style={{ marginLeft: '1vw' }}> Event Date </h4>
+                        </div>
+                        <h4 style={{ marginTop: '30px' }}> Max Attendee </h4>
+                        <div className="webflow-style-input1">
+                            <input type='text' pattern='[1-9]|[1-9][0-9]' placeholder={post.maxAttendee} maxLength='2' required></input>
+                        </div>
+                        <h4 style={{ marginTop: '20px' }}> Cost </h4>
+                        <div className="webflow-style-input1" style={{marginBottom: '30px'}}>
+                            <input type='text' pattern='[1-9]|[1-9]([0-9]{1-3})' placeholder={post.cost} maxLength='4' required></input>
+                        </div>
+                        <TagsJSX/>
+                    </div>
                 </div>
-                <h3 style={{ marginTop: 50 }}> Post Description </h3>
-                <textarea className="App-skeleton-textareadesc" defaultValue={post.description} maxLength='3000'/>
             </div>
-            <div className="App-skeleton-bga">
-                <Thumbnail/>
-                <h5 style={{ zIndex: 2, marginLeft: '49px', marginTop: '5px', position: 'relative', cursor: 'default' }}> Thumbnail </h5>
-                <LogoC style={{height: '30px', width: '30px', position: 'absolute', display: 'block', marginTop: '30px'}}/>
-                <h5 style={{ color: 'white', marginTop: '40px', marginLeft: '50px' }}> Event Date </h5>
+            <div style={{ marginTop: '30px', width: '80vw', display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-end' }}>
+                <Cancel onClick={handleClick}> Cancel </Cancel>
+                <Button style={{ marginLeft: '20px' }}> Update </Button>
             </div>
-            <div className="App-skeleton-bg1">
-                <LogoA style={{ height: '30px', width: '30px', marginBottom: '20px' }} />
-                <h5 style={{ display: 'inline', marginLeft: '15px', position: 'absolute' }}> Max Atendee </h5>
-                <div className="webflow-style-input1">
-                    <input type="text" defaultValue={post.maxAttendee} maxLength='2' pattern='[1-9]|[1-9][0-9]' required></input>
-                </div>
-                <LogoM style={{ height: '30px', width: '30px', marginTop: '25px', marginBottom: '15px' }} />
-                <h5 style={{ display: 'inline', marginLeft: '20px', marginTop: '27px', position: 'absolute' }}> Max Estimated Cost </h5>
-                <div className="webflow-style-input1">
-                    <input type="text" defaultValue={post.cost} maxLength='4' pattern='[0-9]{1,4}'></input>
-                </div>
-            </div>
-            <div className="App-skeleton-bg2">
-                <TagsJSX />
-            </div>
-            <Cancel onClick={handleClick}> Cancel </Cancel>
-            <Button> Update </Button>
         </div>
     );
 }

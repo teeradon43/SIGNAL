@@ -1,6 +1,8 @@
 import React, { Component, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { auth } from "../database/firebase";
+import { logout } from "./models/auth";
+
 import "./LoginNav.css";
 
 export default function Navbar() {
@@ -9,6 +11,10 @@ export default function Navbar() {
 
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
+  const handleLogout = () => {
+    closeMobileMenu();
+    logout();
+  };
 
   const showButton = () => {
     if (window.innerWidth <= 960) {
@@ -46,8 +52,8 @@ export default function Navbar() {
           </div>
           <ul className={click ? "nav-menu active" : "nav-menu"}>
             <li className="nav-item">
-              <Link to="/login" className="nav-links" onClick={closeMobileMenu}>
-                Login
+              <Link to="/" className="nav-links" onClick={handleLogout}>
+                Logout
               </Link>
             </li>
             <li className="nav-item">
