@@ -98,6 +98,7 @@ const AddUserToEvent = (eventId, userId) => {
   //update with dot notation
   eventRef.update({
     "event.attendeeList": firebase.firestore.FieldValue.arrayUnion(userId),
+    "event.noAttendee": firebase.firestore.FieldValue.increment(1),
   });
 };
 
@@ -105,6 +106,7 @@ const AddUserToEvent = (eventId, userId) => {
 export const JoinEvent = (eventId, userId) => {
   AddEventToUser(eventId, userId);
   AddUserToEvent(eventId, userId);
+  alert("Join Success!");
 };
 
 //------------- Event Del User ----------- //
@@ -114,6 +116,7 @@ const DelUserFromEvent = (eventId, userId) => {
   //update with dot notation
   eventRef.update({
     "event.attendeeList": firebase.firestore.FieldValue.arrayRemove(userId),
+    "event.noAttendee": firebase.firestore.FieldValue.increment(-1),
   });
 };
 
