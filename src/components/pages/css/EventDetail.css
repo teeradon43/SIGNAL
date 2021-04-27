@@ -1,34 +1,45 @@
 .event-detail{
     background-color: #1d2127;
-    width: 55vw;
+    width: 50vw;
     border: none;
+    height: fit-content;
     border-radius: 8px;
     color: white;
-    margin-left: 35vw;
     padding: 35px 50px 50px;
-    position: absolute;
+    margin-left: 5vw;
 }
 .host-detail{
     background-color: #1d2127;
-    width: 20vw;
+    width: 25vw;
+    height: fit-content;
     border: none;
     border-radius: 8px;
     color: white;
-    margin-left: 10vw;
     padding: 35px 40px 40px;
-    position: absolute;
 }   
 .join-btn{
-    background-color: darkgrey;
-    color: black;
-    width: 200px;
-    margin-top: 20px;
+    background-color: rgb(55, 118, 255);
+    border: none;
+    border-radius: 4px;
+    color: white;
+    width: 7vw;
     padding: 10px 10px 10px;
+    transition: all .3s ease-in-out background-color;
+}
+.join-btn:hover{
+    background-color: rgb(148, 198, 255);
 }
 .report-btn{
-    background-color: red;
+    background-color: rgb(255, 81, 81);
+    border: none;
+    border-radius: 4px;
     color: white;
-    width: 200px;
+    width: 7vw;
     margin-top: 20px;
     padding: 10px 10px 10px;
+    display: block;
+    transition: all .3s ease-in-out background-color;
+}
+.report-btn:hover{
+    background-color: rgb(255, 154, 154);
 }
