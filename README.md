@@ -1,5 +1,4 @@
 # README
-![alt text](https://cdn.discordapp.com/attachments/519183653444648986/835774958134755348/unknown.png)
 ## Setup 
 > ( npm or yarn are the same format)
 ### NPM
@@ -24,3 +23,5 @@
 ```
 - npm start
 ```
+
+![alt text](https://cdn.discordapp.com/attachments/519183653444648986/835774958134755348/unknown.png)
