@@ -53,7 +53,7 @@ const EventDetails = (params) => {
       .doc(eid)
       .get()
       .then((snapshot) => {
-        const event = snapshot.data().event;
+        const event = snapshot.data();
         setEvent(event);
         setUid(event.uid);
       })
@@ -96,7 +96,6 @@ const EventDetails = (params) => {
         <br></br>
         <OwnerButton />
       </div>
-
       {/* Event Section */}
       <div className="event-detail">
         <h1>{event.title}</h1>
