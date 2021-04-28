@@ -119,7 +119,7 @@ const EventDetails = (params) => {
       <div className="host-detail">
         <h1 style={{ marginBottom: "40px" }}> Host Detail </h1>
         <div style={{ display: "flex", marginBottom: "40px" }}>
-          <img
+          <img className="host-profilepic"
             onClick={handleProfile}
             src={host.img}
             style={{ marginRight: "1vw", cursor: "pointer" }}
