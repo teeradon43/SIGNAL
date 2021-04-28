@@ -19,16 +19,28 @@
     position: absolute;
 }   
 .join-btn{
-    background-color: darkgrey;
-    color: black;
-    width: 200px;
-    margin-top: 20px;
+    background-color: rgb(27, 126, 255);
+    border: none;
+    border-radius: 4px;
+    color: white;
+    width: 100px;
     padding: 10px 10px 10px;
+    transition: all .3s ease-in-out background-color;
+}
+.join-btn:hover{
+    background-color: rgb(97, 171, 255);
 }
 .report-btn{
-    background-color: red;
+    display: block;
+    background-color: rgb(255, 55, 55);
+    border: none;
+    border-radius: 4px;
     color: white;
-    width: 200px;
+    width: 100px;
     margin-top: 20px;
     padding: 10px 10px 10px;
+    transition: all .3s ease-in-out background-color;
+}
+.report-btn:hover{
+    background-color: rgb(255, 98, 98);
 }

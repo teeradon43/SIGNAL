@@ -4,16 +4,10 @@ import { Link, useHistory, useParams } from "react-router-dom";
 import "../../App.css";
 import "../../Webflow.scss";
 import "../../Tags.scss";
-import { ReactComponent as LogoA } from "../../images/user.svg";
-import { ReactComponent as LogoM } from "../../images/salary.svg";
 import { ReactComponent as LogoC } from "../../images/calendar.svg";
 import Thumbnail from "../../Thumbnail";
 import TagsJSX from "../../Tags";
 import firestore from "../../database/firebase";
-
-/* Crysis Bug -> unsubscribe() is not a function
-    Need Help ASAP :(
-*/
 
 const Button = styled.button`
   background-color: #0077ff;
@@ -61,14 +55,13 @@ function EditPost() {
     const [post, setPost] = useState([]);
     let { eventId } = useParams();
     useEffect(() => {
-      const unsubscribe = firestore
+      firestore
         .collection("events")
         .doc(eventId)
         .get()
         .then((snapshot) => {
           setPost(snapshot.data());
         });
-      return () => unsubscribe;
     }, []);
     return post;
   }

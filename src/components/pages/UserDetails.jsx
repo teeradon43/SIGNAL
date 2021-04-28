@@ -50,25 +50,27 @@ const UserDetails = (params) => {
   //TODO: add edit profile function
   //TODO: CSS UserDetails
   return (
-    <div className="container">
-      <div className="Card">
-        <div className="upper-container">
-          <div className="image-container">
-            <img src={users.img} alt={users.img} height="100px" width="100px" />
+    <div className='App-skeleton-ground'>
+      <div className="container" style={{ display: 'flex', justifyContent: 'center'}}>
+        <div className="Card" style={{ marginRight: '15vw' }}>
+          <div className="upper-container">
+            <div className="image-container">
+              <img src={users.img} alt={users.img} height="100px" width="100px" />
+            </div>
+          </div>
+          <div className="lower-container">
+            <h3> {users.displayName} </h3>
+            <h5>
+              {" "}
+              My Interest : {users.interests}
+              <button>+</button>
+            </h5>
+            <h5>Faculty : {users.faculty} </h5>
+            <OwnerButton />
           </div>
         </div>
-        <div className="lower-container">
-          <h3> {users.displayName} </h3>
-          <h5>
-            {" "}
-            My Interest : {users.interests}
-            <button>+</button>
-          </h5>
-          <h5>Faculty : {users.faculty} </h5>
-          <OwnerButton />
-        </div>
+        <MyEvents/>
       </div>
-      <MyEvents/>
     </div>
   );
 };
@@ -120,19 +122,15 @@ const MyEvents = ()=>{
   else{
     return (
       <div>
-        <h2>My Events</h2>
-        <ul>
+        <h1 style={{ color: 'white', marginBottom: '40px' }}> My Events </h1>
+        <ul style={{ color: 'white' }}>
           {posts.length ? posts.map(post=>{
             return (
-              <li>
-                {post.event.title}
-              </li>
+              <li> {post.event.title} </li>
             );
           }):
           (
-            <div>
-              User has yet to created an event
-            </div>
+            <div> User has yet to created an event </div>
           )}
         </ul>
       </div>

@@ -4,8 +4,6 @@ import { Link, useHistory } from "react-router-dom";
 import "../../App.css";
 import "../../Webflow.scss";
 import "../../Tags.scss";
-import { ReactComponent as LogoA } from "../../images/user.svg";
-import { ReactComponent as LogoM } from "../../images/salary.svg";
 import { ReactComponent as LogoC } from "../../images/calendar.svg";
 import Thumbnail from "../../Thumbnail";
 import TagsJSX from "../../Tags";
