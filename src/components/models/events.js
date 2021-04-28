@@ -27,11 +27,23 @@ export const CreateEvent = (params) => {
   firestore
     .collection("events")
     .add({
-      event,
+      uid: event.uid,
+      title: event.title,
+      description: event.description,
+      date: event.date,
+      dateCreated: event.dateCreated,
+      maxAttendee: event.maxAttendee,
+      noAttendee: event.noAttendee,
+      attendeeList: event.attendeeList,
+      cost: event.cost,
+      img: event.img,
+      noReported: event.noReported,
+      adminDeleted: event.adminDeleted,
+      tags: event.tags,
+      rating: event.rating,
+      comment: event.comment,
     })
     .then(function (docRef) {
-      // console.log("docRef =", docRef.id);
-      // Host joined their event
       JoinEvent(docRef.id, params.uid);
       alert("You have created a new event!");
     })
@@ -42,24 +54,40 @@ export const CreateEvent = (params) => {
 
 //------------- Update Event ----------- //
 export const UpdateEvent = (eventId, params) => {
-  // const baseEvent = GetEvent(eventId);
-  // const event = {
-  //   uid: params.uid,
-  //   title: params.title,
-  //   description: params.description,
-  //   date: params.date, // go go calendar
-  //   dateCreated: new Date(),
-  //   maxAttendee: params.maxAttendee,
-  //   noAttendee: 0,
-  //   attendeeList: [],
-  //   cost: params.cost,
-  //   img: params.img,
-  //   noReported: 0,
-  //   adminDeleted: false,
-  //   tags: params.tags,
-  //   rating: [],
-  //   comment: [],
-  // };
+  // event reference
+  const eventRef = firestore.collection("event").doc(eventId);
+  // update event with params
+  eventRef.update({
+    title: params.title,
+    description: params.description,
+    date: params.date,
+    maxAttendee: params.maxAttendee,
+    cost: params.cost,
+    img: params.img,
+    tags: params.tags,
+  });
+};
+
+//------------------ RELOCATE ---------------//
+export const RelocateEvent = (eventId, eventParam) => {
+  const eventRef = firestore.collection("events").doc(eventId);
+  eventRef.update({
+    uid: eventParam.uid,
+    title: eventParam.title,
+    description: eventParam.description,
+    date: eventParam.date,
+    dateCreated: eventParam.dateCreated,
+    maxAttendee: eventParam.maxAttendee,
+    noAttendee: eventParam.noAttendee,
+    attendeeList: eventParam.attendeeList,
+    cost: eventParam.cost,
+    img: eventParam.img,
+    noReported: eventParam.noReported,
+    adminDeleted: eventParam.adminDeleted,
+    tags: eventParam.tags,
+    rating: eventParam.rating,
+    comment: eventParam.comment,
+  });
 };
 
 //------------- Get Event Info ----------- //
@@ -85,7 +113,7 @@ export const GetEvent = (eventId) => {
 const AddEventToUser = (eventId, userId) => {
   //user reference
   const userRef = firestore.collection("users").doc(userId);
-  //update
+  //update eventHistory
   userRef.update({
     eventHistory: firebase.firestore.FieldValue.arrayUnion(eventId),
   });
@@ -95,10 +123,10 @@ const AddEventToUser = (eventId, userId) => {
 const AddUserToEvent = (eventId, userId) => {
   //event reference
   const eventRef = firestore.collection("events").doc(eventId);
-  //update with dot notation
+  //update event
   eventRef.update({
-    "event.attendeeList": firebase.firestore.FieldValue.arrayUnion(userId),
-    "event.noAttendee": firebase.firestore.FieldValue.increment(1),
+    attendeeList: firebase.firestore.FieldValue.arrayUnion(userId),
+    noAttendee: firebase.firestore.FieldValue.increment(1),
   });
 };
 
@@ -113,10 +141,10 @@ export const JoinEvent = (eventId, userId) => {
 const DelUserFromEvent = (eventId, userId) => {
   //event reference
   const eventRef = firestore.collection("events").doc(eventId);
-  //update with dot notation
+  //update History
   eventRef.update({
-    "event.attendeeList": firebase.firestore.FieldValue.arrayRemove(userId),
-    "event.noAttendee": firebase.firestore.FieldValue.increment(-1),
+    attendeeList: firebase.firestore.FieldValue.arrayRemove(userId),
+    noAttendee: firebase.firestore.FieldValue.increment(-1),
   });
 };
 
@@ -124,7 +152,7 @@ const DelUserFromEvent = (eventId, userId) => {
 const DelEventFromUser = (eventId, userId) => {
   //user reference
   const userRef = firestore.collection("users").doc(userId);
-  //update with dot notation
+  //update eventHistory
   userRef.update({
     eventHistory: firebase.firestore.FieldValue.arrayRemove(eventId),
   });
