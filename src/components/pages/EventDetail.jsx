@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import firestore, { auth } from "../../database/firebase";
 import "./css/EventDetail.css";
 import "../../App.css";
+import { JoinEvent } from "../models/events";
 
 const EventDetails = (params) => {
   const [event, setEvent] = useState({});
@@ -9,23 +10,40 @@ const EventDetails = (params) => {
   const [uid, setUid] = useState("");
   const [visitor, setVisitor] = useState(null);
 
-  const OwnerButton = () => {
+  const OwnerButton = (params) => {
     if (host.uid === visitor) {
-      return (
-        <div>
-          <button className="join-btn">Edit Event</button>
-          <button className="report-btn">Delete Event</button>
-        </div>
-      );
+      return <HostButton />;
     } else {
-      //TODO: If joined change to quit
-      return (
-        <div>
-          <button className="join-btn">Join Event</button>
-          <button className="report-btn">Report event</button>
-        </div>
-      );
+      return <GuestButton />;
     }
+  };
+
+  const HostButton = () => {
+    return (
+      <div>
+        <button className="join-btn">Edit</button>
+        <button className="report-btn">Delete</button>
+      </div>
+    );
+  };
+
+  function handleJoin() {
+    //TODO: If already join switch to dismiss
+    //TODO: Check if noAttendee == maxAttendee cannot join
+    const eid = params.match.params.eventId;
+    JoinEvent(eid, visitor);
+  }
+
+  const GuestButton = () => {
+    return (
+      <div>
+        <button className="join-btn" onClick={handleJoin}>
+          Join
+        </button>{" "}
+        {/* Cancel Join */}
+        <button className="report-btn">Report</button>
+      </div>
+    );
   };
 
   async function fetchEvent() {
@@ -35,7 +53,7 @@ const EventDetails = (params) => {
       .doc(eid)
       .get()
       .then((snapshot) => {
-        const event = snapshot.data().event;
+        const event = snapshot.data();
         setEvent(event);
         setUid(event.uid);
       })
@@ -52,7 +70,9 @@ const EventDetails = (params) => {
         const user = snapshot.data();
         setHost(user);
         const authState = auth.onAuthStateChanged((user) => {
-          if (user) setVisitor(user.uid);
+          if (user) {
+            setVisitor(user.uid);
+          }
         });
       })
       .catch((err) => alert("ERROR: ", err));
@@ -64,7 +84,7 @@ const EventDetails = (params) => {
 
   useEffect(() => {
     if (uid) fetchHost();
-  });
+  }, [uid]);
 
   return (
     <div className="App-skeleton-ground">
@@ -76,7 +96,6 @@ const EventDetails = (params) => {
         <br></br>
         <OwnerButton />
       </div>
-
       {/* Event Section */}
       <div className="event-detail">
         <h1>{event.title}</h1>
