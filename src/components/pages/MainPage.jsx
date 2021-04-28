@@ -33,13 +33,13 @@ const MainPage = () => {
     componentDidMount() {
       firestore
         .collection("events")
-        .orderBy("event.dateCreated", "desc") //sort by newest post
+        .orderBy("dateCreated", "desc") //sort by newest post
         .get()
         .then((snapshot) => {
           const events = snapshot.docs.map((doc) => {
             return {
               id: doc.id,
-              ...doc.data().event, //new event return as object event
+              ...doc.data(), //new event return as object event
             };
           });
           this.setState({
@@ -80,13 +80,7 @@ const MainPage = () => {
   return (
     <div className="App-skeleton-ground">
       <div className="App-skeleton-bg">
-        <button
-          type="button"
-          className="createEvents"
-          onClick={createEventHandler}
-        >
-          Create Event
-        </button>
+        <button type="button" className="btn btn-outline-light" onClick={createEventHandler}>Create Event</button>
         <div>
           <EventsListDisplay />
         </div>

@@ -14,7 +14,7 @@ const EventDetails = (params) => {
   const handleEdit = () => { history.push(`/`) }
   const handleProfile = () => { history.push(`/u/${host.uid}`) }
 
-  const OwnerButton = () => {
+  const OwnerButton = (params) => {
     if (host.uid === visitor) {
       return (
         <div>
@@ -31,6 +31,34 @@ const EventDetails = (params) => {
         </div>
       );
     }
+  };
+
+  const HostButton = () => {
+    return (
+      <div>
+        <button className="join-btn">Edit</button>
+        <button className="report-btn">Delete</button>
+      </div>
+    );
+  };
+
+  function handleJoin() {
+    //TODO: If already join switch to dismiss
+    //TODO: Check if noAttendee == maxAttendee cannot join
+    const eid = params.match.params.eventId;
+    JoinEvent(eid, visitor);
+  }
+
+  const GuestButton = () => {
+    return (
+      <div>
+        <button className="join-btn" onClick={handleJoin}>
+          Join
+        </button>{" "}
+        {/* Cancel Join */}
+        <button className="report-btn">Report</button>
+      </div>
+    );
   };
 
   async function fetchEvent() {
@@ -72,7 +100,7 @@ const EventDetails = (params) => {
   })
 
   return (
-    <div className="App-skeleton-ground" style={{ display: 'flex', justifyContent: 'center' }}>
+    <div className="App-skeleton-ground" style={{ display: 'flex', justifyContent: 'center', height: 'calc(100vh - 80px)' }}>
       {/* Host Section */}
       <div className="host-detail">
         <h1 style={{ marginBottom: '40px' }}> Host Detail </h1>
@@ -82,7 +110,6 @@ const EventDetails = (params) => {
         </div>
         <OwnerButton />
       </div>
-
       {/* Event Section */}
       <div className="event-detail">
         <h1 onClick={handleEdit} style={{ marginBottom: '40px' }}> {event.title} </h1>
