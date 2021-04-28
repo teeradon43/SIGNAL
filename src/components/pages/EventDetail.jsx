@@ -1,19 +1,31 @@
-import { useState, useEffect } from "react"
-import firestore, { auth } from "../../database/firebase"
-import "./css/EventDetail.css"
-import "../../App.css"
-import { useHistory } from "react-router-dom"
+
+import { useState, useEffect } from "react";
+import firestore, { auth } from "../../database/firebase";
+import "./css/EventDetail.css";
+import "../../App.css";
+import { JoinEvent } from "../models/events";
+import { useHistory } from "react-router";
 
 const EventDetails = (params) => {
-  const [event, setEvent] = useState({})
-  const [host, setHost] = useState({})
-  const [uid, setUid] = useState("")
-  const [visitor, setVisitor] = useState(null)
-  const history = useHistory()
-  
-  const handleEdit = () => { history.push(`/`) }
-  const handleProfile = () => { history.push(`/u/${host.uid}`) }
+  const [event, setEvent] = useState({});
+  const [host, setHost] = useState({});
+  const [uid, setUid] = useState("");
+  const [visitor, setVisitor] = useState(null);
+  const history = useHistory();
 
+  const handleProfile = () => {
+    history.push(`/u/${host.uid}`)
+  }
+  
+  const handleEdit = () => {
+    history.push(`/edit-post/78oKoFAhATxVaJAm5klZ`) // `/edit-post/${params.match.params.eventId}
+  }
+
+  const handleDelete = () => {
+    history.push(`/`)
+    alert('You successfully delete the post!')
+  }
+  
   const OwnerButton = (params) => {
     if (host.uid === visitor) {
       return (
@@ -36,8 +48,8 @@ const EventDetails = (params) => {
   const HostButton = () => {
     return (
       <div>
-        <button className="join-btn">Edit</button>
-        <button className="report-btn">Delete</button>
+        <button onClick={handleEdit} className="join-btn"> EDIT </button>
+        <button onClick={handleDelete} className="report-btn"> DELETE </button>
       </div>
     );
   };
