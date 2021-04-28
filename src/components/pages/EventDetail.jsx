@@ -87,7 +87,7 @@ const EventDetails = (params) => {
   }, [uid]);
 
   return (
-    <div className="App-skeleton-ground">
+    <div className="App-skeleton-ground" style={{height: 'calc(100vh - 80px)'}}>
       {/* Host Section */}
       <div className="host-detail">
         <p>Host Detail</p>

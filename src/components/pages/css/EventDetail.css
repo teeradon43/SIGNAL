@@ -9,6 +9,7 @@
     position: absolute;
 }
 .host-detail{
+    justify-content: center;
     background-color: #1d2127;
     width: 20vw;
     border: none;
@@ -19,16 +20,106 @@
     position: absolute;
 }   
 .join-btn{
-    background-color: darkgrey;
-    color: black;
+    background: none;
+    color: #ccc;
     width: 200px;
     margin-top: 20px;
     padding: 10px 10px 10px;
+    border: 1px solid #338033;
+    border-radius: 10px;
+    transition: .6s;
+    overflow: hidden;
 }
 .report-btn{
-    background-color: red;
-    color: white;
+    background: none;
+    color: #ccc;
     width: 200px;
     margin-top: 20px;
     padding: 10px 10px 10px;
+    border: 1px solid #a83a32;
+    border-radius: 10px;
+    transition: .6s;
+    overflow: hidden;
+}
+.join-btn:focus{
+    outline: none;
+}
+.report-btn:focus{
+    outline: none;
+}
+.join-btn:before{
+    content: '';
+    display: block;
+    background: rgba(255, 255, 255, .5);
+    width: 60px;
+    height: 100%;
+    left: 0;
+    top: 0;
+    opacity: .5s;
+    filter: blur(30px);
+    transform: translate(-130px) skewX(-15deg);
+}
+.report-btn:before{
+    content: '';
+    display: block;
+    background: rgba(255, 255, 255, .5);
+    width: 60px;
+    height: 100%;
+    left: 0;
+    top: 0;
+    opacity: .5s;
+    filter: blur(30px);
+    transform: translate(-130px) skewX(-15deg);
+}
+.join-btn:after{
+    content: '';
+    display: block;
+    background: rgba(255, 255, 255, .2);
+    width: 30px;
+    height: 100%;
+    left: 30px;
+    top: 0;
+    opacity: 0;
+    filter: blur(30px);
+    transform: translate(-100px) skewX(-15deg);
+}
+.report-btn:after{
+    content: '';
+    display: block;
+    background: rgba(255, 255, 255, .2);
+    width: 30px;
+    height: 100%;
+    left: 30px;
+    top: 0;
+    opacity: 0;
+    filter: blur(30px);
+    transform: translate(-100px) skewX(-15deg);
+}
+.join-btn:hover{
+    background: #338033;
+    cursor: pointer;
+}
+.report-btn:hover{
+    background: #a83a32;
+    cursor: pointer;
+}
+.join-btn:hover:before{
+    transform: translate(300px) skewX(-15deg);
+    opacity: .6;
+    transition: .7s;
+}
+.report-btn:hover:before{
+    transform: translate(300px) skewX(-15deg);
+    opacity: .6;
+    transition: .7s;
+}
+.join-btn:hover:after{
+    transform: translate(300px) skewX(-15deg);
+    opacity: .6;
+    transition: .7s;
+}
+.report-btn:hover:after{
+    transform: translate(300px) skewX(-15deg);
+    opacity: .6;
+    transition: .7s;
 }

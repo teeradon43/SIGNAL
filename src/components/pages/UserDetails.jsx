@@ -119,7 +119,7 @@ const MyEvents = ()=>{
   }
   else{
     return (
-      <div>
+      <div className="MyEvent">
         <h2>My Events</h2>
         <ul>
           {posts.length ? posts.map(post=>{
