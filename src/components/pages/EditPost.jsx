@@ -46,6 +46,7 @@ const Cancel = styled.button`
 `;
 
 function EditPost() {
+  const [post, setPost] = useState({});
   const history = useHistory();
 
   function handleClick() {
