@@ -80,13 +80,7 @@ const MainPage = () => {
   return (
     <div className="App-skeleton-ground">
       <div className="App-skeleton-bg">
-        <button
-          type="button"
-          className="createEvents"
-          onClick={createEventHandler}
-        >
-          Create Event
-        </button>
+        <button type="button" className="btn btn-outline-light" onClick={createEventHandler}>Create Event</button>
         <div>
           <EventsListDisplay />
         </div>
