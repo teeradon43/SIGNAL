@@ -91,7 +91,7 @@
 .App-skeleton-ground {
   border: none;
   background-color: #282c34;
-  height: calc(100vh - 80px);
+  /*height: calc(100vh - 80px);*/
   padding-top: 50px;
   padding-top: 30px;
 }

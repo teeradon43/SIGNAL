@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import { Link, useHistory, useParams } from "react-router-dom";
-import "../../App.css";
-import "../../Webflow.scss";
-import "../../Tags.scss";
-import { ReactComponent as LogoC } from "../../images/calendar.svg";
-import Thumbnail from "../../Thumbnail";
-import TagsJSX from "../../Tags";
-import firestore from "../../database/firebase";
+
+import React, { useState, useEffect } from 'react'
+import styled from 'styled-components'
+import { Link, useHistory, useParams } from "react-router-dom"
+import '../../App.css'
+import '../../Webflow.scss'
+import '../../Tags.scss'
+import { ReactComponent as LogoC } from '../../images/calendar.svg'
+import Thumbnail from '../../Thumbnail'
+import TagsJSX from '../../Tags'
+import firestore from "../../database/firebase"
 
 const Button = styled.button`
   background-color: #0077ff;
@@ -66,7 +67,19 @@ function EditPost() {
     return post;
   }
 
-  const post = UsePost();
+    function UsePost() {
+        const [post, setPost] = useState([])
+        let { eventId } = useParams();
+        useEffect(() => {
+            firestore
+                .collection('events')
+                .doc(eventId)
+                .get()
+                .then((snapshot) => {setPost(snapshot.data().event)})
+                .catch((err) => alert("ERROR: ", err))
+        }, [])
+        return post
+    }
 
   return (
     <div className="App-skeleton-ground">
