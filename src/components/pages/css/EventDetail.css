@@ -8,6 +8,13 @@
     padding: 35px 50px 50px;
     margin-left: 5vw;
 }
+.host-profilepic{
+    display: block;
+    max-width:230px;
+    max-height:95px;
+    width: auto;
+    height: auto;
+}
 .host-detail{
     justify-content: center;
     background-color: #1d2127;

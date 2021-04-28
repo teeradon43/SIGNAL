@@ -3,12 +3,28 @@ import firestore, { auth } from "../../database/firebase";
 import "./css/EventDetail.css";
 import "../../App.css";
 import { JoinEvent } from "../models/events";
+import { useHistory } from "react-router";
 
 const EventDetails = (params) => {
   const [event, setEvent] = useState({});
   const [host, setHost] = useState({});
   const [uid, setUid] = useState("");
   const [visitor, setVisitor] = useState(null);
+  const history = useHistory();
+
+  const handleProfile = () => {
+    history.push(`/u/${host.uid}`);
+  };
+
+  function handleEdit() {
+    console.log("edit");
+    history.push(`/edit-post/${params.match.params.eventId}`);
+  }
+
+  const handleDelete = () => {
+    history.push(`/`);
+    alert("You successfully delete the post!");
+  };
 
   const OwnerButton = (params) => {
     if (host.uid === visitor) {
@@ -21,8 +37,14 @@ const EventDetails = (params) => {
   const HostButton = () => {
     return (
       <div>
-        <button className="join-btn">Edit</button>
-        <button className="report-btn">Delete</button>
+        <button onClick={handleEdit} className="join-btn">
+          {" "}
+          EDIT{" "}
+        </button>
+        <button onClick={handleDelete} className="report-btn">
+          {" "}
+          DELETE{" "}
+        </button>
       </div>
     );
   };
@@ -70,9 +92,7 @@ const EventDetails = (params) => {
         const user = snapshot.data();
         setHost(user);
         const authState = auth.onAuthStateChanged((user) => {
-          if (user) {
-            setVisitor(user.uid);
-          }
+          if (user) setVisitor(user.uid);
         });
       })
       .catch((err) => alert("ERROR: ", err));
@@ -87,19 +107,34 @@ const EventDetails = (params) => {
   }, [uid]);
 
   return (
-    <div className="App-skeleton-ground" style={{height: 'calc(100vh - 80px)'}}>
+    <div
+      className="App-skeleton-ground"
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        height: "calc(100vh - 80px)",
+      }}
+    >
       {/* Host Section */}
       <div className="host-detail">
-        <p>Host Detail</p>
-        {host.displayName}
-        <img src={host.img} />
-        <br></br>
+        <h1 style={{ marginBottom: "40px" }}> Host Detail </h1>
+        <div style={{ display: "flex", marginBottom: "40px" }}>
+          <img className="host-profilepic"
+            onClick={handleProfile}
+            src={host.img}
+            style={{ marginRight: "1vw", cursor: "pointer" }}
+          />
+          <h4> {host.displayName} </h4>
+        </div>
         <OwnerButton />
       </div>
       {/* Event Section */}
       <div className="event-detail">
-        <h1>{event.title}</h1>
-        <p>{event.description}</p>
+        <h1 onClick={handleEdit} style={{ marginBottom: "40px" }}>
+          {" "}
+          {event.title}{" "}
+        </h1>
+        <p> {event.description} </p>
         <p>Number of Attendee : {event.noAttendee}</p>
         <p>Total of : {event.maxAttendee}</p>
         <p>Cost : {event.cost}</p>
