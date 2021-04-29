@@ -12,18 +12,6 @@ const EventDetails = (params) => {
   const [visitor, setVisitor] = useState(null);
   const history = useHistory();
 
-  if (uid !== "") {
-    // const eid = params.match.params.eventId;
-    // firestore
-    //   .collection("events")
-    //   .doc(eid)
-    //   .onSnapshot((snapshot) => {
-    //     const event = snapshot.data();
-    //     setEvent(event);
-    //     setUid(event.uid);
-    //   });
-  }
-
   const handleProfile = () => {
     history.push(`/u/${host.uid}`);
   };
