@@ -73,13 +73,11 @@ const EventDetails = (params) => {
     const res = await firestore
       .collection("events")
       .doc(eid)
-      .get()
-      .then((snapshot) => {
+      .onSnapshot((snapshot) => {
         const event = snapshot.data();
         setEvent(event);
         setUid(event.uid);
-      })
-      .catch((err) => alert("ERROR: ", err));
+      });
   }
 
   async function fetchHost() {
@@ -119,7 +117,8 @@ const EventDetails = (params) => {
       <div className="host-detail">
         <h1 style={{ marginBottom: "40px" }}> Host Detail </h1>
         <div style={{ display: "flex", marginBottom: "40px" }}>
-          <img className="host-profilepic"
+          <img
+            className="host-profilepic"
             onClick={handleProfile}
             src={host.img}
             style={{ marginRight: "1vw", cursor: "pointer" }}
