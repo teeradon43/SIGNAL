@@ -2,6 +2,7 @@ import firestore, { auth } from "../../database/firebase";
 import { useState, useEffect } from "react";
 import "./css/UserDetails.css";
 import { useParams } from "react-router";
+import {Link} from 'react-router-dom';
 
 const UserDetails = (params) => {
   const [users, setUsers] = useState({});
@@ -126,12 +127,15 @@ const MyEvents = () => {
           return;
         }
         postsRef
-          .where("event.uid", "==", userId)
+          .where("uid", "==", userId)
           .get()
           .then((snapshot) => {
             let tempPosts = [];
             snapshot.forEach((doc) => {
-              tempPosts = [...tempPosts, doc.data()];
+              tempPosts = [...tempPosts, 
+                {
+                id: doc.id,...doc.data()
+              }];
             });
             setPosts(tempPosts);
             setState("success");
@@ -147,6 +151,19 @@ const MyEvents = () => {
       });
   }, []);
 
+  console.log(posts);
+
+  const EventCard = ({event}) =>{//use same component from main (EventListDisplay)
+    return (
+      <div style={{"background-color": "#2d314d"}} className="rounded p-1 mb-3 mt-1" key={event.id}>
+        <Link to={`/events/${event.id}`}>
+          <h3>{event.title}</h3>
+        </Link>
+        <p>{event.description}</p>
+      </div>
+    );
+  }
+
   if (state === "fetching") {
     return <div>Fetching...</div>;
   } else if (state === "failed") {
@@ -155,10 +172,14 @@ const MyEvents = () => {
     return (
       <div>
         <h1 style={{ color: "white", marginBottom: "40px" }}> My Events </h1>
-        <ul style={{ color: "white" }}>
+        <ul style={{ color: "white" }} className="list-unstyled">
           {posts.length ? (
             posts.map((post) => {
-              return <li> {post.event.title} </li>;
+              return (
+                <li key={post.id}> 
+                  <EventCard event={post}/> 
+                </li>
+              );
             })
           ) : (
             <div> User has yet to created an event </div>
