@@ -7,19 +7,43 @@ const UserDetails = (params) => {
   const [users, setUsers] = useState({});
   const [visitor, setVisitor] = useState(null);
 
+  function handleClick(e) {
+    switch (e) {
+      case "edit": {
+        console.log("edit");
+        break;
+      }
+      case "create": {
+        console.log("create");
+        break;
+      }
+      case "follow": {
+        //TODO: If followed switch to unfollow
+        console.log("follow");
+        break;
+      }
+      case "rate": {
+        console.log("rate");
+        break;
+      }
+      default:
+        console.log("Hello");
+    }
+  }
+
   const OwnerButton = () => {
     if (users.uid === visitor) {
       return (
         <div>
-          <button>Edit Profile</button>
-          <button>Delete Account</button>
+          <button onClick={() => handleClick("create")}>New Post</button>
+          <button onClick={() => handleClick("edit")}>Edit Profile</button>
         </div>
       );
     } else {
       return (
         <div>
-          <button>Follow</button>
-          <button>Rate this user</button>
+          <button onClick={() => handleClick("follow")}>Follow</button>
+          <button onClick={() => handleClick("rate")}>Rate this user</button>
         </div>
       );
     }
@@ -50,12 +74,20 @@ const UserDetails = (params) => {
   //TODO: add edit profile function
   //TODO: CSS UserDetails
   return (
-    <div className='App-skeleton-ground'>
-      <div className="container" style={{ display: 'flex', justifyContent: 'center'}}>
-        <div className="Card" style={{ marginRight: '15vw' }}>
+    <div className="App-skeleton-ground">
+      <div
+        className="container"
+        style={{ display: "flex", justifyContent: "center" }}
+      >
+        <div className="Card" style={{ marginRight: "15vw" }}>
           <div className="upper-container">
             <div className="image-container">
-              <img src={users.img} alt={users.img} height="100px" width="100px" />
+              <img
+                src={users.img}
+                alt={users.img}
+                height="100px"
+                width="100px"
+              />
             </div>
           </div>
           <div className="lower-container">
@@ -69,72 +101,70 @@ const UserDetails = (params) => {
             <OwnerButton />
           </div>
         </div>
-        <MyEvents/>
+        <MyEvents />
       </div>
     </div>
   );
 };
 export default UserDetails;
 
-const MyEvents = ()=>{
-  const {userId} = useParams();
+const MyEvents = () => {
+  const { userId } = useParams();
   const usersRef = firestore.collection("users");
   const postsRef = firestore.collection("events");
 
-  const [state,setState] = useState("fetching");
+  const [state, setState] = useState("fetching");
   const [posts, setPosts] = useState([]);
 
-  useEffect(()=>{
-    usersRef.doc(userId).get().then(doc=>{
-      if(!doc.exists){
+  useEffect(() => {
+    usersRef
+      .doc(userId)
+      .get()
+      .then((doc) => {
+        if (!doc.exists) {
+          setState("failed");
+          return;
+        }
+        postsRef
+          .where("event.uid", "==", userId)
+          .get()
+          .then((snapshot) => {
+            let tempPosts = [];
+            snapshot.forEach((doc) => {
+              tempPosts = [...tempPosts, doc.data()];
+            });
+            setPosts(tempPosts);
+            setState("success");
+          })
+          .catch((err) => {
+            setState("failed");
+            console.log("Fetch posts error: ", err);
+          });
+      })
+      .catch((err) => {
         setState("failed");
-        return;
-      }
-      postsRef.where("event.uid","==",userId).get().then(snapshot=>{
-        let tempPosts = []
-        snapshot.forEach(doc=>{
-          tempPosts = [...tempPosts, doc.data()];
-        });
-        setPosts(tempPosts);
-        setState("success");
-      }).catch(err=>{
-        setState("failed");
-        console.log("Fetch posts error: ",err)
+        console.log("Fetch user error: ", err);
       });
-    }).catch(err=>{
-      setState("failed");
-      console.log("Fetch user error: ",err)
-    });
-  },[]);
+  }, []);
 
-  if(state==="fetching"){
+  if (state === "fetching") {
+    return <div>Fetching...</div>;
+  } else if (state === "failed") {
+    return <div>No user</div>;
+  } else {
     return (
       <div>
-        Fetching...
-      </div>);
-  }
-  else if(state==="failed"){
-    return (
-    <div>
-      No user
-    </div>);
-  }
-  else{
-    return (
-      <div>
-        <h1 style={{ color: 'white', marginBottom: '40px' }}> My Events </h1>
-        <ul style={{ color: 'white' }}>
-          {posts.length ? posts.map(post=>{
-            return (
-              <li> {post.event.title} </li>
-            );
-          }):
-          (
+        <h1 style={{ color: "white", marginBottom: "40px" }}> My Events </h1>
+        <ul style={{ color: "white" }}>
+          {posts.length ? (
+            posts.map((post) => {
+              return <li> {post.event.title} </li>;
+            })
+          ) : (
             <div> User has yet to created an event </div>
           )}
         </ul>
       </div>
     );
   }
-  
-}
+};
