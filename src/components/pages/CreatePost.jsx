@@ -9,6 +9,9 @@ import Thumbnail from "../../Thumbnail";
 import TagsJSX from "../../Tags";
 import { CreateEvent } from "../models/events";
 import { auth } from "../../database/firebase";
+import validate from "../formValidate";
+import useForm from "../useForm";
+import { red } from "@material-ui/core/colors";
 
 const Button = styled.button`
   background-color: #0077ff;
@@ -45,21 +48,15 @@ const Cancel = styled.button`
   }
 `;
 
-const CreatePost = () => {
+const CreatePost = ({submitForm}) => {
   const history = useHistory();
+  const { handleChange, handleSubmit, input, errors } = useForm(
+    submitForm,
+    validate
+  ); 
   //TODO: Add date img tags into input state
-  const [input, setInput] = useState({
-    uid: auth.currentUser ? auth.currentUser.uid : null,
-    title: "",
-    description: "",
-    date: "",
-    maxAttendee: 0,
-    cost: 0,
-    img: "",
-    tags: [],
-  });
 
-  useEffect(() => {
+  /*useEffect(() => {
     auth.onAuthStateChanged((user) => {
       if (user) {
         setInput({ ...input, uid: user.uid });
@@ -72,18 +69,19 @@ const CreatePost = () => {
     const { name } = target;
     const value = target.value;
     setInput({ ...input, [name]: value });
-  };
+  };*/
   function handleClick() {
     history.push("/");
   }
 
-  const handleSubmit = (e) => {
+  /*const handleSubmit = (e) => {
     e.preventDefault();
+    setErrors(validate(input));
     console.log("submit value", input);
     const docId = CreateEvent(input);
     console.log("docId:", docId); // stills error
     history.push("/");
-  };
+  };*/
 
   return (
     <div className="App-skeleton-ground">
@@ -93,7 +91,7 @@ const CreatePost = () => {
           Create Event{" "}
         </h1>
       </div>
-      <div className="App-skeleton-bg">
+      <div className="App-skeleton-bg" onSubmit={handleSubmit}>
         <div style={{ display: "flex", justifyContent: "space-around" }}>
           <div style={{ width: "30vw" }}>
             <form style={{ marginBottom: "30px" }} onSubmit={handleSubmit}>
@@ -106,8 +104,10 @@ const CreatePost = () => {
                   maxLength="100"
                   minLength="5"
                   onChange={handleChange}
+                  value={input.title}
                   required
                 ></input>
+                {errors.title && <p style={{ marginTop: "10px", color: "#ff9797"}}>{errors.title}</p>}
               </div>
               <h3 style={{ marginTop: "25px" }}> Event Description </h3>
               <textarea
@@ -116,7 +116,9 @@ const CreatePost = () => {
                 className="App-skeleton-textareadesc"
                 placeholder="Rule: No anime."
                 onChange={handleChange}
+                value={input.description}
               />
+              {errors.description && <p style={{ marginTop: "10px", color: "#ff9797"}}>{errors.description}</p>}
             </form>
             <TagsJSX />
           </div>
@@ -139,10 +141,12 @@ const CreatePost = () => {
                 placeholder="5"
                 maxLength="2"
                 onChange={handleChange}
+                value={input.maxAttendee}
                 required
               ></input>
+              {errors.maxAttendee && <p style={{ marginTop: "10px", color: "#ff9797"}}>{errors.maxAttendee}</p>}
             </div>
-            <h4 style={{ marginTop: "20px" }}> Cost </h4>
+            <h4 style={{ marginTop: "40px" }}> Cost </h4>
             <div className="webflow-style-input1">
               <input
                 name="cost"
@@ -151,8 +155,10 @@ const CreatePost = () => {
                 placeholder="690"
                 maxLength="4"
                 onChange={handleChange}
+                value={input.cost}
                 required
               ></input>
+              {errors.cost && <p style={{ marginTop: "10px", color: "#ff9797"}}>{errors.cost}</p>}
             </div>
           </div>
         </div>
