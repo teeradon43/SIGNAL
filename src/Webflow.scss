@@ -12,7 +12,7 @@ $input-text-active: #BFD2FF;
 .webflow-style-input {
   position: relative;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   width: 25vw;
   height: 55px;
   margin: 0;
@@ -59,8 +59,8 @@ $input-text-active: #BFD2FF;
 .webflow-style-input1 {
     position: relative;
     display: flex;
-    flex-direction: row;
-    width: 8vw;
+    flex-direction: column;
+    width: auto;
     height: 45px;
     border-radius: 2px;
     padding: 0.1rem 0rem 0.3rem 0.9rem;
