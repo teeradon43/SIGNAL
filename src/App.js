@@ -37,7 +37,6 @@ function App() {
     .catch(function(err) {
       console.warn('Error Occured : ',err);
     });
-    initmessaging.onMessage
     const authUnsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         var isKmitl = user.email;
