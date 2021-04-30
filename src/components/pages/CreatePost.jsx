@@ -52,7 +52,8 @@ const CreatePost = ({submitForm}) => {
   const history = useHistory();
   const { handleChange, handleSubmit, input, errors } = useForm(
     submitForm,
-    validate
+    validate,
+    false
   ); 
   //TODO: Add date img tags into input state
 
@@ -136,7 +137,7 @@ const CreatePost = ({submitForm}) => {
             <div className="webflow-style-input1">
               <input
                 name="maxAttendee"
-                type="text"
+                type="number"
                 pattern="[1-9]|[1-9][0-9]"
                 placeholder="5"
                 maxLength="2"
@@ -150,7 +151,7 @@ const CreatePost = ({submitForm}) => {
             <div className="webflow-style-input1">
               <input
                 name="cost"
-                type="text"
+                type="number"
                 pattern="[1-9]|[1-9]([0-9]{1-3})"
                 placeholder="690"
                 maxLength="4"

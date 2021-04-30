@@ -1,20 +1,23 @@
 import { useState, useEffect } from 'react';
 import { auth } from "../database/firebase";
 import { CreateEvent } from "./models/events";
-import { Link, useHistory } from "react-router-dom";
+import { UpdateEvent } from "./models/events";
+import { Link, useHistory, useParams } from "react-router-dom";
+import firestore from "../database/firebase"
+
 
 const useForm = (callback, validate) => {
     const history = useHistory();
     const [input, setInput] = useState({
-        uid: auth.currentUser ? auth.currentUser.uid : null,
-        title: "",
-        description: "",
-        date: "",
-        maxAttendee: 0,
-        cost: 0,
-        img: "",
-        tags: [],
-      });
+      uid: auth.currentUser ? auth.currentUser.uid : null,
+      title: "",
+      description: "",
+      date: "",
+      maxAttendee: 0,
+      cost: 0,
+      img: "",
+      tags: [],
+    });
     const [errors, setErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
     useEffect(() => {
@@ -32,12 +35,15 @@ const useForm = (callback, validate) => {
     };
 
     const handleSubmit = (e) => {
-        setErrors(validate(input));
+        //e.preventDefault();
+        //setErrors(validate(input));
         setIsSubmitting(true);
-        //console.log("submit value", input);
+        console.log("submit value", setErrors(validate(input)));
+        if(errors.pass == 4){
         const docId = CreateEvent(input);
         console.log("docId:", docId); // stills error
         history.push("/");
+        }
     };
 
     /*useEffect(
