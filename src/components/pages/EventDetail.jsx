@@ -74,9 +74,11 @@ const EventDetails = (params) => {
       .collection("events")
       .doc(eid)
       .onSnapshot((snapshot) => {
-        const event = snapshot.data();
-        setEvent(event);
-        setUid(event.uid);
+        if (snapshot.data()) {
+          const event = snapshot.data();
+          setEvent(event);
+          setUid(event.uid);
+        }
       });
   }
 

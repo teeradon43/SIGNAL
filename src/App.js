@@ -19,13 +19,25 @@ import {
 } from "./components";
 import Calendar from "./components/Calendar";
 import LoginNav from "./components/LoginNav";
-import { auth } from "./database/firebase";
+import { auth, initmessaging } from "./database/firebase";
 import { useState, useEffect } from "react";
 
 function App() {
   //TODO: Add routes: userProfile, SpecificPost, CreatePost, Calendar, SearchPage
   const [user, setUser] = useState(null);
   useEffect(() => {
+    const msg = initmessaging.requestPermission()
+    .then(function() {
+      console.log('Have Permission');
+      return initmessaging.getToken();
+    })
+    .then(function(token) {
+      console.log('Token : ',token);
+    })
+    .catch(function(err) {
+      console.warn('Error Occured : ',err);
+    });
+    initmessaging.onMessage
     const authUnsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         var isKmitl = user.email;

@@ -34,17 +34,18 @@ const MainPage = () => {
       firestore
         .collection("events")
         .orderBy("dateCreated", "desc") //sort by newest post
-        .get()
-        .then((snapshot) => {
-          const events = snapshot.docs.map((doc) => {
-            return {
-              id: doc.id,
-              ...doc.data(), //new event return as object event
-            };
-          });
-          this.setState({
-            events,
-          });
+        .onSnapshot((snapshot) => {
+          if (snapshot) {
+            const events = snapshot.docs.map((doc) => {
+              return {
+                id: doc.id,
+                ...doc.data(), //new event return as object event
+              };
+            });
+            this.setState({
+              events,
+            });
+          }
         });
     }
     /*return (
@@ -80,7 +81,13 @@ const MainPage = () => {
   return (
     <div className="App-skeleton-ground">
       <div className="App-skeleton-bg">
-        <button type="button" className="btn btn-outline-light" onClick={createEventHandler}>Create Event</button>
+        <button
+          type="button"
+          className="btn btn-outline-light"
+          onClick={createEventHandler}
+        >
+          Create Event
+        </button>
         <div>
           <EventsListDisplay />
         </div>
