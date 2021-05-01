@@ -5,7 +5,6 @@ import { Redirect } from "react-router-dom";
 
 import { storage } from '../../database/firebase';
 // ------------- Upload Image -------------//
-
 export const validateFileExtension = (fileName) => {//Edit from https://stackoverflow.com/a/4237161
   const validFileExtensions = [".jpg", ".jpeg", ".png"];
   if (fileName.length > 0) {
@@ -20,9 +19,9 @@ export const validateFileExtension = (fileName) => {//Edit from https://stackove
   }
   return true;//no file: should it be false?
 }
-export const uploadEventImage = (file, userID, eventID) => {
-  let returnURL = "";
+const uploadEventImage = async (file, userID, eventID) => {
   //TODO: COMPRESS FILE BEFORE UPLOAD
+  console.log("Upload to: ", eventID);
   if (file) {
     const eventImageBucket = storage.child("EventImages");
     const fileName = file.name;
@@ -31,25 +30,31 @@ export const uploadEventImage = (file, userID, eventID) => {
     console.log(extension)
     if (!validateFileExtension(fileName)) {
       console.log(`Bad file extension`)
-      return
     }
-    const targetRef = eventImageBucket.child(userID).child(eventID + extension);//upload as /userID/eventID.extension
-    targetRef.put(file).then((res) => {
-      console.log(res)
-      res.ref.getDownloadURL().then((photoURL) => {
-        console.log(photoURL);
-        returnURL = photoURL;
+    else {
+      const targetRef = eventImageBucket.child(userID).child(eventID + extension);//upload as /userID/eventID.extension
+      targetRef.put(file).then((res) => {
+        //console.log(res)
+        res.ref.getDownloadURL().then((photoURL) => {
+          firestore
+            .collection("events")
+            .doc(eventID)
+            .update({
+              img: photoURL
+            })
+            .then(() => console.log("Update image url successful: ", photoURL))
+            .catch(e => console.log("update image url failed: ", e));
+        })
+          .catch(err => console.log(`Can't get DownloadURL: ${err}`));
       })
-        .catch(err => console.log(`Can't get DownloadURL: ${err}`));
-    })
-      .catch((err) => {
-        console.log(`Can't upload: ${err}`)
-      });
+        .catch((err) => {
+          console.log(`Can't upload: ${err}`)
+        });
+    }
   }
   else {
     console.log("no file");
   }
-  return returnURL;
 }
 
 // ------------- Create Event ----------- //
@@ -72,8 +77,8 @@ export const CreateEvent = (params) => {
     rating: [],
     comment: [],
   };
-  let docID = "";
 
+  let eventID = "";
   firestore
     .collection("events")
     .add({
@@ -93,29 +98,17 @@ export const CreateEvent = (params) => {
       rating: event.rating,
       comment: event.comment,
     })
-    .then(function (docRef) {
+    .then((docRef) => {
       console.log("event id: ", docRef.id);
-      docID = docRef;
-      /*FIXME: BUG HERE
-      let imageURL = "";
-
-      imageURL = uploadEventImage(event.img, event.uid);
-      //update data
-      firestore
-        .collection("events")
-        .doc(docID)
-        .update({
-          img: imageURL
-        })
-        .then(() => console.log("Update image url successful: ", imageURL))
-        .catch(e => console.log(e));*/
-
+      uploadEventImage(event.img, event.uid, docRef.id);//upload image and set imageURL
       JoinEvent(docRef.id, params.uid);
       alert("You have created a new event!");
     })
     .catch((e) => {
-      alert("Error in upload data: ", e);
+      console.log("Error in upload data: ", e);
     });
+
+
 };
 
 //------------- Update Event ----------- //

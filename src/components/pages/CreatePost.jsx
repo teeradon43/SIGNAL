@@ -261,7 +261,7 @@ const Thumbnail = ({onImageChange, img}) =>{
                 </label>
                 <input id='myPicture' name='img' type="file" style={{display: 'none'}} onChange={onImageChange}/>
             </div>
-            {img ? <img src={URL.createObjectURL(img)} style={{width: '10vw', cursor: 'default', borderRadius: '4px', marginTop: '10px', marginBottom: '20px'}}/>:null}
+            {img ? <img src={URL.createObjectURL(img)} style={{width: '10vw', cursor: 'default', borderRadius: '4px', marginTop: '10px', marginBottom: '20px'}} alt="event image"/>:null}
         </div>
     </div>
   );
