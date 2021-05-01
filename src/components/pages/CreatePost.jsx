@@ -54,8 +54,7 @@ const CreatePost = ({submitForm}) => {
   const history = useHistory();
   const { handleChange, handleSubmit, input, errors } = useForm(
     submitForm,
-    validate,
-    false
+    validate
   ); 
 
   const [tags, setTags] = useState(["Event"]);

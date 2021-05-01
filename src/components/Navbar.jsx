@@ -2,6 +2,7 @@ import React, { Component, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { auth } from "../database/firebase";
 import { logout } from "./models/auth";
+import noti from "../images/notifications_white_24dp.svg";
 
 import "./LoginNav.css";
 
@@ -71,7 +72,7 @@ export default function Navbar() {
                 className="nav-links"
                 onClick={closeMobileMenu}
               >
-                Main
+                <img src={ noti }/>
               </Link>
             </li>
             <li className="nav-item">
