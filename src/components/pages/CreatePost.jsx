@@ -60,43 +60,31 @@ const CreatePost = ({submitForm}) => {
 
   const [tags, setTags] = useState(["Event"]);
 
-  useEffect(()=>{
+  useEffect(()=>{//first time only
+    //XXX: https://stackoverflow.com/questions/50718968/how-do-i-disable-dates-till-current-date-for-input-type-datetime-local/50719733
     let elem = document.getElementById("eventDate")
     let iso = new Date().toISOString();
     let minDate = iso.substring(0,iso.length-1);
-    console.log(minDate)
     elem.value = minDate
     elem.min = minDate
   },[]);
 
-  //TODO: Add date img tags into input state
-
-  /*useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        setInput({ ...input, uid: user.uid });
+  useEffect(()=>{//Everytime tags change
+    console.log(tags)
+    handleChange({
+      target:{
+        value: tags,
+        name: "tags"
       }
-    });
-  }, []);
+    })
+  },[tags])
 
-  const handleChange = (e) => {
-    const { target } = e;
-    const { name } = target;
-    const value = target.value;
-    setInput({ ...input, [name]: value });
-  };*/
+  //TODO: Add date, img, tags into input state
+
   function handleClick() {
     history.push("/");
   }
 
-  /*const handleSubmit = (e) => {
-    e.preventDefault();
-    setErrors(validate(input));
-    console.log("submit value", input);
-    const docId = CreateEvent(input);
-    console.log("docId:", docId); // stills error
-    history.push("/");
-  };*/
 
   return (
     <div className="App-skeleton-ground">
@@ -142,9 +130,9 @@ const CreatePost = ({submitForm}) => {
               <Thumbnail />
             </div>
             <div style={{ display: "flex" }}>
-              <label htmlFor="eventDate" className="mr-2">Event Date</label>
-              <input type="hidden" id="timezone" name="timezone" value="+07:00"/>{/*Can be use to tell timezone*/}
-              <input name="eventDate" id="eventDate" type="datetime-local" className="form-control" required/>
+              <label htmlFor="date" className="mr-2">Event Date</label>
+              <input type="hidden" id="timezone" name="timezone" value="+07:00"/>{/*Can be use to tell timezone (must be added manually)*/}
+              <input name="date" id="eventDate" type="datetime-local" className="form-control" onChange={handleChange} required/> {/*XXX: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/datetime-local */}
             </div>
             <h4 style={{ marginTop: "30px" }}> Max Attendee </h4>
             <div className="webflow-style-input1">
