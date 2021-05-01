@@ -71,7 +71,9 @@ export default function Navbar() {
                 className="nav-links"
                 onClick={closeMobileMenu}
               >
-                Main
+                <span class="material-icons-outlined">
+                  notifications
+                </span>
               </Link>
             </li>
             <li className="nav-item">

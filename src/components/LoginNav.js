@@ -2,6 +2,7 @@ import React, { Component, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./LoginNav.css";
 import { login } from "./models/auth";
+import noti from "../images/notifications.svg";
 
 function Navbar() {
   const [click, setClick] = useState(false);
@@ -61,7 +62,7 @@ function Navbar() {
                 className="nav-links"
                 onClick={closeMobileMenu}
               >
-                Main
+                <img src={ noti }/>
               </Link>
             </li>
             <li className="nav-item">
