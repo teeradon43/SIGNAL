@@ -52,8 +52,7 @@ const CreatePost = ({submitForm}) => {
   const history = useHistory();
   const { handleChange, handleSubmit, input, errors } = useForm(
     submitForm,
-    validate,
-    false
+    validate
   ); 
   //TODO: Add date img tags into input state
 
