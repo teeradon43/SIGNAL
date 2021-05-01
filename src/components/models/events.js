@@ -3,6 +3,55 @@ import firebase from "firebase/app";
 import { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
 
+import { storage } from '../../database/firebase';
+// ------------- Upload Image -------------//
+
+export const validateFileExtension = (fileName) => {//Edit from https://stackoverflow.com/a/4237161
+  const validFileExtensions = [".jpg", ".jpeg", ".png"];
+  if (fileName.length > 0) {
+    for (let j = 0; j < validFileExtensions.length; j++) {
+      const currentExtension = validFileExtensions[j];
+      if (fileName.substr(fileName.length - currentExtension.length, currentExtension.length).toLowerCase() == currentExtension.toLowerCase()) {
+        return true;
+      }
+    }
+    alert("Sorry, " + fileName + " is invalid, allowed extensions are: " + validFileExtensions.join(", "));
+    return false;
+  }
+  return true;//no file: should it be false?
+}
+export const uploadEventImage = (file, userID, eventID) => {
+  let returnURL = "";
+  //TODO: COMPRESS FILE BEFORE UPLOAD
+  if (file) {
+    const eventImageBucket = storage.child("EventImages");
+    const fileName = file.name;
+    let indexOfExtension = fileName.lastIndexOf(".");
+    const extension = fileName.substr(indexOfExtension, fileName.length);
+    console.log(extension)
+    if (!validateFileExtension(fileName)) {
+      console.log(`Bad file extension`)
+      return
+    }
+    const targetRef = eventImageBucket.child(userID).child(eventID + extension);//upload as /userID/eventID.extension
+    targetRef.put(file).then((res) => {
+      console.log(res)
+      res.ref.getDownloadURL().then((photoURL) => {
+        console.log(photoURL);
+        returnURL = photoURL;
+      })
+        .catch(err => console.log(`Can't get DownloadURL: ${err}`));
+    })
+      .catch((err) => {
+        console.log(`Can't upload: ${err}`)
+      });
+  }
+  else {
+    console.log("no file");
+  }
+  return returnURL;
+}
+
 // ------------- Create Event ----------- //
 export const CreateEvent = (params) => {
   //TODO: REDIRECT FIX VALUE PARSE AND ADD TO CREATED EVENT IN USER
@@ -23,6 +72,7 @@ export const CreateEvent = (params) => {
     rating: [],
     comment: [],
   };
+  let docID = "";
 
   firestore
     .collection("events")
@@ -36,7 +86,7 @@ export const CreateEvent = (params) => {
       noAttendee: event.noAttendee,
       attendeeList: event.attendeeList,
       cost: parseInt(event.cost, 10),
-      img: event.img,
+      img: "",//placeholder before upload
       noReported: event.noReported,
       adminDeleted: event.adminDeleted,
       tags: event.tags,
@@ -44,11 +94,27 @@ export const CreateEvent = (params) => {
       comment: event.comment,
     })
     .then(function (docRef) {
+      console.log("event id: ", docRef.id);
+      docID = docRef;
+      /*FIXME: BUG HERE
+      let imageURL = "";
+
+      imageURL = uploadEventImage(event.img, event.uid);
+      //update data
+      firestore
+        .collection("events")
+        .doc(docID)
+        .update({
+          img: imageURL
+        })
+        .then(() => console.log("Update image url successful: ", imageURL))
+        .catch(e => console.log(e));*/
+
       JoinEvent(docRef.id, params.uid);
       alert("You have created a new event!");
     })
     .catch((e) => {
-      alert("Error", e);
+      alert("Error in upload data: ", e);
     });
 };
 

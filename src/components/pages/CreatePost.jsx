@@ -5,9 +5,8 @@ import "../../App.css";
 import "../../Webflow.scss";
 import "../../Tags.scss";
 import { ReactComponent as LogoC } from "../../images/calendar.svg";
-import Thumbnail from "../../Thumbnail";
-
-import { CreateEvent } from "../models/events";
+import { ReactComponent as LogoP } from '../../images/pictures.svg';
+import { CreateEvent, validateFileExtension } from "../models/events";
 import { auth } from "../../database/firebase";
 import validate from "../formValidate";
 import useForm from "../useForm";
@@ -59,8 +58,9 @@ const CreatePost = ({submitForm}) => {
   ); 
 
   const [tags, setTags] = useState(["Event"]);
+  const [img, setImg] = useState(null);
 
-  useEffect(()=>{//first time only
+  useEffect(()=>{//first time only: set minimum date to today
     //XXX: https://stackoverflow.com/questions/50718968/how-do-i-disable-dates-till-current-date-for-input-type-datetime-local/50719733
     let elem = document.getElementById("eventDate")
     let iso = new Date().toISOString();
@@ -77,9 +77,28 @@ const CreatePost = ({submitForm}) => {
         name: "tags"
       }
     })
-  },[tags])
+  },[tags]);
+  useEffect(()=>{//Everytime image change
+    console.log("new image");
+    handleChange({
+      target:{
+        value: img,
+        name: "img"
+      }
+    })
+  },[img]);
 
-  //TODO: Add date, img, tags into input state
+  //TODO: Add img into input state
+
+  const onImageChange = event => {
+    if (event.target.files && event.target.files[0]) {
+      const file =  event.target.files[0];
+      if(validateFileExtension(file.name)){
+        setImg(file);
+        console.log(file);
+      }        
+    }
+}
 
   function handleClick() {
     history.push("/");
@@ -127,7 +146,7 @@ const CreatePost = ({submitForm}) => {
           </div>
           <div style={{ width: "15vw" }}>
             <div style={{ display: "flex" }}>
-              <Thumbnail />
+              <Thumbnail onImageChange={onImageChange} img={img}/>
             </div>
             <div style={{ display: "flex" }}>
               <label htmlFor="date" className="mr-2">Event Date</label>
@@ -229,4 +248,21 @@ const TagsJSX= ({tags, setTags}) => {
 		</div>
 		</div>
 	);   
+}
+
+const Thumbnail = ({onImageChange, img}) =>{
+  return (
+    <div>
+        <div>
+            <div>
+                <label htmlFor='myPicture' style={{ display: 'flex' }}>
+                    <LogoP style={{cursor: 'pointer', width: '30px', height: '30px'}} />
+                    <h4 style={{ marginLeft: '1vw' }}> Thumbnail </h4>
+                </label>
+                <input id='myPicture' name='img' type="file" style={{display: 'none'}} onChange={onImageChange}/>
+            </div>
+            {img ? <img src={URL.createObjectURL(img)} style={{width: '10vw', cursor: 'default', borderRadius: '4px', marginTop: '10px', marginBottom: '20px'}}/>:null}
+        </div>
+    </div>
+  );
 }
