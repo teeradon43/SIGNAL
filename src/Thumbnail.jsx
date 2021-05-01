@@ -16,6 +16,7 @@ class Thumbnail extends Component {
             this.setState({
               image: URL.createObjectURL(img)
             });
+            console.log(this.state.image)
         }
     }
 
