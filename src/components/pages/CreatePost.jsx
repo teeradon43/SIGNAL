@@ -6,12 +6,14 @@ import "../../Webflow.scss";
 import "../../Tags.scss";
 import { ReactComponent as LogoC } from "../../images/calendar.svg";
 import Thumbnail from "../../Thumbnail";
-import TagsJSX from "../../Tags";
+
 import { CreateEvent } from "../models/events";
 import { auth } from "../../database/firebase";
 import validate from "../formValidate";
 import useForm from "../useForm";
 import { red } from "@material-ui/core/colors";
+
+import '../../Tags.scss';
 
 const Button = styled.button`
   background-color: #0077ff;
@@ -55,6 +57,18 @@ const CreatePost = ({submitForm}) => {
     validate,
     false
   ); 
+
+  const [tags, setTags] = useState(["Event"]);
+
+  useEffect(()=>{
+    let elem = document.getElementById("eventDate")
+    let iso = new Date().toISOString();
+    let minDate = iso.substring(0,iso.length-1);
+    console.log(minDate)
+    elem.value = minDate
+    elem.min = minDate
+  },[]);
+
   //TODO: Add date img tags into input state
 
   /*useEffect(() => {
@@ -121,17 +135,16 @@ const CreatePost = ({submitForm}) => {
               />
               {errors.description && <p style={{ marginTop: "10px", color: "#ff9797"}}>{errors.description}</p>}
             </form>
-            <TagsJSX />
+            <TagsJSX tags={tags} setTags={setTags}/>
           </div>
           <div style={{ width: "15vw" }}>
             <div style={{ display: "flex" }}>
               <Thumbnail />
             </div>
             <div style={{ display: "flex" }}>
-              <Link to="/create-post/Calendar">
-                <LogoC style={{ width: "30px" }} />
-              </Link>
-              <h4 style={{ marginLeft: "1vw" }}> Event Date </h4>
+              <label htmlFor="eventDate" className="mr-2">Event Date</label>
+              <input type="hidden" id="timezone" name="timezone" value="+07:00"/>{/*Can be use to tell timezone*/}
+              <input name="eventDate" id="eventDate" type="datetime-local" className="form-control" required/>
             </div>
             <h4 style={{ marginTop: "30px" }}> Max Attendee </h4>
             <div className="webflow-style-input1">
@@ -181,4 +194,51 @@ const CreatePost = ({submitForm}) => {
     </div>
   );
 };
+
 export default CreatePost;
+
+const TagsJSX= ({tags, setTags}) => {
+  const removeTags = indexToRemove => {
+		setTags([...tags.filter((_, index) => index !== indexToRemove)]);
+	};
+
+	const addTags = event => {
+		if (event.target.value !== "") {
+			setTags([...tags, event.target.value]);
+			event.target.value = "";
+		}
+	};
+
+  const checkSameTags = event => {
+      for (var i = 0; i < tags.length; i++) {
+          if (event.target.value === tags[i]) {
+              return(null);
+          }
+      }
+      addTags(event);
+  }
+
+	return (
+		<div className="App">
+			<div className="tags-input">
+			<ul id="tags">
+				{tags.map((tag, index) => (
+					<li key={index} className="tag">
+						<span className='tag-title'>{tag}</span>
+						<span className='tag-close-icon'
+							onClick={() => removeTags(index)}
+						>
+							x
+						</span>
+					</li>
+				))}
+			</ul>
+			<input
+				type="text"
+				onKeyUp={event => (event.key === "Enter" && tags.length < 6) ? checkSameTags(event) : null}
+				placeholder="Press enter to add tags"
+			/>
+		</div>
+		</div>
+	);   
+}
