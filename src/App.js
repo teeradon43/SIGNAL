@@ -17,6 +17,7 @@ import {
   UserDetails,
   ReviewPage,
 } from "./components";
+import EditUser from "./components/pages/EditUser.jsx"
 import Calendar from "./components/Calendar";
 import LoginNav from "./components/LoginNav";
 import { auth, initmessaging } from "./database/firebase";
@@ -67,6 +68,7 @@ function App() {
         <Route path="/Admin" component={Admin} />
         <Route exact path="/events/:eventId" component={EventDetails} />
         <Route exact path="/review-user/:userID" component={() => <ReviewPage />} />
+        <Route exact path="/u/:userId/edit-user" component={EditUser} />
         <Route exact path="/u/:userId" component={UserDetails} />
         <Route exact path="/create-post/Calendar" component={Calendar} />
         <Route exact path="/404" component={NotFound} />
