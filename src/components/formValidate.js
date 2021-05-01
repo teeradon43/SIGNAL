@@ -29,8 +29,8 @@ export default function validateInfo(input) {
     
     if (!input.cost) {
         errors.cost = 'Cost is required';
-    } else if (parseInt(input.cost) <= 0) {
-      errors.cost = 'Cost must have more than 0';
+    } else if (parseInt(input.cost) < 0) {
+      errors.cost = 'Cost must not be negative';
     }
     else{
       errors.pass += 1;
