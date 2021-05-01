@@ -3,15 +3,18 @@ import { useState, useEffect } from "react";
 import "./css/UserDetails.css";
 import { useParams } from "react-router";
 import {Link} from 'react-router-dom';
+import { useHistory } from "react-router";
 
 const UserDetails = (params) => {
   const [users, setUsers] = useState({});
   const [visitor, setVisitor] = useState(null);
+  const history = useHistory();
 
   function handleClick(e) {
     switch (e) {
       case "edit": {
         console.log("edit");
+        history.push(`/u/${users.uid}/edit-user`);
         break;
       }
       case "create": {
