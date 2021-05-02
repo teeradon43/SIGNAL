@@ -107,6 +107,9 @@ const UserDetails = (params) => {
         </div>
         <MyEvents />
       </div>
+      <div className="container d-flex justify-content-center">
+        <MyReviews/>
+      </div>
     </div>
   );
 };
@@ -131,6 +134,8 @@ const MyEvents = () => {
         }
         postsRef
           .where("uid", "==", userId)
+          .orderBy("dateCreated","desc")
+          .limit(5)
           .get()
           .then((snapshot) => {
             let tempPosts = [];
@@ -154,27 +159,27 @@ const MyEvents = () => {
       });
   }, []);
 
-  console.log(posts);
+  //console.log(posts);
 
   const EventCard = ({event}) =>{//use same component from main (EventListDisplay)
     return (
-      <div style={{"background-color": "#2d314d"}} className="rounded p-1 mb-3 mt-1" key={event.id}>
+      <div style={{backgroundColor: "#2d314d"}} className="rounded p-1 mb-3 mt-1" key={event.id}>
         <Link to={`/events/${event.id}`}>
           <h3>{event.title}</h3>
         </Link>
-        <p>{event.description}</p>
+        <p>{event.description.length > 40 ? event.description.substr(0,70)+"...":event.description}</p>{/*may need text wrapping ref: https://stackoverflow.com/questions/16754608/cause-line-to-wrap-to-new-line-after-100-characters/16754732 */}
       </div>
     );
   }
 
   if (state === "fetching") {
-    return <div>Fetching...</div>;
+    return <h3 style={{ color: "white" }}>Fetching...</h3>;
   } else if (state === "failed") {
-    return <div>No user</div>;
+    return <div style={{ color: "white" }}>No user</div>;
   } else {
     return (
       <div>
-        <h1 style={{ color: "white", marginBottom: "40px" }}> My Events </h1>
+        <h1 style={{ color: "white", marginBottom: "20px" }}> My Events </h1>
         <ul style={{ color: "white" }} className="list-unstyled">
           {posts.length ? (
             posts.map((post) => {
@@ -192,3 +197,88 @@ const MyEvents = () => {
     );
   }
 };
+
+const MyReviews = () =>{
+  const { userId } = useParams();
+  const [reviews, setReviews] = useState([]);
+  const [score, setScore] = useState(0);
+  const [fetchState, setFetchState] = useState("fetching");
+
+  const userReviewsRef = firestore.collection("users").doc(userId).collection("reviews");
+  useEffect(()=>{
+    userReviewsRef.get().then(docs=>{
+      let tempReview = [];
+      let tempScore = 0;
+      //console.log(docs.size)
+      if(docs.size > 0){
+        docs.forEach(doc=>{
+          tempScore += parseInt(doc.data().rating)
+          tempReview = [...tempReview,{
+            id: doc.id,
+            ...doc.data()
+          }]
+        })
+        setReviews(tempReview);
+        setScore(tempScore/tempReview.length);
+      }
+      setFetchState("done");
+    }).catch((err)=>{
+      console.log(err)
+      setFetchState("failed");
+    })
+  },[]);
+
+  const ReviewCard = ({review}) =>{
+    return (
+        <div>
+          <span style={{marginRight: "10px"}}>
+              {review.rating}
+          </span>    
+          {review.description}
+        </div>
+    );
+  }
+  const ReviewList = ({reviews})=>{
+    return (
+      <ul className="list-unstyled">
+        {reviews.map(review=>
+        <li>
+          <ReviewCard review={review}/>
+        </li>)
+        }
+      </ul>
+    );
+  }
+
+  if(fetchState==="fetching"){
+    return(
+      <div style={{color:"white"}}>
+        <h3>Fetching...</h3>
+      </div>
+    );
+  }
+  else if(fetchState==="failed"){
+    return (
+      <div style={{color:"white"}}>
+        <h3>Fetching failed</h3>
+      </div>
+    );
+  }
+  else{
+    if(reviews.length <= 0){
+      return(
+        <div style={{color:"white"}}>
+          <h1>This user has no review</h1>
+        </div>
+      );
+    }
+    else{
+      return (
+        <div style={{color:"white"}}>
+          <h1>My Review {score}</h1>
+            <ReviewList reviews={reviews}/>
+        </div>
+      );
+    }
+  }
+}
