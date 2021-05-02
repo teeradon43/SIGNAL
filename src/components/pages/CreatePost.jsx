@@ -89,15 +89,6 @@ const CreatePost = ({submitForm}) => {
 
 
   const onImageChange = event => {
-<<<<<<< HEAD
-      if (event.target.files && event.target.files[0]) {
-        const file =  event.target.files[0];
-        if(validateFileExtension(file.name)){
-          setImg(file);
-          //console.log(file);
-        }        
-      }
-=======
     if (event.target.files && event.target.files[0]) {
       const file =  event.target.files[0];
       if(validateFileExtension(file.name)){
@@ -105,7 +96,6 @@ const CreatePost = ({submitForm}) => {
         //console.log(file);
       }        
     }
->>>>>>> 02d852f0686c79f22e683e3fa2ca723af340642c
   }
 
   function handleClick() {
