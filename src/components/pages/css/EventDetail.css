@@ -16,6 +16,9 @@
     height: auto;
 }
 .host-detail{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
     background-color: #1d2127;
     width: 25vw;
@@ -25,6 +28,11 @@
     color: white;
     padding: 35px 40px 40px;
 }   
+.EventDetailButton{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 .join-btn{
     background: none;
     color: #ccc;
