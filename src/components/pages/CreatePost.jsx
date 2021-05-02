@@ -51,7 +51,7 @@ const Cancel = styled.button`
 
 const CreatePost = ({submitForm}) => {
   const history = useHistory();
-  const { handleChange, handleSubmit, input, errors } = useForm(
+  const { handleChange, onImageChange, handleSubmit, input, errors } = useForm(
     submitForm,
     validate
   ); 
@@ -89,15 +89,15 @@ const CreatePost = ({submitForm}) => {
 
   //TODO: Add img into input state
 
-  const onImageChange = event => {
-    if (event.target.files && event.target.files[0]) {
-      const file =  event.target.files[0];
-      if(validateFileExtension(file.name)){
-        setImg(file);
-        console.log(file);
-      }        
-    }
-}
+  /*const onImageChange = event => {
+      if (event.target.files && event.target.files[0]) {
+        const file =  event.target.files[0];
+        if(validateFileExtension(file.name)){
+          setImg(file);
+          console.log(file);
+        }        
+      }
+  }*/
 
   function handleClick() {
     history.push("/");
@@ -145,7 +145,7 @@ const CreatePost = ({submitForm}) => {
           </div>
           <div style={{ width: "15vw" }}>
             <div style={{ display: "flex" }}>
-              <Thumbnail onImageChange={onImageChange} img={img}/>
+              <Thumbnail onImageChange={onImageChange} img={img} value={input.img}/>
             </div>
             <div style={{ display: "flex" }}>
               <label htmlFor="date" className="mr-2">Event Date</label>
