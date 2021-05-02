@@ -28,16 +28,16 @@ function App() {
   const [user, setUser] = useState(null);
   useEffect(() => {
     const msg = initmessaging.requestPermission()
-    .then(function() {
-      console.log('Have Permission');
-      return initmessaging.getToken();
-    })
-    .then(function(token) {
-      console.log('Token : ',token);
-    })
-    .catch(function(err) {
-      console.warn('Error Occured : ',err);
-    });
+      .then(function () {
+        console.log('Have Permission');
+        return initmessaging.getToken();
+      })
+      .then(function (token) {
+        console.log('Token : ', token);
+      })
+      .catch(function (err) {
+        console.warn('Error Occured : ', err);
+      });
     const authUnsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         var isKmitl = user.email;
@@ -65,7 +65,7 @@ function App() {
         <Route exact path="/create-post" component={CreatePost} />
         <Route exact path="/edit-post/:eventId" component={EditPost} />
         <Route exact path="/login" component={LoginPage} />
-        <Route path="/Admin" component={Admin} />
+        <Route path="/Admin" component={() => <Admin />} />
         <Route exact path="/events/:eventId" component={EventDetails} />
         <Route exact path="/review-user/:userID" component={() => <ReviewPage />} />
         <Route exact path="/u/:userId/edit-user" component={EditUser} />

@@ -22,11 +22,11 @@ const ManagePost = () =>{
 
 const ManagePostInner = () => {
     let [posts, setPosts] = useState([]);
-    let [reportedNumber, setReportedNumber] = useState(0);
+    let [reportedNumber, setReportedNumber] = useState(1);
     const postsRef = firestore.collection('events');
 
     useEffect(()=>{
-        const unsubscribe = postsRef.where("timeReported",">=",reportedNumber).onSnapshot(snapshot => {
+        const unsubscribe = postsRef.where("noReported",">=",reportedNumber).where("adminDeleted","==",false).orderBy("noReported","asc").onSnapshot(snapshot => {
             let tempPostList = [];
             snapshot.forEach((doc)=>{
                 if(doc.data()){
@@ -34,17 +34,16 @@ const ManagePostInner = () => {
                         tempPostList = [...tempPostList,
                             {
                                 eventID: doc.id,
-                                hostUserID: doc.data().hostUserID,
-                                eventName: doc.data().eventName,
+                                hostUserID: doc.data().uid,
+                                eventName: doc.data().title,
                                 description: doc.data().description,
-                                attendeeNumber: doc.data().attendeeNumber,
+                                attendeeNumber: doc.data().noAttendee,
                                 maxAttendee: doc.data().maxAttendee,
                                 cost: doc.data().cost,
-                                image: doc.data().image,
+                                image: doc.data().img,
                                 dateCreated: doc.data().dateCreated,
-                                eventDate: doc.data().eventDate,
-                                aboutTime: doc.data().aboutTime,
-                                timeReported: doc.data().timeReported,
+                                eventDate: doc.data().date,
+                                timeReported: doc.data().noReported,
                                 adminDeleted: doc.data().adminDeleted
                             }];
                     }
@@ -68,6 +67,7 @@ const ManagePostInner = () => {
         setReportedNumber(parseInt(value));//FIXME: Will this cause high traffic to Firebase server?
     }
 
+    //FIXME: Post currently not showing
     return ( 
         <div>
             <form className="container">
@@ -79,7 +79,11 @@ const ManagePostInner = () => {
             
             {posts.length >0?
             posts.map(post => <PostCard post={post} key={post.eventID} />):
-            <h1>No post in this list!</h1>
+            <div className="d-flex flex-row justify-content-center">
+                <h1>
+                    No post in this list!
+                </h1>
+            </div>
             }
         </div>
      );
@@ -98,7 +102,6 @@ const PostCard = ({post}) =>{
                 </Link>
             </div>
             <div className="card-body">
-                <h5 className="card-title">Host ID: {post.hostUserID}</h5>
                 <h5 className="card-text">Event ID: {post.eventID}</h5>
             </div>
         </div>
