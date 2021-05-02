@@ -5,7 +5,7 @@ import { login, logout } from "../models/auth";
 const LoginPage = () => {
   return (
     <div className="hero-container">
-      <h1>Lorem</h1>
+      <h1>Signal</h1>
       <p>Lorem</p>
       <div className="hero-btns">
         <button
