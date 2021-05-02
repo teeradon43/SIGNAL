@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { auth } from "../database/firebase";
 import { logout } from "./models/auth";
 import noti from "../images/notifications_white_24dp.svg";
-import home from "../images/home_black_24dp.svg"
+import home from "../images/home_white_24dp.svg"
 
 import "./LoginNav.css";
 
