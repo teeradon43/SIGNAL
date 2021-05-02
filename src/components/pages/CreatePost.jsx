@@ -96,7 +96,7 @@ const CreatePost = ({submitForm}) => {
         //console.log(file);
       }        
     }
-}
+  }
 
   function handleClick() {
     history.push("/");
