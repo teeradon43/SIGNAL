@@ -5,18 +5,21 @@ import { Link, useHistory,} from "react-router-dom"
 import '../../App.css'
 import "./css/UserDetails.css";
 import "./css/EditUser.css";
+import validate from "../formValidate";
+import useForm from "../useForm";
 
-const EditUser=(params)=>{
+const EditUser=({submitForm})=>{
   const [users, setUsers] = useState({});
   const [visitor, setVisitor] = useState(null);
-
-  function handleSave() {
-    //help here
+  const history = useHistory();
+  const { handleChange, handleSubmit, input, errors } = useForm(
+    submitForm,
+    validate,
+  ); 
+  function handleClick() {
+    history.push("/");
   }
-  function handlePic() {
-    //help here
-  }
-  async function FetchUser() {
+  /*async function fetchUser() {
     const userId = params.match.params.userId;
     const res = await firestore
       .collection("users")
@@ -32,13 +35,21 @@ const EditUser=(params)=>{
         alert("ERROR: ", err.message);
       });
   }
+
   useEffect(() => {
-    FetchUser();
-  }, []);
+    fetchUser();
+  }, []);*/
+
   return(
     <div className="App-skeleton-ground">
+      <div style={{ marginLeft: "auto", marginRight: "auto", width: "60vw" }}>
+        <h1 style={{ color: "white", fontFamily: "PT Sans", fontSize: "50px" }}>
+          {" "}
+          Create Event{" "}
+        </h1>
+      </div>
       <div className="App-skeleton-bg">
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="row">
             <div className="col-2">
               Name:
@@ -50,7 +61,9 @@ const EditUser=(params)=>{
                 name="name" 
                 placeholder="Enter display name"
                 maxLength="100"
+                onChange={handleChange}
                 defaultValue={users.displayName}
+                required
               />
             </div>
           </div>
@@ -66,7 +79,7 @@ const EditUser=(params)=>{
                 width="100px"
               />
               <br></br>
-              <button onClick={handlePic}>change picture</button>
+              <button>change picture</button>
             </div>
           </div>
           <div className="row">
@@ -75,7 +88,7 @@ const EditUser=(params)=>{
             </div>
             <div className="col-6">
               <div className="form-group">
-                <select defaultValue={users.faculty} name="Faculty" id="Faculty" className="form-control">
+                <select defaultValue={users.faculty} name="Faculty" id="Faculty" className="form-control" onChange={handleChange}>
                   <option value={""}></option>
                   <option value={"Engineering"}>Engineering</option>
                   <option value={"Art"}>Art</option>
@@ -91,7 +104,7 @@ const EditUser=(params)=>{
               Interest(s):
             </div>
             <div className="col-6">
-              tag
+              tag should be here
             </div>
           </div>
           <div className="row">
@@ -124,9 +137,11 @@ const EditUser=(params)=>{
               </div>
             </div>
           </div>
-          <button onClick={handleSave}>Save</button>
+          <button onClick={handleSubmit}>Save</button>
+          <button onClick={handleClick}>cancel</button>
         </form>
-      </div> 
+      </div>  
+      <br/>
     </div>
   );
 };
