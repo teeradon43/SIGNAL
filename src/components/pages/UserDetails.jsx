@@ -19,6 +19,7 @@ const UserDetails = (params) => {
       }
       case "create": {
         console.log("create");
+        history.push("/create-post");
         break;
       }
       case "follow": {
