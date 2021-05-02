@@ -8,6 +8,7 @@ import { useHistory } from "react-router";
 const UserDetails = (params) => {
   const [users, setUsers] = useState({});
   const [visitor, setVisitor] = useState(null);
+  const [rating, setRating] = useState(0);
   const history = useHistory();
 
   function handleClick(e) {
@@ -103,12 +104,13 @@ const UserDetails = (params) => {
             </h5>
             <h5>Faculty : {users.faculty} </h5>
             <OwnerButton />
+            <h5> My Score {rating===0 ? "N/A":rating+"/5"} </h5>
           </div>
         </div>
         <MyEvents />
       </div>
       <div className="container d-flex justify-content-center">
-        <MyReviews/>
+        <MyReviews score={rating} setScore={setRating}/>
       </div>
     </div>
   );
@@ -198,10 +200,10 @@ const MyEvents = () => {
   }
 };
 
-const MyReviews = () =>{
+const MyReviews = ({score, setScore}) =>{
   const { userId } = useParams();
   const [reviews, setReviews] = useState([]);
-  const [score, setScore] = useState(0);
+  //const [score, setScore] = useState(0);
   const [fetchState, setFetchState] = useState("fetching");
 
   const userReviewsRef = firestore.collection("users").doc(userId).collection("reviews");
@@ -275,7 +277,7 @@ const MyReviews = () =>{
     else{
       return (
         <div style={{color:"white"}}>
-          <h1>My Review {score}</h1>
+          <h1>My Review</h1>
             <ReviewList reviews={reviews}/>
         </div>
       );
