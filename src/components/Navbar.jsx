@@ -63,7 +63,7 @@ export default function Navbar() {
                 className="nav-links"
                 onClick={closeMobileMenu}
               >
-                Main
+                Home
               </Link>
             </li>
             <li className="nav-item">
