@@ -23,9 +23,11 @@ const ManageUser = () =>{
 
 
 const ManageUserInner = () => {
+    const [fetchState, setFetchState] = useState("fetching");
     let [users, setUsers] = useState([]);
     const usersRef = firestore.collection('users');
     useEffect(()=>{
+        //TODO: Query isAdmin instead of using .filter()
         const unsubscribe = usersRef.onSnapshot(snapshot =>{
             let tempUserList = [];
             snapshot.forEach(doc=>{
@@ -47,17 +49,35 @@ const ManageUserInner = () => {
                 }
             });
             setUsers(tempUserList.filter(user => user.isAdmin === false));//Don't allow admin to edit other admin data
+            setFetchState("done");
         });     
         return ()=>unsubscribe();
     },[]);//XXX: DO NOT ADD usersRef to dependency despite the warning! + DO NOT REMOVE dependencies array!
 
-    return ( 
-        <div>
-            {users.length>0?
-            users.map(user => <UserCard key={user.userID} user={user} />):
-            <h1>No user in this list!</h1>}
-        </div>
-     );
+    if(fetchState==="done"){
+        return ( 
+            <div>
+                {users.length>0 ?
+                    users.map(user => <UserCard key={user.userID} user={user} />):
+                    <div className="d-flex flex-row justify-content-center">
+                        <h1>
+                            No user in this list!
+                        </h1>
+                    </div>
+                }
+            </div>
+         );
+    }
+    else{
+        return (
+            <div className="d-flex flex-row justify-content-center">
+                <h1>
+                    Fetching...
+                </h1>
+            </div>
+        );
+    }
+    
 }
  
 const UserCard = ({user}) =>{

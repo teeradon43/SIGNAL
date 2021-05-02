@@ -69,7 +69,7 @@ const CreatePost = ({submitForm}) => {
   },[]);
 
   useEffect(()=>{//Everytime tags change
-    console.log(tags)
+    //console.log(tags)
     handleChange({
       target:{
         value: tags,
@@ -78,7 +78,7 @@ const CreatePost = ({submitForm}) => {
     })
   },[tags]);
   useEffect(()=>{//Everytime image change
-    console.log("new image");
+    //console.log("new image");
     handleChange({
       target:{
         value: img,
@@ -87,14 +87,13 @@ const CreatePost = ({submitForm}) => {
     })
   },[img]);
 
-  //TODO: Add img into input state
 
   const onImageChange = event => {
     if (event.target.files && event.target.files[0]) {
       const file =  event.target.files[0];
       if(validateFileExtension(file.name)){
         setImg(file);
-        console.log(file);
+        //console.log(file);
       }        
     }
 }
