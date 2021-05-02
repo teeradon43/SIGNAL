@@ -86,36 +86,6 @@ const EditUser=(params)=>{
               <button className="btn btn-outline-warning">+</button>
             </div>
           </div>
-          <div className="row">
-            <div className="col-2">
-              Preview
-            </div>
-            <div
-              className="container"
-              style={{ display: "flex", justifyContent: "center" }}
-            >
-              <div className="Card black-text">
-                <div className="upper-container">
-                  <div className="image-container">
-                    <img
-                      src={users.img}
-                      alt={users.img}
-                      height="100px"
-                      width="100px"
-                    />
-                  </div>
-                </div>
-                <div className="lower-container">
-                  <h3> {users.displayName} </h3>
-                  <h5>
-                    {" "}
-                    My Interest : {users.interests}
-                  </h5>
-                  <h5>Faculty : {users.faculty} </h5>
-                </div>
-              </div>
-            </div>
-          </div>
           <button className="btn btn-outline-success" onClick={handleSave} style={{ marginTop: "10px"}}>Save</button>
         </form>
       </div> 
