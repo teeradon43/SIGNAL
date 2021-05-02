@@ -38,7 +38,7 @@ const EditUser=(params)=>{
       <div className="App-skeleton-bg">
         <form>
           <div className="row">
-            <div className="col-2">
+            <div className="col-3">
               Name:
             </div>
             <div className="col-6">
@@ -46,10 +46,10 @@ const EditUser=(params)=>{
             </div>
           </div>
           <div className="row">
-            <div className="col-2">
-              Pic:
+            <div className="col-3">
+              Profile Picture:
             </div>
-            <div className="col-6">
+            <div className="col-6" style={{ marginTop: "10px"}}>
               <img
                 src={users.img}
                 alt={users.img}
@@ -57,14 +57,14 @@ const EditUser=(params)=>{
                 width="100px"
               />
               <br></br>
-              <button onClick={handlePic}>change picture</button>
+              <button className="btn btn-outline-light" onClick={handlePic} style={{ marginTop: "10px"}}>change picture</button>
             </div>
           </div>
           <div className="row">
-            <div className="col-2">
+            <div className="col-3">
               Faculty:
             </div>
-            <div className="col-6">
+            <div className="col-6" style={{ marginTop: "10px"}}>
               <div className="form-group">
                 <select defaultValue={"-"} name="Faculty" id="Faculty" className="form-control">
                   <option value={"-"}>-</option>
@@ -77,16 +77,16 @@ const EditUser=(params)=>{
               </div>
             </div>
           </div>
-          <div className="row">
-            <div className="col-2">
+          <div className="row" style={{ marginTop: "10px"}}>
+            <div className="col-3">
               Interest(s):
             </div>
             <div className="col-6">
               {users.interests}
-              <button>+</button>
+              <button className="btn btn-outline-warning">+</button>
             </div>
           </div>
-          <button onClick={handleSave}>Save</button>
+          <button className="btn btn-outline-success" onClick={handleSave} style={{ marginTop: "10px"}}>Save</button>
         </form>
       </div> 
     </div>
