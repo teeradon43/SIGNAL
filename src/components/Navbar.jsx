@@ -3,7 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import { auth } from "../database/firebase";
 import { logout } from "./models/auth";
 import noti from "../images/notifications_white_24dp.svg";
-import home from "../images/home_white_24dp.svg"
+import home from "../images/home_white_24dp.svg";
 
 import "./LoginNav.css";
 
@@ -15,7 +15,10 @@ export default function Navbar() {
   const [value, setValue] = useState("");
 
   const handleClick = () => setClick(!click);
-  const closeMobileMenu = () => setClick(false);
+  const closeMobileMenu = () => {
+    setClick(false);
+    setValue("");
+  };
   const handleLogout = () => {
     closeMobileMenu();
     logout();
@@ -29,6 +32,7 @@ export default function Navbar() {
     else {
       history.push("/search/ ");
     }
+    setValue("");
     event.preventDefault();
   };
 
@@ -87,7 +91,7 @@ export default function Navbar() {
                 className="nav-links"
                 onClick={closeMobileMenu}
               >
-                <img src = { home }/>
+                <img src={home} />
               </Link>
             </li>
             <li className="nav-item">
