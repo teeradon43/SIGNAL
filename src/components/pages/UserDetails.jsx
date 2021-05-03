@@ -15,7 +15,7 @@ const UserDetails = (params) => {
     switch (e) {
       case "edit": {
         console.log("edit");
-        history.push(`/u/${users.uid}/edit-user`);
+        history.push(`/edit-user`);
         break;
       }
       case "create": {
