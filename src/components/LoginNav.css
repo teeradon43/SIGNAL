@@ -53,6 +53,15 @@
   height: 80px;
 }
 
+.nav-search {
+  height: 55px;
+  margin: 0.1em;
+  width: 400px;
+  padding-left: 30px;
+  align-items: center;
+  justify-content: center;
+}
+
 .nav-img {
   border-radius: 15px;
 }

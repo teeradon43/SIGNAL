@@ -1,5 +1,5 @@
 import React, { Component, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { auth } from "../database/firebase";
 import { logout } from "./models/auth";
 import noti from "../images/notifications_white_24dp.svg";
@@ -8,14 +8,28 @@ import home from "../images/home_white_24dp.svg"
 import "./LoginNav.css";
 
 export default function Navbar() {
+  const history = useHistory();
+
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
+  const [value, setValue] = useState("");
 
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
   const handleLogout = () => {
     closeMobileMenu();
     logout();
+  };
+
+  const handleChange = (event) => {
+    setValue(event.target.value);
+  };
+  const handleSubmit = (event) => {
+    if (value) history.push(`/search/${value}`);
+    else {
+      history.push("/search/ ");
+    }
+    event.preventDefault();
   };
 
   const showButton = () => {
@@ -33,7 +47,7 @@ export default function Navbar() {
   window.addEventListener("resize", showButton);
 
   return (
-    <a>
+    <div>
       <link
         rel="stylesheet"
         href="https://use.fontawesome.com/releases/v5.13.1/css/all.css"
@@ -52,6 +66,15 @@ export default function Navbar() {
           <div className="menu-icon" onClick={handleClick}>
             <i className={click ? "fas fa-times" : "fas fa-bars"} />
           </div>
+          <form onSubmit={handleSubmit} className="nav-search">
+            <input
+              type="text"
+              value={value}
+              onChange={handleChange}
+              placeholder="Search.."
+            />
+            <input type="submit" value="Find" />
+          </form>
           <ul className={click ? "nav-menu active" : "nav-menu"}>
             <li className="nav-item">
               <Link to="/" className="nav-links" onClick={handleLogout}>
@@ -73,7 +96,7 @@ export default function Navbar() {
                 className="nav-links"
                 onClick={closeMobileMenu}
               >
-                <img src={ noti }/>
+                <img src={noti} />
               </Link>
             </li>
             <li className="nav-item">
@@ -95,6 +118,6 @@ export default function Navbar() {
           </ul>
         </div>
       </nav>
-    </a>
+    </div>
   );
 }
