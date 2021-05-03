@@ -52,8 +52,6 @@ const EventDetails = (params) => {
   };
 
   function handleJoin() {
-    //TODO: If already join switch to dismiss
-    //TODO: Check if noAttendee == maxAttendee cannot join
     const eid = params.match.params.eventId;
     // console.log("yeah");
     if (isJoin) {
@@ -155,7 +153,7 @@ const EventDetails = (params) => {
           />
           <h4> {host.displayName} </h4>
         </div>
-        <OwnerButton />
+        {event.isDeleted || event.adminDeleted ? "Deleted" : <OwnerButton />}
       </div>
       {/* Event Section */}
       <div className="event-detail">
@@ -169,13 +167,11 @@ const EventDetails = (params) => {
         <p>Cost : {event.cost}</p>
         <p>
           Event Date :{" "}
-          {event.dateCreated
-            ? event.dateCreated.toDate().toDateString()
-            : "failed to load"}
+          {event.date
+            ? event.date.substring(0, 9) + " " + event.date.substring(11, 16)
+            : "ไม่ได้กำหนด"}
         </p>
-        {/* TODO: Date from firestore return as object {seconds , nanoseconds } find a way*/}
-        {/* <p>Since : {posts.dateCreated}</p> */}
-        <img src={event.img} />
+        {event.img ? <img src={event.img} width="75%" height="75%" /> : <></>}
         {/*TODO: Resize display image */}
       </div>
     </div>
