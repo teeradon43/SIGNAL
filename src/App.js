@@ -16,8 +16,9 @@ import {
   EventDetails,
   UserDetails,
   ReviewPage,
+  Search,
 } from "./components";
-import EditUser from "./components/pages/EditUser.jsx"
+import EditUser from "./components/pages/EditUser.jsx";
 import Calendar from "./components/Calendar";
 import LoginNav from "./components/LoginNav";
 import { auth, initmessaging } from "./database/firebase";
@@ -27,17 +28,18 @@ function App() {
   //TODO: Add routes: userProfile, SpecificPost, CreatePost, Calendar, SearchPage
   const [user, setUser] = useState(null);
   useEffect(() => {
-    const msg = initmessaging.requestPermission()
-    .then(function() {
-      console.log('Have Permission');
-      return initmessaging.getToken();
-    })
-    .then(function(token) {
-      console.log('Token : ',token);
-    })
-    .catch(function(err) {
-      console.warn('Error Occured : ',err);
-    });
+    const msg = initmessaging
+      .requestPermission()
+      .then(function () {
+        console.log("Have Permission");
+        return initmessaging.getToken();
+      })
+      .then(function (token) {
+        console.log("Token : ", token);
+      })
+      .catch(function (err) {
+        console.warn("Error Occured : ", err);
+      });
     const authUnsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         var isKmitl = user.email;
@@ -67,10 +69,15 @@ function App() {
         <Route exact path="/login" component={LoginPage} />
         <Route path="/Admin" component={Admin} />
         <Route exact path="/events/:eventId" component={EventDetails} />
-        <Route exact path="/review-user/:userID" component={() => <ReviewPage />} />
+        <Route
+          exact
+          path="/review-user/:userID"
+          component={() => <ReviewPage />}
+        />
         <Route exact path="/u/:userId/edit-user" component={EditUser} />
         <Route exact path="/u/:userId" component={UserDetails} />
         <Route exact path="/create-post/Calendar" component={Calendar} />
+        <Route exact path="/search/:searchText" component={Search} />
         <Route exact path="/404" component={NotFound} />
         <Redirect to="/404" />
       </Switch>
