@@ -29,7 +29,7 @@ const UserDetails = (params) => {
         break;
       }
       case "rate": {
-        console.log("rate");
+        history.push(`/review-user/${params.match.params.userId}`);
         break;
       }
       default:
