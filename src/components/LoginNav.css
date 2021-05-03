@@ -29,6 +29,9 @@
   display: flex;
   align-items: center;
 }
+.navbar-logo:hover{
+  color: rgb(201, 141, 14);
+}
 
 .fa-typo3 {
   margin-left: 0.5rem;
@@ -61,6 +64,9 @@
   text-decoration: none;
   padding: 0.5rem 1rem;
   height: 100%;
+}
+.nav-links:hover{
+  color: #fff;
 }
 
 .nav-links:hover {

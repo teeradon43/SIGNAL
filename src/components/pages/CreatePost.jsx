@@ -96,7 +96,7 @@ const CreatePost = ({submitForm}) => {
         //console.log(file);
       }        
     }
-}
+  }
 
   function handleClick() {
     history.push("/");
@@ -144,7 +144,7 @@ const CreatePost = ({submitForm}) => {
           </div>
           <div style={{ width: "15vw" }}>
             <div style={{ display: "flex" }}>
-              <Thumbnail onImageChange={onImageChange} img={img}/>
+              <Thumbnail onImageChange={onImageChange} img={img} value={input.img}/>
             </div>
             <div style={{ display: "flex" }}>
               <label htmlFor="date" className="mr-2">Event Date</label>

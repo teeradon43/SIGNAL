@@ -51,7 +51,7 @@ const EditUser=({submitForm})=>{
       <div className="App-skeleton-bg">
         <form onSubmit={handleSubmit}>
           <div className="row">
-            <div className="col-2">
+            <div className="col-3">
               Name:
             </div>
             <div className="col-6">
@@ -68,10 +68,10 @@ const EditUser=({submitForm})=>{
             </div>
           </div>
           <div className="row">
-            <div className="col-2">
-              Pic:
+            <div className="col-3">
+              Profile Picture:
             </div>
-            <div className="col-6 test-picture">
+            <div className="col-6" style={{ marginTop: "10px"}}>
               <img
                 src={users.img}
                 alt={users.img}
@@ -79,14 +79,14 @@ const EditUser=({submitForm})=>{
                 width="100px"
               />
               <br></br>
-              <button>change picture</button>
+              <button className="btn btn-outline-light" style={{ marginTop: "10px"}}>change picture</button>
             </div>
           </div>
           <div className="row">
-            <div className="col-2">
+            <div className="col-3">
               Faculty:
             </div>
-            <div className="col-6">
+            <div className="col-6" style={{ marginTop: "10px"}}>
               <div className="form-group">
                 <select defaultValue={users.faculty} name="Faculty" id="Faculty" className="form-control" onChange={handleChange}>
                   <option value={""}></option>
@@ -99,46 +99,16 @@ const EditUser=({submitForm})=>{
               </div>
             </div>
           </div>
-          <div className="row">
-            <div className="col-2">
+          <div className="row" style={{ marginTop: "10px"}}>
+            <div className="col-3">
               Interest(s):
             </div>
             <div className="col-6">
-              tag should be here
+              {users.interests}
+              <button className="btn btn-outline-warning">+</button>
             </div>
           </div>
-          <div className="row">
-            <div className="col-2">
-              Preview
-            </div>
-            <div
-              className="container"
-              style={{ display: "flex", justifyContent: "center" }}
-            >
-              <div className="Card black-text">
-                <div className="upper-container">
-                  <div className="image-container">
-                    <img
-                      src={users.img}
-                      alt={users.img}
-                      height="100px"
-                      width="100px"
-                    />
-                  </div>
-                </div>
-                <div className="lower-container">
-                  <h3> {users.displayName} </h3>
-                  <h5>
-                    {" "}
-                    My Interest : {users.interests}
-                  </h5>
-                  <h5>Faculty : {users.faculty} </h5>
-                </div>
-              </div>
-            </div>
-          </div>
-          <button onClick={handleSubmit}>Save</button>
-          <button onClick={handleClick}>cancel</button>
+          <button className="btn btn-outline-success" onClick={handleSave} style={{ marginTop: "10px"}}>Save</button>
         </form>
       </div>  
       <br/>

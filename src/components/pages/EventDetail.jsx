@@ -142,7 +142,7 @@ const EventDetails = (params) => {
         <p>Event Date : {event.date}</p>
         {/* TODO: Date from firestore return as object {seconds , nanoseconds } find a way*/}
         {/* <p>Since : {posts.dateCreated}</p> */}
-        <img src={event.image} />
+        <img src={event.img} />{/*TODO: Resize display image */}
       </div>
     </div>
   );
