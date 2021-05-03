@@ -1,6 +1,7 @@
 import firestore, { auth } from "../../database/firebase";
 import { useState, useEffect } from "react";
 import "./css/UserDetails.css";
+import "../../App.css";
 import { useParams } from "react-router";
 import {Link} from 'react-router-dom';
 import { useHistory } from "react-router";
@@ -88,7 +89,7 @@ const UserDetails = (params) => {
         className="container"
         style={{ display: "flex", justifyContent: "center" }}
       >
-        <div className="Card" style={{ marginRight: "15vw" }}>
+        <div className="Card" style={{ marginRight: "5vw" }}>
           <div className="upper-container">
             <div className="image-container">
               <img
@@ -103,14 +104,20 @@ const UserDetails = (params) => {
             <h3> {users.displayName} </h3>
             <h5>
               {" "}
-              My Interest : <TagsJSX tags={users.interests}/>
+              My Interest : 
+              <div className="d-flex justify-content-center">
+                <TagsJSX tags={users.interests}/>
+              </div>
             </h5>
             <h5>Faculty : {users.faculty} </h5>
             <OwnerButton />
             <h5> My Score {rating===0 ? "N/A":rating+"/5"} </h5>
           </div>
         </div>
-        <MyEvents />
+        <div className="event-container">
+          <MyEvents />
+        </div>
+        
       </div>
       <div className="container d-flex justify-content-center">
         <MyReviews score={rating} setScore={setRating}/>
@@ -168,7 +175,7 @@ const MyEvents = () => {
 
   const EventCard = ({event}) =>{//use same component from main (EventListDisplay)
     return (
-      <div style={{backgroundColor: "#2d314d"}} className="rounded p-1 mb-3 mt-1" key={event.id}>
+      <div className="events" key={event.id}>
         <Link to={`/events/${event.id}`}>
           <h3>{event.title}</h3>
         </Link>
