@@ -54,8 +54,6 @@
 }
 
 .nav-search {
-  overflow: hidden;
-  border-radius: 5px;
   display: flex;
   flex-direction: row;
   padding-bottom: 17px;
