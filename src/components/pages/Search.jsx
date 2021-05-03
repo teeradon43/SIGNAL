@@ -7,6 +7,7 @@ const Search = (params) => {
   const [event, setEvent] = useState([]);
   const [filtEvent, setFilt] = useState([]);
   const [isLoad, setLoad] = useState(false);
+  const searchText = params.match.params.searchText;
 
   function fetchEvent() {
     console.log("fetching");
@@ -29,10 +30,13 @@ const Search = (params) => {
     fetchEvent();
     resetAndFind(text);
   }, [isLoad]);
+  useEffect(() => {
+    setText(searchText);
+    resetAndFind(searchText);
+  }, [searchText]);
 
   function resetAndFind(text) {
-    console.log("run reset and find");
-    console.log(event.length);
+    console.log("run reset and find", text);
     setFilt([]);
     var pattern = text.toLowerCase();
     event.forEach((doc) => {
