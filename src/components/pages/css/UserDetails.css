@@ -57,3 +57,15 @@
     border: none;
     color: white;
 }
+.event-container{
+    background-color: #1d2127;
+    width: 60vw;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
+    color: white;
+
+    margin-left: auto;
+    margin-right: auto;
+    padding: 50px 50px 50px 50px; /* Top Right Buttom Left */
+}

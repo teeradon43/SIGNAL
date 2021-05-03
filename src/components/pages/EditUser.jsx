@@ -7,7 +7,6 @@ import "./css/EditUser.css";
 /*import { validateFileExtension } from "../models/events";
 import validate from "../formValidate";
 import useForm from "../useForm";*/
-
 const EditUser=(/*{submitForm}*/)=>{
   const [users, setUsers] = useState({});
   const history = useHistory();
@@ -92,6 +91,7 @@ const EditUser=(/*{submitForm}*/)=>{
                 id="name" 
                 name="name" 
                 placeholder="Enter display name"
+                class="form-control"
                 maxLength="100"
                 //onChange={handleChange}
                 defaultValue={users.displayName}
@@ -137,7 +137,14 @@ const EditUser=(/*{submitForm}*/)=>{
               Interest(s):
             </div>
             <div className="col-6">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Press enter to add tags"
+              />
               <TagsJSX tags={tags}/>
+            </div>
+            <div className="col-3">
               <button className="btn btn-outline-warning">+</button>
             </div>
           </div>
