@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import firestore, { auth } from "../../database/firebase";
 import "./css/EventDetail.css";
 import "../../App.css";
-import { JoinEvent } from "../models/events";
+import { JoinEvent, QuitEvent } from "../models/events";
 import { useHistory } from "react-router";
 
 const EventDetails = (params) => {
@@ -11,6 +11,7 @@ const EventDetails = (params) => {
   const [uid, setUid] = useState("");
   const [visitor, setVisitor] = useState(null);
   const history = useHistory();
+  const [isJoin, setIsJoin] = useState(false);
 
   const handleProfile = () => {
     history.push(`/u/${host.uid}`);
@@ -23,6 +24,7 @@ const EventDetails = (params) => {
 
   const handleDelete = () => {
     history.push(`/`);
+    //Delete event set isDelete = true
     alert("You successfully delete the post!");
   };
 
@@ -53,14 +55,24 @@ const EventDetails = (params) => {
     //TODO: If already join switch to dismiss
     //TODO: Check if noAttendee == maxAttendee cannot join
     const eid = params.match.params.eventId;
-    JoinEvent(eid, visitor);
+    // console.log("yeah");
+    if (isJoin) {
+      // if visitor already joined
+      QuitEvent(eid, visitor);
+    } else if (event.noAttendee >= event.maxAttendee) {
+      // not join but attendee full
+      alert("Cannot join : There are full participants as required");
+    } else {
+      //not join , attendee not full
+      JoinEvent(eid, visitor);
+    }
   }
 
   const GuestButton = () => {
     return (
       <div className="EventDetailButton">
         <button className="join-btn" onClick={handleJoin}>
-          Join
+          {isJoin ? "Cancel" : "Join"}
         </button>{" "}
         {/* Cancel Join */}
         <button className="report-btn">Report</button>
@@ -100,11 +112,21 @@ const EventDetails = (params) => {
 
   useEffect(() => {
     fetchEvent();
-  }, []);
+  }, [event.noAttendee]);
 
   useEffect(() => {
     if (uid) fetchHost();
   }, [uid]);
+
+  useEffect(() => {
+    if (visitor) {
+      if (event.attendeeList.includes(visitor)) {
+        setIsJoin(true);
+      } else {
+        setIsJoin(false);
+      }
+    }
+  }, [event.noAttendee]);
 
   return (
     <div
@@ -118,7 +140,13 @@ const EventDetails = (params) => {
       {/* Host Section */}
       <div className="host-detail">
         <h1 style={{ marginBottom: "40px" }}> Host Detail </h1>
-        <div style={{ display: "flex", marginBottom: "40px", alignItems: "center"}}>
+        <div
+          style={{
+            display: "flex",
+            marginBottom: "40px",
+            alignItems: "center",
+          }}
+        >
           <img
             className="host-profilepic"
             onClick={handleProfile}
@@ -139,10 +167,16 @@ const EventDetails = (params) => {
         <p>Number of Attendee : {event.noAttendee}</p>
         <p>Total of : {event.maxAttendee}</p>
         <p>Cost : {event.cost}</p>
-        <p>Event Date : {event.date}</p>
+        <p>
+          Event Date :{" "}
+          {event.dateCreated
+            ? event.dateCreated.toDate().toDateString()
+            : "failed to load"}
+        </p>
         {/* TODO: Date from firestore return as object {seconds , nanoseconds } find a way*/}
         {/* <p>Since : {posts.dateCreated}</p> */}
-        <img src={event.img} />{/*TODO: Resize display image */}
+        <img src={event.img} />
+        {/*TODO: Resize display image */}
       </div>
     </div>
   );
