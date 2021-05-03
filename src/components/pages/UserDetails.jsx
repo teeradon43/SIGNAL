@@ -7,6 +7,7 @@ import { useHistory } from "react-router";
 
 const UserDetails = (params) => {
   const [users, setUsers] = useState({});
+  const [tags, setTags] = useState(null);
   const [visitor, setVisitor] = useState(null);
   const [rating, setRating] = useState(0);
   const history = useHistory();
@@ -75,7 +76,9 @@ const UserDetails = (params) => {
   useEffect(() => {
     fetchUser();
   }, []);
-
+  useEffect(()=>{
+    setTags(users.interests)
+  },[users.interests])
   //TODO: get user created post , rating , if stranger : don't show edit , show report button , if own profile : show edit no report
   //TODO: add edit profile function
   //TODO: CSS UserDetails
@@ -100,8 +103,7 @@ const UserDetails = (params) => {
             <h3> {users.displayName} </h3>
             <h5>
               {" "}
-              My Interest : {users.interests}
-              <button>+</button>
+              My Interest : <TagsJSX tags={users.interests}/>
             </h5>
             <h5>Faculty : {users.faculty} </h5>
             <OwnerButton />
@@ -284,4 +286,41 @@ const MyReviews = ({score, setScore}) =>{
       );
     }
   }
+}
+const TagsJSX= ({tags}) => {
+  /*const removeTags = indexToRemove => {
+		setTags([...tags.filter((_, index) => index !== indexToRemove)]);
+	};
+
+	const addTags = event => {
+		if (event.target.value !== "") {
+			setTags([...tags, event.target.value]);
+			event.target.value = "";
+		}
+	};
+
+  const checkSameTags = event => {
+      for (var i = 0; i < tags.length; i++) {
+          if (event.target.value === tags[i]) {
+              return(null);
+          }
+      }
+      addTags(event);
+  }*/
+  if (tags==null){
+    return (<h>fetching</h>)
+  }
+	return (
+		<div className="App">
+			<div className="tags-input">
+			<ul id="tags">
+				{tags.map((tag, index) => (
+					<li key={index} className="tag">
+						<span className='tag-title'>{tag}</span>
+					</li>
+				))}
+			</ul>
+		</div>
+		</div>
+	);   
 }
