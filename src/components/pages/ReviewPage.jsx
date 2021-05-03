@@ -15,6 +15,7 @@ const ReviewPage = () => {
     const [state, setState]= useState("fetch");
     const {userID} = useParams();
     const revieweeRef = firestore.collection("users").doc(userID);
+    const [targetName, setTargetName] = useState("NONAME");
 
     useEffect(()=>{
         const authUnsubscribe = auth.onAuthStateChanged((user) => {
@@ -36,6 +37,7 @@ const ReviewPage = () => {
 
                 revieweeRef.get().then((doc)=>{//target must exists
                     if(doc.exists){
+                        setTargetName(doc.data().displayName);
                         setState("ok");
                         return;
                     }
@@ -94,23 +96,26 @@ const ReviewPage = () => {
                     No user found!
                 </div>
                 :
-                <form>
-                    <div className="form-group">
-                        <label htmlFor="rating" className="mb-2">Rating</label>
-                        <select defaultValue={1} name="rating" id="rating" className="form-control" onChange={e => setRating(parseInt(e.target.value))}>
-                            <option value={1}>1</option>
-                            <option value={2}>2</option>
-                            <option value={3}>3</option>
-                            <option value={4}>4</option>
-                            <option value={5}>5</option>
-                        </select>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="description" className="mb-2">Review Description</label>
-                        <textarea className="form-control" id="description" name="description" rows="3" placeholder="How do you feel?" onChange={e => setDescription(e.target.value)}/>
-                    </div>
-                    <button type="submit" className="btn btn-success m-2 p-1" onClick={submitHandler}>Submit Review</button>
-                </form>
+                <>
+                    You're reviewing {targetName}
+                    <form>
+                        <div className="form-group">
+                            <label htmlFor="rating" className="mb-2">Rating</label>
+                            <select defaultValue={1} name="rating" id="rating" className="form-control" onChange={e => setRating(parseInt(e.target.value))}>
+                                <option value={1}>1</option>
+                                <option value={2}>2</option>
+                                <option value={3}>3</option>
+                                <option value={4}>4</option>
+                                <option value={5}>5</option>
+                            </select>
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="description" className="mb-2">Review Description</label>
+                            <textarea className="form-control" id="description" name="description" rows="3" placeholder="How do you feel?" onChange={e => setDescription(e.target.value)}/>
+                        </div>
+                        <button type="submit" className="btn btn-success m-2 p-1" onClick={submitHandler}>Submit Review</button>
+                    </form>
+                </>
                 }
                 
             </div>
