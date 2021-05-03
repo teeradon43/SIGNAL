@@ -36,7 +36,7 @@ const EventDetails = (params) => {
 
   const HostButton = () => {
     return (
-      <div>
+      <div className="EventDetailButton">
         <button onClick={handleEdit} className="join-btn">
           {" "}
           EDIT{" "}
@@ -58,7 +58,7 @@ const EventDetails = (params) => {
 
   const GuestButton = () => {
     return (
-      <div>
+      <div className="EventDetailButton">
         <button className="join-btn" onClick={handleJoin}>
           Join
         </button>{" "}
@@ -118,7 +118,7 @@ const EventDetails = (params) => {
       {/* Host Section */}
       <div className="host-detail">
         <h1 style={{ marginBottom: "40px" }}> Host Detail </h1>
-        <div style={{ display: "flex", marginBottom: "40px" }}>
+        <div style={{ display: "flex", marginBottom: "40px", alignItems: "center"}}>
           <img
             className="host-profilepic"
             onClick={handleProfile}
@@ -142,7 +142,7 @@ const EventDetails = (params) => {
         <p>Event Date : {event.date}</p>
         {/* TODO: Date from firestore return as object {seconds , nanoseconds } find a way*/}
         {/* <p>Since : {posts.dateCreated}</p> */}
-        <img src={event.image} />
+        <img src={event.img} />{/*TODO: Resize display image */}
       </div>
     </div>
   );

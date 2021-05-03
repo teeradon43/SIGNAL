@@ -41,41 +41,6 @@ function Navbar() {
         href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@700&display=swap"
         rel="stylesheet"
       />
-      <nav className="navbar justify-content-center">
-        <div className="navbar-container">
-          <Link to="/" className="navbar-logo" onClick={closeMobileMenu}>
-            SIGNAL
-          </Link>
-          <div className="menu-icon" onClick={handleClick}>
-            <i className={click ? "fas fa-times" : "fas fa-bars"} />
-          </div>
-          <ul className={click ? "nav-menu active" : "nav-menu"}>
-            <li className="nav-item">
-              <Link to="/" className="nav-links" onClick={handleLogin}>
-                Login
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link
-                to="/main-page"
-                className="nav-links"
-                onClick={closeMobileMenu}
-              >
-                Main
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link
-                to="/main-page"
-                className="nav-links"
-                onClick={closeMobileMenu}
-              >
-                Main
-              </Link>
-            </li>
-          </ul>
-        </div>
-      </nav>
     </>
   );
 }

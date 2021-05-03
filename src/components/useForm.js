@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { auth } from "../database/firebase";
-import { CreateEvent } from "./models/events";
-import { UpdateEvent } from "./models/events";
+import { CreateEvent, validateFileExtension, UpdateEvent } from "./models/events";
 import { Link, useHistory, useParams } from "react-router-dom";
 import firestore from "../database/firebase"
 
@@ -15,7 +14,7 @@ const useForm = (callback, validate) => {
       date: "",
       maxAttendee: 0,
       cost: 0,
-      img: "",
+      img: [],
       tags: [],
     });
     const [errors, setErrors] = useState({});

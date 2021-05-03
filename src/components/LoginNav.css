@@ -5,7 +5,7 @@
   justify-content: center;
   align-items: center;
   font-size: 1.2rem;
-  position: sticky;
+  position: fixed;
   top: 0;
   z-index: 999;
 }
@@ -28,6 +28,9 @@
   font-size: 2rem;
   display: flex;
   align-items: center;
+}
+.navbar-logo:hover{
+  color: rgb(201, 141, 14);
 }
 
 .fa-typo3 {
@@ -70,6 +73,9 @@
   text-decoration: none;
   padding: 0.5rem 1rem;
   height: 100%;
+}
+.nav-links:hover{
+  color: #fff;
 }
 
 .nav-links:hover {

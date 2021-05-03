@@ -50,7 +50,7 @@ const Cancel = styled.button`
 function EditPost({submitForm}) {
   const [post, setPost] = useState({});
   const history = useHistory();
-  const { handleChange, handleSubmit, input, errors } = useForm(
+  const { handleChange, onImageChange, handleSubmit, input, errors } = useForm(
     submitForm,
     validate,
   ); 

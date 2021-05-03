@@ -67,14 +67,10 @@ function App() {
         <Route exact path="/create-post" component={CreatePost} />
         <Route exact path="/edit-post/:eventId" component={EditPost} />
         <Route exact path="/login" component={LoginPage} />
-        <Route path="/Admin" component={Admin} />
+        <Route path="/Admin" component={() => <Admin />} />
         <Route exact path="/events/:eventId" component={EventDetails} />
-        <Route
-          exact
-          path="/review-user/:userID"
-          component={() => <ReviewPage />}
-        />
-        <Route exact path="/u/:userId/edit-user" component={EditUser} />
+        <Route exact path="/review-user/:userID" component={() => <ReviewPage />} />
+        <Route exact path="/edit-user" component={EditUser} />
         <Route exact path="/u/:userId" component={UserDetails} />
         <Route exact path="/create-post/Calendar" component={Calendar} />
         <Route exact path="/search/:searchText" component={Search} />
