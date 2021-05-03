@@ -126,6 +126,16 @@ const EventDetails = (params) => {
     }
   }, [event.noAttendee]);
 
+  useEffect(() => {
+    if (visitor) {
+      if (event.attendeeList.includes(visitor)) {
+        setIsJoin(true);
+      } else {
+        setIsJoin(false);
+      }
+    }
+  }, [visitor]);
+
   return (
     <div
       className="App-skeleton-ground"
