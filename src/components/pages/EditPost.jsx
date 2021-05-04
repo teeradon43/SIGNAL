@@ -207,13 +207,14 @@ const EditPost = () => {
                   {errors.cost && errors.cost.type == "min" && (
                     <p>Cost must not be negative</p>
                   )}
-                  <div className="form-button">
-                    <Cancel onClick={handleCancel}>Cancel</Cancel>{" "}
-                    <Button>
+                  
+                </div>
+                <div className="form-button" style={{display: "flex"}}>
+                    <Cancel onClick={handleCancel} style={{marginRight: "20px"}}>Cancel</Cancel>{" "}
+                    <Button className="webflow-style-input1">
                       <input type="submit" />
                     </Button>
                   </div>
-                </div>
               </div>
             </div>
           </form>
