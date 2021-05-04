@@ -5,6 +5,7 @@ import "../../App.css";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router";
+import { right } from "@popperjs/core";
 
 const UserDetails = (params) => {
   const [users, setUsers] = useState({});
@@ -115,7 +116,7 @@ const UserDetails = (params) => {
             <h5> My Score {rating === 0 ? "N/A" : rating.toPrecision(2) + "/5"} </h5>
           </div>
         </div>
-        <div className="event-container">
+        <div className="event-container" style={{marginLeft: "20px"}}>
           <MyEvents />
         </div>
       </div>
