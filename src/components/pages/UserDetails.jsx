@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import "./css/UserDetails.css";
 import "../../App.css";
 import { useParams } from "react-router";
-import {Link} from 'react-router-dom';
+import { Link } from "react-router-dom";
 import { useHistory } from "react-router";
 
 const UserDetails = (params) => {
@@ -31,7 +31,7 @@ const UserDetails = (params) => {
         break;
       }
       case "rate": {
-        console.log("rate");
+        history.push(`/review-user/${params.match.params.userId}`);
         break;
       }
       default:
@@ -77,12 +77,13 @@ const UserDetails = (params) => {
   useEffect(() => {
     fetchUser();
   }, []);
-  useEffect(()=>{
-    setTags(users.interests)
-  },[users.interests])
+  useEffect(() => {
+    setTags(users.interests);
+  }, [users.interests]);
   //TODO: get user created post , rating , if stranger : don't show edit , show report button , if own profile : show edit no report
   //TODO: add edit profile function
   //TODO: CSS UserDetails
+
   return (
     <div className="App-skeleton-ground">
       <div
@@ -104,23 +105,22 @@ const UserDetails = (params) => {
             <h3> {users.displayName} </h3>
             <h5>
               {" "}
-              My Interest : 
+              My Interest :
               <div className="d-flex justify-content-center">
-                <TagsJSX tags={users.interests}/>
+                <TagsJSX tags={users.interests} />
               </div>
             </h5>
             <h5>Faculty : {users.faculty} </h5>
             <OwnerButton />
-            <h5> My Score {rating===0 ? "N/A":rating+"/5"} </h5>
+            <h5> My Score {rating === 0 ? "N/A" : rating + "/5"} </h5>
           </div>
         </div>
         <div className="event-container">
           <MyEvents />
         </div>
-        
       </div>
       <div className="container d-flex justify-content-center">
-        <MyReviews score={rating} setScore={setRating}/>
+        <MyReviews score={rating} setScore={setRating} />
       </div>
     </div>
   );
@@ -146,16 +146,19 @@ const MyEvents = () => {
         }
         postsRef
           .where("uid", "==", userId)
-          .orderBy("dateCreated","desc")
+          .orderBy("dateCreated", "desc")
           .limit(5)
           .get()
           .then((snapshot) => {
             let tempPosts = [];
             snapshot.forEach((doc) => {
-              tempPosts = [...tempPosts, 
+              tempPosts = [
+                ...tempPosts,
                 {
-                id: doc.id,...doc.data()
-              }];
+                  id: doc.id,
+                  ...doc.data(),
+                },
+              ];
             });
             setPosts(tempPosts);
             setState("success");
@@ -173,16 +176,22 @@ const MyEvents = () => {
 
   //console.log(posts);
 
-  const EventCard = ({event}) =>{//use same component from main (EventListDisplay)
+  const EventCard = ({ event }) => {
+    //use same component from main (EventListDisplay)
     return (
       <div className="events" key={event.id}>
         <Link to={`/events/${event.id}`}>
           <h3>{event.title}</h3>
         </Link>
-        <p>{event.description.length > 40 ? event.description.substr(0,70)+"...":event.description}</p>{/*may need text wrapping ref: https://stackoverflow.com/questions/16754608/cause-line-to-wrap-to-new-line-after-100-characters/16754732 */}
+        <p>
+          {event.description.length > 40
+            ? event.description.substr(0, 70) + "..."
+            : event.description}
+        </p>
+        {/*may need text wrapping ref: https://stackoverflow.com/questions/16754608/cause-line-to-wrap-to-new-line-after-100-characters/16754732 */}
       </div>
     );
-  }
+  };
 
   if (state === "fetching") {
     return <h3 style={{ color: "white" }}>Fetching...</h3>;
@@ -196,8 +205,8 @@ const MyEvents = () => {
           {posts.length ? (
             posts.map((post) => {
               return (
-                <li key={post.id}> 
-                  <EventCard event={post}/> 
+                <li key={post.id}>
+                  <EventCard event={post} />
                 </li>
               );
             })
@@ -210,91 +219,95 @@ const MyEvents = () => {
   }
 };
 
-const MyReviews = ({score, setScore}) =>{
+const MyReviews = ({ score, setScore }) => {
   const { userId } = useParams();
   const [reviews, setReviews] = useState([]);
   //const [score, setScore] = useState(0);
   const [fetchState, setFetchState] = useState("fetching");
 
-  const userReviewsRef = firestore.collection("users").doc(userId).collection("reviews");
-  useEffect(()=>{
-    userReviewsRef.get().then(docs=>{
-      let tempReview = [];
-      let tempScore = 0;
-      //console.log(docs.size)
-      if(docs.size > 0){
-        docs.forEach(doc=>{
-          tempScore += parseInt(doc.data().rating)
-          tempReview = [...tempReview,{
-            id: doc.id,
-            ...doc.data()
-          }]
-        })
-        setReviews(tempReview);
-        setScore(tempScore/tempReview.length);
-      }
-      setFetchState("done");
-    }).catch((err)=>{
-      console.log(err)
-      setFetchState("failed");
-    })
-  },[]);
+  const userReviewsRef = firestore
+    .collection("users")
+    .doc(userId)
+    .collection("reviews");
+  useEffect(() => {
+    userReviewsRef
+      .get()
+      .then((docs) => {
+        let tempReview = [];
+        let tempScore = 0;
+        //console.log(docs.size)
+        if (docs.size > 0) {
+          docs.forEach((doc) => {
+            tempScore += parseInt(doc.data().rating);
+            tempReview = [
+              ...tempReview,
+              {
+                id: doc.id,
+                ...doc.data(),
+              },
+            ];
+          });
+          setReviews(tempReview);
+          setScore(tempScore / tempReview.length);
+        }
+        setFetchState("done");
+      })
+      .catch((err) => {
+        console.log(err);
+        setFetchState("failed");
+      });
+  }, []);
 
-  const ReviewCard = ({review}) =>{
+  const ReviewCard = ({ review }) => {
     return (
-        <div>
-          <span style={{marginRight: "10px"}}>
-              {review.rating}
-          </span>    
-          {review.description}
-        </div>
+      <div>
+        <span style={{ marginRight: "10px" }}>{review.rating}</span>
+        {review.description}
+      </div>
     );
-  }
-  const ReviewList = ({reviews})=>{
+  };
+  const ReviewList = ({ reviews }) => {
     return (
       <ul className="list-unstyled">
-        {reviews.map(review=>
-        <li>
-          <ReviewCard review={review}/>
-        </li>)
-        }
+        {reviews.map((review) => (
+          <li>
+            <ReviewCard review={review} />
+          </li>
+        ))}
       </ul>
     );
-  }
+  };
 
-  if(fetchState==="fetching"){
-    return(
-      <div style={{color:"white"}}>
+  if (fetchState === "fetching") {
+    return (
+      <div style={{ color: "white" }}>
         <h3>Fetching...</h3>
       </div>
     );
-  }
-  else if(fetchState==="failed"){
+  } else if (fetchState === "failed") {
     return (
-      <div style={{color:"white"}}>
+      <div style={{ color: "white" }}>
         <h3>Fetching failed</h3>
       </div>
     );
-  }
-  else{
-    if(reviews.length <= 0){
-      return(
-        <div style={{color:"white"}}>
+  } else {
+    if (reviews.length <= 0) {
+      return (
+        <div style={{ color: "white" }}>
           <h1>This user has no review</h1>
         </div>
       );
-    }
-    else{
+    } else {
       return (
-        <div style={{color:"white"}}>
+        <div style={{ color: "white" }}>
           <h1>My Review</h1>
-            <ReviewList reviews={reviews}/>
+          <ReviewList reviews={reviews} />
         </div>
       );
     }
   }
-}
-const TagsJSX= ({tags}) => {
+};
+const TagsJSX = ({ tags }) => {
   /*const removeTags = indexToRemove => {
 		setTags([...tags.filter((_, index) => index !== indexToRemove)]);
 	};
@@ -314,20 +327,20 @@ const TagsJSX= ({tags}) => {
       }
       addTags(event);
   }*/
-  if (tags==null){
-    return (<h>fetching</h>)
+  if (tags == null) {
+    return <h>fetching</h>;
   }
-	return (
-		<div className="App">
-			<div className="tags-input">
-			<ul id="tags">
-				{tags.map((tag, index) => (
-					<li key={index} className="tag">
-						<span className='tag-title'>{tag}</span>
-					</li>
-				))}
-			</ul>
-		</div>
-		</div>
-	);   
-}
+  return (
+    <div className="App">
+      <div className="tags-input">
+        <ul id="tags">
+          {tags.map((tag, index) => (
+            <li key={index} className="tag">
+              <span className="tag-title">{tag}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+};

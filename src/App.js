@@ -16,8 +16,9 @@ import {
   EventDetails,
   UserDetails,
   ReviewPage,
+  Search,
 } from "./components";
-import EditUser from "./components/pages/EditUser.jsx"
+import EditUser from "./components/pages/EditUser.jsx";
 import Calendar from "./components/Calendar";
 import LoginNav from "./components/LoginNav";
 import { auth, initmessaging } from "./database/firebase";
@@ -27,16 +28,17 @@ function App() {
   //TODO: Add routes: userProfile, SpecificPost, CreatePost, Calendar, SearchPage
   const [user, setUser] = useState(null);
   useEffect(() => {
-    const msg = initmessaging.requestPermission()
+    const msg = initmessaging
+      .requestPermission()
       .then(function () {
-        console.log('Have Permission');
+        console.log("Have Permission");
         return initmessaging.getToken();
       })
       .then(function (token) {
-        console.log('Token : ', token);
+        console.log("Token : ", token);
       })
       .catch(function (err) {
-        console.warn('Error Occured : ', err);
+        console.warn("Error Occured : ", err);
       });
     const authUnsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
@@ -71,6 +73,7 @@ function App() {
         <Route exact path="/edit-user" component={EditUser} />
         <Route exact path="/u/:userId" component={UserDetails} />
         <Route exact path="/create-post/Calendar" component={Calendar} />
+        <Route exact path="/search/:searchText" component={Search} />
         <Route exact path="/404" component={NotFound} />
         <Redirect to="/404" />
       </Switch>
