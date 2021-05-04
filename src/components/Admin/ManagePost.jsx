@@ -26,7 +26,7 @@ const ManagePostInner = () => {
     const postsRef = firestore.collection('events');
 
     useEffect(()=>{
-        const unsubscribe = postsRef.where("noReported",">=",reportedNumber).where("adminDeleted","==",false).orderBy("noReported","asc").onSnapshot(snapshot => {
+        const unsubscribe = postsRef.where("noReported",">=",reportedNumber).where("adminDeleted","==",false).where("isDeleted","==",false).orderBy("noReported","asc").onSnapshot(snapshot => {
             let tempPostList = [];
             snapshot.forEach((doc)=>{
                 if(doc.data()){
