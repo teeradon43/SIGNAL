@@ -2,12 +2,11 @@ export default function validateInfo(input) {
     let errors = {};
     errors.pass = 0;
   
-    if (!input.title) {
-      errors.title = 'Title is required';
+    if (input.title.length < 5) {
+      errors.title = 'Title is must have more than 5 characters';
     } else if (input.title.length > 100) {
       errors.title = 'Title is too long';
-    }
-    else{
+    } else {
       errors.pass += 1;
     }
 
