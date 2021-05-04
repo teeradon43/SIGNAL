@@ -72,7 +72,7 @@ function App() {
         <Route exact path="/review-user/:userID" component={() => <ReviewPage />} />
         <Route exact path="/edit-user" component={EditUser} />
         <Route exact path="/u/:userId" component={UserDetails} />
-        <Route exact path="/create-post/Calendar" component={Calendar} />
+        <Route exact path="/Calendar" component={Calendar} />
         <Route exact path="/search/:searchText" component={Search} />
         <Route exact path="/404" component={NotFound} />
         <Redirect to="/404" />

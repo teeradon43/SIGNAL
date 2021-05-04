@@ -4,6 +4,7 @@ import { auth } from "../database/firebase";
 import { logout } from "./models/auth";
 import noti from "../images/notifications_white_24dp.svg";
 import home from "../images/home_white_24dp.svg";
+import basic from "./Calendar"
 
 import "./LoginNav.css";
 
@@ -101,6 +102,15 @@ export default function Navbar() {
                 onClick={closeMobileMenu}
               >
                 <img src={noti} />
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link
+                to="/Calendar"
+                className="nav-links"
+                onClick={closeMobileMenu}
+              >Calendar
+                {basic}
               </Link>
             </li>
             <li className="nav-item">
