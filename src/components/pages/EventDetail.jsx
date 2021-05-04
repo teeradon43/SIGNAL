@@ -168,6 +168,7 @@ const EventDetails = (params) => {
           />
           <h4> {host.displayName} </h4>
         </div>
+        <TagsJSX tags={event.tags} />
         {event.isDeleted || event.adminDeleted ? "Deleted" : <OwnerButton />}
       </div>
       {/* Event Section */}
@@ -190,3 +191,22 @@ const EventDetails = (params) => {
   );
 };
 export default EventDetails;
+
+const TagsJSX = ({ tags }) => {
+  if (tags == null) {
+    return <h>fetching</h>;
+  }
+  return (
+    <div className="App">
+      <div className="tags-input">
+        <ul id="tags">
+          {tags.map((tag, index) => (
+            <li key={index} className="tag">
+              <span className="tag-title">{tag}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+};

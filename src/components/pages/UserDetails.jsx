@@ -311,25 +311,6 @@ const MyReviews = ({ score, setScore }) => {
   }
 };
 const TagsJSX = ({ tags }) => {
-  /*const removeTags = indexToRemove => {
-		setTags([...tags.filter((_, index) => index !== indexToRemove)]);
-	};
-
-	const addTags = event => {
-		if (event.target.value !== "") {
-			setTags([...tags, event.target.value]);
-			event.target.value = "";
-		}
-	};
-
-  const checkSameTags = event => {
-      for (var i = 0; i < tags.length; i++) {
-          if (event.target.value === tags[i]) {
-              return(null);
-          }
-      }
-      addTags(event);
-  }*/
   if (tags == null) {
     return <h>fetching</h>;
   }

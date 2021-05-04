@@ -4,9 +4,7 @@ import { useHistory,} from "react-router-dom"
 import '../../App.css'
 import "./css/UserDetails.css";
 import "./css/EditUser.css";
-/*import { validateFileExtension } from "../models/events";
-import validate from "../formValidate";
-import useForm from "../useForm";*/
+import validate from "../userValidate";
 const EditUser=(/*{submitForm}*/)=>{
   const [users, setUsers] = useState({});
   const history = useHistory();
