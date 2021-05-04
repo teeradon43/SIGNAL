@@ -104,7 +104,6 @@ export default function Navbar() {
                 <img src={noti} />
               </Link>
             </li>
-            
             <li className="nav-item">
               <Link
                 to={`/u/${auth.currentUser.uid}`}
