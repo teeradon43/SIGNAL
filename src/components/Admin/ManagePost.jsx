@@ -26,7 +26,7 @@ const ManagePostInner = () => {
     const postsRef = firestore.collection('events');
 
     useEffect(()=>{
-        const unsubscribe = postsRef.where("noReported",">=",reportedNumber).where("adminDeleted","==",false).orderBy("noReported","asc").onSnapshot(snapshot => {
+        const unsubscribe = postsRef.where("noReported",">=",reportedNumber).where("adminDeleted","==",false).where("isDeleted","==",false).orderBy("noReported","asc").onSnapshot(snapshot => {
             let tempPostList = [];
             snapshot.forEach((doc)=>{
                 if(doc.data()){
@@ -67,7 +67,7 @@ const ManagePostInner = () => {
         setReportedNumber(parseInt(value));//FIXME: Will this cause high traffic to Firebase server?
     }
 
-    //FIXME: Post currently not showing
+    
     return ( 
         <div>
             <form className="container">
@@ -103,6 +103,7 @@ const PostCard = ({post}) =>{
             </div>
             <div className="card-body">
                 <h5 className="card-text">Event ID: {post.eventID}</h5>
+                <p className="card-text">Times Reported: {post.timeReported}</p>
             </div>
         </div>
     );
