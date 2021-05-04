@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react'
-import styled from 'styled-components'
-import { Link, useHistory, useParams } from "react-router-dom"
-import '../../App.css'
-import '../../Webflow.scss'
-import '../../Tags.scss'
-import { ReactComponent as LogoC } from '../../images/calendar.svg'
-import Thumbnail from '../../Thumbnail'
-import TagsJSX from '../../Tags'
-import firestore from "../../database/firebase"
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import { Link, useHistory, useParams } from "react-router-dom";
+import "../../App.css";
+import "../../Webflow.scss";
+import "../../Tags.scss";
+import { ReactComponent as LogoC } from "../../images/calendar.svg";
+import Thumbnail from "../../Thumbnail";
+import TagsJSX from "../../Tags";
+import firestore from "../../database/firebase";
 import validate from "../formValidate";
 import useForm from "../useForm";
 import { UpdateEvent } from "../models/events";
@@ -47,30 +47,32 @@ const Cancel = styled.button`
   }
 `;
 
-function EditPost({submitForm}) {
+function EditPost({ submitForm }) {
   const [post, setPost] = useState({});
   const history = useHistory();
   const { handleChange, onImageChange, handleSubmit, input, errors } = useForm(
     submitForm,
-    validate,
-  ); 
+    validate
+  );
 
   function handleClick() {
     history.push("/");
   }
 
   function UsePost() {
-      const [post, setPost] = useState([])
-      let { eventId } = useParams();
-      useEffect(() => {
-          firestore
-              .collection('events')
-              .doc(eventId)
-              .get()
-              .then((snapshot) => {setPost(snapshot.data().event)})
-              .catch((err) => alert("ERROR: ", err))
-      }, [])
-      return post
+    const [post, setPost] = useState([]);
+    let { eventId } = useParams();
+    useEffect(() => {
+      firestore
+        .collection("events")
+        .doc(eventId)
+        .get()
+        .then((snapshot) => {
+          setPost(snapshot.data().event);
+        })
+        .catch((err) => alert("ERROR: ", err));
+    }, []);
+    return post;
   }
 
   return (
@@ -78,7 +80,7 @@ function EditPost({submitForm}) {
       <div style={{ marginLeft: "auto", marginRight: "auto", width: "60vw" }}>
         <h1 style={{ color: "white", fontFamily: "PT Sans", fontSize: "50px" }}>
           {" "}
-          Create Event{" "}
+          Edit Event{" "}
         </h1>
       </div>
       <div className="App-skeleton-bg" onSubmit={handleSubmit}>
@@ -97,7 +99,11 @@ function EditPost({submitForm}) {
                   value={post.title}
                   required
                 ></input>
-                {errors.title && <p style={{ marginTop: "10px", color: "#ff9797"}}>{errors.title}</p>}
+                {errors.title && (
+                  <p style={{ marginTop: "10px", color: "#ff9797" }}>
+                    {errors.title}
+                  </p>
+                )}
               </div>
               <h3 style={{ marginTop: "25px" }}> Event Description </h3>
               <textarea
@@ -108,7 +114,11 @@ function EditPost({submitForm}) {
                 onChange={handleChange}
                 value={post.description}
               />
-              {errors.description && <p style={{ marginTop: "10px", color: "#ff9797"}}>{errors.description}</p>}
+              {errors.description && (
+                <p style={{ marginTop: "10px", color: "#ff9797" }}>
+                  {errors.description}
+                </p>
+              )}
             </form>
             <TagsJSX />
           </div>
@@ -117,10 +127,24 @@ function EditPost({submitForm}) {
               <Thumbnail />
             </div>
             <div style={{ display: "flex" }}>
-              <Link to="/create-post/Calendar">
-                <LogoC style={{ width: "30px" }} />
-              </Link>
-              <h4 style={{ marginLeft: "1vw" }}> Event Date </h4>
+              <label htmlFor="date" className="mr-2">
+                Event Date
+              </label>
+              <input
+                type="hidden"
+                id="timezone"
+                name="timezone"
+                value="+07:00"
+              />
+              {/*Can be use to tell timezone (must be added manually)*/}
+              <input
+                name="date"
+                id="eventDate"
+                type="datetime-local"
+                className="form-control"
+                onChange={handleChange}
+                required
+              />{" "}
             </div>
             <h4 style={{ marginTop: "30px" }}> Max Attendee </h4>
             <div className="webflow-style-input1">
@@ -134,7 +158,11 @@ function EditPost({submitForm}) {
                 value={post.maxAttendee}
                 required
               ></input>
-              {errors.maxAttendee && <p style={{ marginTop: "10px", color: "#ff9797"}}>{errors.maxAttendee}</p>}
+              {errors.maxAttendee && (
+                <p style={{ marginTop: "10px", color: "#ff9797" }}>
+                  {errors.maxAttendee}
+                </p>
+              )}
             </div>
             <h4 style={{ marginTop: "40px" }}> Cost </h4>
             <div className="webflow-style-input1">
@@ -148,7 +176,11 @@ function EditPost({submitForm}) {
                 value={post.cost}
                 required
               ></input>
-              {errors.cost && <p style={{ marginTop: "10px", color: "#ff9797"}}>{errors.cost}</p>}
+              {errors.cost && (
+                <p style={{ marginTop: "10px", color: "#ff9797" }}>
+                  {errors.cost}
+                </p>
+              )}
             </div>
           </div>
         </div>
