@@ -4,7 +4,6 @@ import { auth } from "../database/firebase";
 import { logout } from "./models/auth";
 import noti from "../images/notifications_white_24dp.svg";
 import home from "../images/home_white_24dp.svg";
-import basic from "./Calendar"
 
 import "./LoginNav.css";
 
