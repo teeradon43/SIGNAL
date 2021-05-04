@@ -4,6 +4,7 @@ import "../../App.css";
 import "./css/MainPage.css";
 import firestore from "../../database/firebase";
 import { Link } from "react-router-dom";
+import id from "date-fns/esm/locale/id/index.js";
 
 const MainPage = () => {
   const history = useHistory();
@@ -13,7 +14,7 @@ const MainPage = () => {
   //const EventsListDisplay = () => {
   class EventsListDisplay extends Component {
     //const [events,setEvents] = useState([]);
-    state = { events: [] };
+    state = { events: [], users: [] };
     /*useEffect(()=>{
       firestore
         .collection("events")
@@ -44,42 +45,81 @@ const MainPage = () => {
               };
             });
             this.setState({
-              events,
+              events: events,
             });
           }
         });
+
+      firestore
+        .collection("users")
+        .get()
+        .then((snapshot) => {
+          if (snapshot) {
+            const users = snapshot.docs.map((doc) => {
+              return {
+                id: doc.id,
+                ...doc.data(),
+              };
+            });
+            this.setState({ users: users });
+          }
+        });
     }
-    /*return (
-      <div>
-        {[events].map((events) => (
-          <div className="events" key={events.id}>
-            <Link to={`/events/${events.id}`}>
-              <h3>{events.eventName}</h3>
-            </Link>
-            <p>{events["description"]}</p>
-          </div>
-        ))}
-      </div>
-    );*/
     render() {
       const { events } = this.state;
+      const { users } = this.state;
       return (
         <div>
           {events.map((events) => (
             <div className="events" key={events.id}>
-              <Link to={`/events/${events.id}`}>
-                <h3>{events.title}</h3>
-              </Link>
-              <p>{events["description"]}</p>
-              <p style={{ color: "green", cursor: "default" }}>
-                {events.date.length
-                  ? events.date.substring(8, 10) +
-                    " / " +
-                    events.date.substring(5, 7) +
-                    " / " +
-                    events.date.substring(0, 4)
-                  : "ไม่ได้กำหนดวันกิจกรรม"}
-              </p>
+              <div className="event-description">
+                <div className="event-description-left">
+                  <p style={{ color: "#b3ccff", cursor: "default" }}>
+                    {events.date.length
+                      ? events.date.substring(8, 10) +
+                        " / " +
+                        events.date.substring(5, 7) +
+                        " / " +
+                        events.date.substring(0, 4)
+                      : "ไม่ได้กำหนดวันกิจกรรม"}
+                  </p>
+                  <Link to={`/events/${events.id}`}>
+                    <h3 className="event-description-left-desc">
+                      {events.title}
+                    </h3>
+                  </Link>
+                  <p className="event-description-left-desc">
+                    {events["description"]}
+                  </p>
+                </div>
+                <div className="event-description-right">
+                  <p>
+                    {events.noAttendee} / {events.maxAttendee}
+                  </p>
+                </div>
+              </div>
+              <div className="host">
+                <p className="host-name">
+                  Author : {"  "}
+                  {/* <img
+                    className="host-profile"
+                    src={
+                      users[users.findIndex((x) => x.uid === events.uid)]
+                        ? users[users.findIndex((x) => x.uid === events.uid)]
+                            .img
+                        : "fetching.."
+                    }
+                  /> */}
+                  {users[users.findIndex((x) => x.uid === events.uid)]
+                    ? users[users.findIndex((x) => x.uid === events.uid)]
+                        .displayName
+                    : "fetching.."}
+                  {",    since: "}
+                  {+events.dateCreated
+                    ? events.dateCreated.toDate().toDateString()
+                    : "fetching"}
+                </p>
+              </div>
             </div>
           ))}
         </div>
