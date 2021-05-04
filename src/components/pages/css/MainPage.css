@@ -1,13 +1,54 @@
-.createEvents{
-    text-align: center;
-    border: none;
-    border-radius: 4px;
-    padding: 10px 20px;
-    font-size: 1.5rem;
-    background-color: rgb(54, 124, 255);
-    color: ivory;
-    transition: all 0.3s ease-in-out background-color;
+.createEvents {
+  text-align: center;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  font-size: 1.5rem;
+  background-color: rgb(54, 124, 255);
+  color: ivory;
+  transition: all 0.3s ease-in-out background-color;
 }
-.createEvents:hover{
-    background-color: rgb(91, 178, 255);
+.createEvents:hover {
+  background-color: rgb(91, 178, 255);
+}
+
+.create-container {
+  display: flex;
+  flex-direction: row;
+  justify-items: flex-end;
+  align-content: center;
+  justify-content: flex-end;
+  align-items: baseline;
+}
+.event-description {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+.event-description-left {
+  width: 80%;
+}
+.event-description-left-desc {
+  /* height: 20px;
+  line-height: 20px; */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.host {
+  width: 100%;
+  align-items: space-between;
+}
+.host-profile {
+  width: 5%;
+  border-radius: 50px;
+  min-width: 30px;
+  margin-right: 10px;
+}
+.host-name {
+  font-size: 14px;
+  justify-content: flex-end;
+  color: rgb(204, 204, 204);
 }

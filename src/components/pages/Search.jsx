@@ -70,7 +70,7 @@ const Search = (params) => {
           </label>
           <input type="submit" value="Find" />
         </form>
-        <div className="event-container">
+        <div className="event">
           <h2>Result:</h2>
           {filtEvent.length ? (
             filtEvent.map((events) => (
@@ -82,7 +82,7 @@ const Search = (params) => {
               </div>
             ))
           ) : (
-            <div>We didn't find any results about "{text}" .</div>
+            <div>We didn't find any results.</div>
           )}
         </div>
       </div>
