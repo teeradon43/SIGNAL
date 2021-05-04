@@ -20,3 +20,35 @@
   justify-content: flex-end;
   align-items: baseline;
 }
+.event-description {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+.event-description-left {
+  width: 80%;
+}
+.event-description-left-desc {
+  /* height: 20px;
+  line-height: 20px; */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.host {
+  width: 40%;
+  align-items: space-between;
+}
+.host-profile {
+  width: 5%;
+  border-radius: 50px;
+  min-width: 30px;
+  margin-right: 10px;
+}
+.host-name {
+  font-size: 14px;
+  justify-content: flex-end;
+  color: rgb(204, 204, 204);
+}
