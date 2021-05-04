@@ -104,15 +104,7 @@ export default function Navbar() {
                 <img src={noti} />
               </Link>
             </li>
-            <li className="nav-item">
-              <Link
-                to="/Calendar"
-                className="nav-links"
-                onClick={closeMobileMenu}
-              >Calendar
-                {basic}
-              </Link>
-            </li>
+            
             <li className="nav-item">
               <Link
                 to={`/u/${auth.currentUser.uid}`}
