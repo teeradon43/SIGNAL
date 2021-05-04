@@ -39,10 +39,21 @@ const Search = (params) => {
     console.log("run reset and find", text);
     setFilt([]);
     var pattern = text.toLowerCase();
+    var wordList = text.split(" ");
+    
+    const checkTag = (tags, wordList)=>{
+      for(var i=0;i<wordList.length;i++){
+        if(tags.includes(wordList[i])){
+          return true;
+        }
+      }
+      return false;
+    }
     event.forEach((doc) => {
       var title = doc.title.toLowerCase();
       var desc = doc.description.toLowerCase();
-      if (title.includes(pattern) || desc.includes(pattern))
+      var tags = doc.tags;
+      if (title.includes(pattern) || desc.includes(pattern) || checkTag(tags,wordList))
         setFilt((filtEvent) => [...filtEvent, doc]);
     });
   }
