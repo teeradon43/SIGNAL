@@ -67,7 +67,7 @@ const ManagePostInner = () => {
         setReportedNumber(parseInt(value));//FIXME: Will this cause high traffic to Firebase server?
     }
 
-    //FIXME: Post currently not showing
+    
     return ( 
         <div>
             <form className="container">
@@ -103,6 +103,7 @@ const PostCard = ({post}) =>{
             </div>
             <div className="card-body">
                 <h5 className="card-text">Event ID: {post.eventID}</h5>
+                <p className="card-text">Times Reported: {post.timeReported}</p>
             </div>
         </div>
     );
