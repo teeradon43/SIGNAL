@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import firestore, { auth } from "../../database/firebase";
 import "./css/EventDetail.css";
 import "../../App.css";
-import { JoinEvent, QuitEvent } from "../models/events";
+import { JoinEvent, QuitEvent, DeleteEvent } from "../models/events";
 import { useHistory } from "react-router";
 
 const EventDetails = (params) => {
@@ -18,13 +18,12 @@ const EventDetails = (params) => {
   };
 
   function handleEdit() {
-    console.log("edit");
     history.push(`/edit-post/${params.match.params.eventId}`);
   }
 
   const handleDelete = () => {
     history.push(`/`);
-    //Delete event set isDelete = true
+    DeleteEvent(params.match.params.eventId);
     alert("You successfully delete the post!");
   };
 
@@ -167,10 +166,7 @@ const EventDetails = (params) => {
       </div>
       {/* Event Section */}
       <div className="event-detail">
-        <h1 onClick={handleEdit} style={{ marginBottom: "40px" }}>
-          {" "}
-          {event.title}{" "}
-        </h1>
+        <h1 style={{ marginBottom: "40px" }}> {event.title} </h1>
         <p> {event.description} </p>
         <p>Number of Attendee : {event.noAttendee}</p>
         <p>Total of : {event.maxAttendee}</p>
