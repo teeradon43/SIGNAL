@@ -112,7 +112,7 @@ const UserDetails = (params) => {
             </h5>
             <h5>Faculty : {users.faculty} </h5>
             <OwnerButton />
-            <h5> My Score {rating === 0 ? "N/A" : rating + "/5"} </h5>
+            <h5> My Score {rating === 0 ? "N/A" : rating.toPrecision(2) + "/5"} </h5>
           </div>
         </div>
         <div className="event-container">
@@ -146,6 +146,8 @@ const MyEvents = () => {
         }
         postsRef
           .where("uid", "==", userId)
+          .where("adminDeleted","==",false)
+          .where("isDeleted","==",false)
           .orderBy("dateCreated", "desc")
           .limit(5)
           .get()
