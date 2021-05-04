@@ -74,7 +74,7 @@ const MainPage = () => {
             <div className="events" key={events.id}>
               <div className="event-description">
                 <div className="event-description-left">
-                  <p style={{ color: "green", cursor: "default" }}>
+                  <p style={{ color: "#b3ccff", cursor: "default" }}>
                     {events.date.length
                       ? events.date.substring(8, 10) +
                         " / " +
@@ -114,6 +114,10 @@ const MainPage = () => {
                     ? users[users.findIndex((x) => x.uid === events.uid)]
                         .displayName
                     : "fetching.."}
+                  {",    since: "}
+                  {+events.dateCreated
+                    ? events.dateCreated.toDate().toDateString()
+                    : "fetching"}
                 </p>
               </div>
             </div>
