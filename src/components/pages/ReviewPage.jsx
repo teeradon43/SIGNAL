@@ -70,8 +70,10 @@ const ReviewPage = () => {
         })
         .catch(err=>{
             console.log("Add review failed: "+err);
-        })
-        
+        })   
+    }
+    const goBackHandler = () =>{
+        history.push(`/u/${userID}`);
     }
     
     if(state==="same"){
@@ -97,7 +99,7 @@ const ReviewPage = () => {
                 </div>
                 :
                 <>
-                    You're reviewing {targetName}
+                    <h2>You're reviewing {targetName}</h2>
                     <form>
                         <div className="form-group">
                             <label htmlFor="rating" className="mb-2">Rating</label>
@@ -114,6 +116,7 @@ const ReviewPage = () => {
                             <textarea className="form-control" id="description" name="description" rows="3" placeholder="How do you feel?" onChange={e => setDescription(e.target.value)}/>
                         </div>
                         <button type="submit" className="btn btn-success m-2 p-1" onClick={submitHandler}>Submit Review</button>
+                        <button type="submit" className="btn btn-secondary m-2 p-1" onClick={goBackHandler}>Cancel</button>
                     </form>
                 </>
                 }
