@@ -186,6 +186,14 @@ const AddUserToEvent = (eventId, userId) => {
   });
 };
 
+//------------- Report Event ----------- //
+export const ReportEvent = (eventId) => {
+  const eventRef = firestore.collection("events").doc(eventId);
+  eventRef.update({
+    noReported: firebase.firestore.FieldValue.increment(1),
+  });
+}
+
 //------------- Join Event ----------- //
 export const JoinEvent = (eventId, userId) => {
   AddEventToUser(eventId, userId);

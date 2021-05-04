@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import firestore, { auth } from "../../database/firebase";
 import "./css/EventDetail.css";
 import "../../App.css";
-import { JoinEvent, QuitEvent, DeleteEvent } from "../models/events";
+import { JoinEvent, QuitEvent, DeleteEvent, ReportEvent } from "../models/events";
 import { useHistory } from "react-router";
 
 const EventDetails = (params) => {
@@ -65,6 +65,11 @@ const EventDetails = (params) => {
     }
   }
 
+  function handleReport(){
+    const eid = params.match.params.eventId;
+    ReportEvent(eid);
+    alert("You sucessfully report event");
+  }
   const GuestButton = () => {
     return (
       <div className="EventDetailButton">
@@ -72,7 +77,8 @@ const EventDetails = (params) => {
           {isJoin ? "Cancel" : "Join"}
         </button>{" "}
         {/* Cancel Join */}
-        <button className="report-btn">Report</button>
+        <button className="report-btn" onClick={handleReport}>Report</button>
+        
       </div>
     );
   };
@@ -177,7 +183,7 @@ const EventDetails = (params) => {
             ? event.date.substring(0, 9) + " " + event.date.substring(11, 16)
             : "ไม่ได้กำหนด"}
         </p>
-        {event.img ? <img src={event.img} width="75%" height="75%" /> : <></>}
+        {event.img ? <img src={event.img} width="60%" height="60%" /> : <></>}
         {/*TODO: Resize display image */}
       </div>
     </div>
