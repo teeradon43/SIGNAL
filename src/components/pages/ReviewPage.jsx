@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { Redirect, useParams } from "react-router";
 import {useHistory} from 'react-router-dom'
 
 import firestore, {auth} from '../../database/firebase'
@@ -78,9 +78,7 @@ const ReviewPage = () => {
     
     if(state==="same"){
         return(
-            <div className="container">
-                Can't review yourself
-            </div>
+            <Redirect to="/404"/>
         );
     }
     else if(state==="fetch"){
