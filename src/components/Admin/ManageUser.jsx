@@ -34,7 +34,7 @@ const ManageUserInner = () => {
                 if(doc.data()){
                     tempUserList = [...tempUserList,
                     {
-                        userID: doc.data().userID,
+                        userID: doc.data().uid,
                         displayName: doc.data().displayName,
                         name: doc.data().name,
                         surname: doc.data().surname,
@@ -85,13 +85,13 @@ const UserCard = ({user}) =>{
     return (
         <div className="card m-2">
             <div className="card-header">
-                {user.displayName} Information
+                <Link to={`/u/${user.userID}`}>{user.displayName} Information</Link>
                 <Link className="btn btn-warning m-1" style={{'float':'right'}} to={`${url}/confirm-toggle-ban/${user.userID}`}>Toggle Ban</Link>
                 <Link className="btn btn-danger m-1" style={{'float':'right'}} to={`${url}/confirm-delete-user/${user.userID}`}>Delete User</Link>
             </div>
             <div className="card-body">
                 <h5 className="card-title">Email: {user.email}</h5>
-                <p className="card-text">isBanned: { user.isBanned?.toString() }</p>
+                <p className="card-text">Status: { user.isBanned ? "❌ Banned!" : "✔️ OK!" }</p>
             </div>
         </div>
     );

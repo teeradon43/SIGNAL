@@ -43,7 +43,6 @@ const Cancel = styled.button`
   font-family: "Poppins", sans-serif;
   cursor: pointer;
   transition: ease background-color 250ms;
-
   &:hover {
     background-color: #c02020;
   }

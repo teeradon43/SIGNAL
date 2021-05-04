@@ -15,7 +15,7 @@ const NotFound = () => {
                     This page simply does not exist or you have no permission!
                 </p>
                 <p>  
-                    Go back to <Link to="/main-page">main page</Link> or try <Link to="/login">logging in.</Link>
+                    Go back to <Link to="/">main page</Link> or try <Link to="/login">logging in.</Link>
                 </p>
             </div>
         </div>

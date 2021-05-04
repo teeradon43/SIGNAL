@@ -19,7 +19,6 @@ import {
   Search,
 } from "./components";
 import EditUser from "./components/pages/EditUser.jsx";
-import Calendar from "./components/Calendar";
 import LoginNav from "./components/LoginNav";
 import { auth, initmessaging } from "./database/firebase";
 import { useState, useEffect } from "react";
@@ -72,7 +71,6 @@ function App() {
         <Route exact path="/review-user/:userID" component={() => <ReviewPage />} />
         <Route exact path="/edit-user" component={EditUser} />
         <Route exact path="/u/:userId" component={UserDetails} />
-        <Route exact path="/create-post/Calendar" component={Calendar} />
         <Route exact path="/search/:searchText" component={Search} />
         <Route exact path="/404" component={NotFound} />
         <Redirect to="/404" />

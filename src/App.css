@@ -2,7 +2,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'PT Sans', sans-serif;
+  font-family: "PT Sans", sans-serif;
 }
 
 .App {
@@ -57,7 +57,7 @@
   width: 60vw;
   border: none;
   border-radius: 8px;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   color: white;
   margin-top: 20px;
   margin-left: auto;
@@ -97,13 +97,13 @@
 }
 
 .App-skeleton-textareadesc {
-  font-family: 'PT Sans', sans-serif;
+  font-family: "PT Sans", sans-serif;
   border: none;
   border-radius: 5px;
   padding: 15px 20px;
   overflow: hidden;
   background-color: rgba(57, 63, 84, 0.8);
-  color: #BFD2FF;
+  color: #bfd2ff;
   font-size: 1.2rem;
   height: 200px;
   width: 25vw;
@@ -111,10 +111,25 @@
   outline: none;
 }
 
-.events{
+.events {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
   border: none;
   background-color: #282c34;
   margin-top: 20px;
   border-radius: 5px;
   padding: 20px 20px 20px;
+  flex-direction: column;
+  align-content: space-between;
+}
+
+.form-flex {
+  display: flex;
+  flex-direction: row;
+}
+.form-button {
+  flex-direction: row;
+  margin: auto;
+  padding-top: 20px;
 }

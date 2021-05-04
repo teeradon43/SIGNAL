@@ -146,7 +146,7 @@ const EditUser=(/*{submitForm}*/)=>{
               <button className="btn btn-outline-warning">+</button>
             </div>
           </div>
-          <button className="btn btn-outline-success" onClick={handleCancel} style={{ marginTop: "10px"}}>Save</button>
+          <button className="btn btn-outline-success" onClick={handleCancel} style={{ marginTop: "10px", marginRight: "20px"}}>Save</button>
           <button className="btn btn-outline-danger" onClick={handleCancel} style={{ marginTop: "10px"}}>Cancel</button>
         </form>
       </div>  

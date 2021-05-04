@@ -133,16 +133,13 @@ export const CreateEvent = (params) => {
 //------------- Update Event ----------- //
 export const UpdateEvent = (eventId, params) => {
   // event reference
-  const eventRef = firestore.collection("event").doc(eventId);
+  const eventRef = firestore.collection("events").doc(eventId);
   // update event with params
   eventRef.update({
     title: params.title,
     description: params.description,
-    date: params.date,
     maxAttendee: params.maxAttendee,
     cost: params.cost,
-    img: params.img,
-    tags: params.tags,
   });
 };
 
@@ -183,6 +180,14 @@ const AddUserToEvent = (eventId, userId) => {
   eventRef.update({
     attendeeList: firebase.firestore.FieldValue.arrayUnion(userId),
     noAttendee: firebase.firestore.FieldValue.increment(1),
+  });
+};
+
+//------------- Report Event ----------- //
+export const ReportEvent = (eventId) => {
+  const eventRef = firestore.collection("events").doc(eventId);
+  eventRef.update({
+    noReported: firebase.firestore.FieldValue.increment(1),
   });
 };
 
