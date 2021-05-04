@@ -35,6 +35,7 @@ const MainPage = () => {
       firestore
         .collection("events")
         .where("adminDeleted", "==", false)
+        .where("isDeleted","==",false)
         .orderBy("dateCreated", "desc") //sort by newest post
         .onSnapshot((snapshot) => {
           if (snapshot) {
