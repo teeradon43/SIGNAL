@@ -15,10 +15,6 @@
 - npm i node-sass
 - npm i styled-components
 ```
-### Calendar
-```
-- npm i date-fns --save
-```
 ## Run
 ```
 - npm start
